@@ -3,10 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
 
-# gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 gem 'rails', '~> 7.2'
 gem "puma", "~> 6.0"
-# gem "puma", "~> 5.0"
 
 # Core
 gem 'awesome_print'
@@ -40,7 +38,6 @@ gem 'neighbor'
 # Authentication
 gem 'devise'
 gem 'devise-tailwindcssed'
-# gem 'devise-tailwindcssed', github: 'realstorypro/devise-tailwindcssed-ruby', branch: 'ruby-3.2-support'
 
 # Pagination
 gem 'kaminari', github: 'kaminari/kaminari', branch: 'master'
