@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  apipie
 
   root "page#index"
   resources :feeds, only: %i[index]
