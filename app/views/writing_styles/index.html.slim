@@ -1,9 +1,12 @@
 =r ux.container
   =r ux.row
     =r ux.column width: 16
-      =r ux.h2 'center aligned !font-mono'
-        | Writing Styles
-        =r ux.label text: @total_writing_styles, class: 'circular !bg-black !text-white'
+      =r ux.div 'component-container'
+        =r ux.h3 'component-header'
+          | Writing Styles
+          =r ux.label text: @total_writing_styles, class: 'component-counter'
+        = link_to 'New Writing Style', writing_styles_path,
+                class: 'btn-primary'
 
     =r ux.div 'text-center'
       = paginate @writing_styles
