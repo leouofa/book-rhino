@@ -224,3 +224,22 @@ ui:
   span:
     tag: span
     ui: false
+
+
+  component_container:
+    tag: div
+    ui: false
+    css_class: 'component-container'
+
+  component_header:
+    tag: h3
+    ui: false
+    css_class: 'component-header'
+
+  component_counter:
+    tag: div
+    css_class: 'label component-counter'
+
+  component_action:
+    tag: a
+    css_class: 'btn-primary'

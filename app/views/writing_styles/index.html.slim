@@ -1,12 +1,14 @@
 =r ux.container
   =r ux.row
     =r ux.column width: 16
-      =r ux.div 'component-container'
-        =r ux.h3 'component-header'
+      =r ux.component_container
+        =r ux.component_header
           | Writing Styles
-          =r ux.label text: @total_writing_styles, class: 'component-counter'
-        = link_to 'New Writing Style', writing_styles_path,
-                class: 'btn-primary'
+          =r ux.component_counter text: @total_writing_styles
+        =r ux.component_action text: 'New Writing Style', url: new_writing_style_path
+
+        / = link_to 'New Writing Style', writing_styles_path,
+        /         class: 'btn-primary'
 
     =r ux.div 'text-center'
       = paginate @writing_styles
