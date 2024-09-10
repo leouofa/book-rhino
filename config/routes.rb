@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   root "page#index"
+  resources :writing_styles
 
   resources :unauthorized, only: %i[index]
   resources :settings, only: [:index, :edit]

@@ -1,7 +1,7 @@
 doctype html
 html lang="en"
   head
-    = display_meta_tags site: "QuasarAI", description: "The News Vessel", separator: "&mdash;".html_safe
+    = display_meta_tags site: "Book Rhino", description: "Book App That Takes Charge", separator: "&mdash;".html_safe
     meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
 
     = vite_stylesheet_tag 'admin.sass', 'data-turbo-track': 'reload'
@@ -36,13 +36,10 @@ html lang="en"
                   =r ux.item url: root_path, class: "logo-item #{menu_active?(root_path)}}"
                     =r ux.header text: 'Book Rhino', class: 'inverted logo !font-mono'
 
-                  / =r ux.item class: "dropdown #{dropdown_active?(articles_path)}", ui: :on
-                  /   =r ux.icon 'book'
-                  /   | Articles
-                  /   =r ux.icon 'dropdown'
-                  /   =r ux.menu
-                  /     = link_to articles_path, class: "item"
-                  /       | All
+                  = link_to writing_styles_path, class: "item #{menu_active?(writing_styles_path)}"
+                    =r ux.icon 'book'
+                    | Writing Styles
+
                   /
                   /
                   / =r ux.item class: "dropdown #{dropdown_active?(stories_path)}", ui: :on
