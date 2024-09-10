@@ -1,16 +1,13 @@
 # == Schema Information
 #
-# Table name: settings
+# Table name: writing_styles
 #
 #  id         :bigint           not null, primary key
-#  prompts    :text
-#  tunings    :text
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  prompt     :text
 #
-FactoryBot.define do
-  factory :setting do
-    prompts { [] }
-    tunings { [] }
-  end
+class WritingStyle < ApplicationRecord
+  has_many :writing_style_texts, dependent: :destroy
 end
