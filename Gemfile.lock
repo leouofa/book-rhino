@@ -432,7 +432,6 @@ GEM
       sidekiq (>= 5.0)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
-    slack-notifier (2.4.0)
     slim (5.2.1)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
@@ -580,7 +579,6 @@ DEPENDENCIES
   simple_form
   simple_scheduler
   sitemap_generator
-  slack-notifier
   slim-rails
   sprockets-rails
   stimulus-rails
