@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_10_030120) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_10_032259) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -29,8 +29,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_030120) do
     t.text "tunings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.time "publish_start_time", default: "2000-01-01 08:00:00"
-    t.time "publish_end_time", default: "2000-01-01 21:00:00"
   end
 
   create_table "users", force: :cascade do |t|
