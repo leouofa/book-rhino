@@ -13,6 +13,14 @@ class DatabaseReset < ActiveRecord::Migration[7.2]
       t.time "publish_end_time", default: "2000-01-01 21:00:00"
     end
 
+    create_table "locks", force: :cascade do |t|
+      t.string "name", null: false
+      t.boolean "locked", default: false
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.index ["name"], name: "index_locks_on_name", unique: true
+    end
+
     create_table "users", force: :cascade do |t|
       t.string "email", default: "", null: false
       t.string "encrypted_password", default: "", null: false

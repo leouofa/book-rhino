@@ -16,6 +16,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_030120) do
   enable_extension "plpgsql"
   enable_extension "vector"
 
+  create_table "locks", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "locked", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_locks_on_name", unique: true
+  end
+
   create_table "settings", force: :cascade do |t|
     t.text "prompts"
     t.text "tunings"
