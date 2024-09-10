@@ -1,20 +1,18 @@
 =r ux.container
   =r ux.row
     =r ux.column width: 16
-      =r ux.component_container
-        =r ux.component_header
-          | Writing Styles
-          =r ux.component_counter text: @total_writing_styles
-        =r ux.component_action text: 'New Writing Style', url: new_writing_style_path
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            =@component_name
+            =r ux.component_counter text: @component_count
+          =r ux.component_action text: 'New Writing Style', url: send(@component_new_path)
 
-        / = link_to 'New Writing Style', writing_styles_path,
-        /         class: 'btn-primary'
+      =r ux.div 'text-center'
+        = paginate @component_list
 
-    =r ux.div 'text-center'
-      = paginate @writing_styles
+      - @component_list.each do |tweet|
+        = render 'tweet', tweet: tweet
 
-    - @writing_styles.each do |tweet|
-      = render 'tweet', tweet: tweet
-
-    =r ux.div 'text-center'
-      = paginate @writing_styles
+      =r ux.div 'text-center'
+        = paginate @component_list
