@@ -34,91 +34,36 @@ html lang="en"
               =r ux.column size: 16
                 =r ux.menu ui: :on, class: 'inverted mini black internal !bg-zinc-900 !font-mono', controller: 'dropdown'
                   =r ux.item url: root_path, class: "logo-item #{menu_active?(root_path)}}"
-                    =r ux.header text: 'Q', class: 'inverted logo !font-mono'
+                    =r ux.header text: 'Book Rhino', class: 'inverted logo !font-mono'
 
-                  =r ux.item class: "dropdown #{dropdown_active?(articles_path)}", ui: :on
-                    =r ux.icon 'book'
-                    | Articles
-                    =r ux.icon 'dropdown'
-                    =r ux.menu
-                      = link_to articles_path, class: "item"
-                        | All
-
-
-                  =r ux.item class: "dropdown #{dropdown_active?(stories_path)}", ui: :on
-                    =r ux.icon 'leaf'
-                    | Stories
-                    =r ux.icon 'dropdown'
-                    =r ux.menu
-                      = link_to stories_path(scope: :pending), class: "item"
-                        | Pending
-                      =r ux.divider
-                      = link_to stories_path(scope: :approved), class: "item"
-                        | Approved
-                      =r ux.divider
-                      = link_to stories_path(scope: :denied), class: "item"
-                        | Denied
-                      =r ux.divider
-                      = link_to stories_path(scope: :published), class: "item"
-                        | Published
-                      =r ux.divider
-                      = link_to stories_path, class: "item"
-                        | All
-
-                  =r ux.item class: "dropdown #{dropdown_active?(discussions_path)}", ui: :on
-                    =r ux.icon 'comments'
-                    | Discussions
-                    =r ux.icon 'dropdown'
-                    =r ux.menu
-                      = link_to discussions_path(scope: :unpublished), class: "item"
-                        | Unpublished
-                      =r ux.divider
-                      = link_to discussions_path(scope: :published), class: "item"
-                        | Published
-                      =r ux.divider
-                      = link_to discussions_path, class: "item"
-                        | All
-
-                  =r ux.item class: "dropdown #{dropdown_active?(tweets_path)}", ui: :on
-                    =r ux.icon 'twitter'
-                    | CrossTweets
-                    =r ux.icon 'dropdown'
-                    =r ux.menu
-                      = link_to tweets_path(scope: :pending), class: "item"
-                        | Pending
-                      =r ux.divider
-                      = link_to tweets_path(scope: :approved), class: "item"
-                        | Approved
-                      =r ux.divider
-                      = link_to tweets_path(scope: :denied), class: "item"
-                        | Denied
-                      =r ux.divider
-                      = link_to tweets_path(scope: :published), class: "item"
-                        | Published
-                      =r ux.divider
-                      = link_to tweets_path, class: "item"
-                        | All
-
-                  =r ux.item class: "dropdown #{dropdown_active?(instapins_path)}", ui: :on
-                    =r ux.icon 'instagram'
-                    | InstaPins
-                    =r ux.icon 'dropdown'
-                    =r ux.menu
-                      = link_to instapins_path(scope: :pending), class: "item"
-                        | Pending
-                      =r ux.divider
-                      = link_to instapins_path(scope: :approved), class: "item"
-                        | Approved
-                      =r ux.divider
-                      = link_to instapins_path(scope: :denied), class: "item"
-                        | Denied
-                      =r ux.divider
-                      = link_to instapins_path(scope: :published), class: "item"
-                        | Published
-                      =r ux.divider
-                      = link_to instapins_path, class: "item"
-                        | All
-
+                  / =r ux.item class: "dropdown #{dropdown_active?(articles_path)}", ui: :on
+                  /   =r ux.icon 'book'
+                  /   | Articles
+                  /   =r ux.icon 'dropdown'
+                  /   =r ux.menu
+                  /     = link_to articles_path, class: "item"
+                  /       | All
+                  /
+                  /
+                  / =r ux.item class: "dropdown #{dropdown_active?(stories_path)}", ui: :on
+                  /   =r ux.icon 'leaf'
+                  /   | Stories
+                  /   =r ux.icon 'dropdown'
+                  /   =r ux.menu
+                  /     = link_to stories_path(scope: :pending), class: "item"
+                  /       | Pending
+                  /     =r ux.divider
+                  /     = link_to stories_path(scope: :approved), class: "item"
+                  /       | Approved
+                  /     =r ux.divider
+                  /     = link_to stories_path(scope: :denied), class: "item"
+                  /       | Denied
+                  /     =r ux.divider
+                  /     = link_to stories_path(scope: :published), class: "item"
+                  /       | Published
+                  /     =r ux.divider
+                  /     = link_to stories_path, class: "item"
+                  /       | All
 
                   =r ux.div 'item'
                   =r ux.menu class: 'right', only: :mobile
@@ -127,22 +72,6 @@ html lang="en"
 
                   =r ux.menu class: 'right inverted', only: :desktop, controller: 'dropdown'
                     =r ux.item class: 'dropdown', ui: :on
-                      =r ux.icon 'water'
-                      | Flow
-                      =r ux.icon 'dropdown'
-                      =r ux.menu
-                        = link_to pillars_path, class: "item"
-                          | Pillars
-                        =r ux.divider
-                        = link_to imaginations_path, class: "item"
-                          | Imaginations
-                        =r ux.divider
-                        = link_to feeds_path, class: "item"
-                          | Feeds
-                        =r ux.divider
-                        = link_to tags_path, class: "item"
-                          | Tags
-
                     = link_to settings_path, class: "item #{menu_active?(settings_path)}"
                       =r ux.icon 'tools'
                       | Settings
