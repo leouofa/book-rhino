@@ -229,17 +229,23 @@ ui:
   component_container:
     tag: div
     ui: false
-    css_class: 'component-container'
+    css_class: 'flex justify-between items-center'
 
   component_header:
     tag: h3
     ui: false
-    css_class: 'component-header'
+    css_class: '!font-mono !mb-0 left-aligned'
 
   component_counter:
     tag: div
-    css_class: 'label component-counter'
+    css_class: 'label circular !bg-black !text-white small'
 
   component_action:
     tag: a
-    css_class: 'btn-primary'
+    ui: false
+    css_class: 'py-2 px-4 bg-blue-500 text-sm text-white rounded-sm hover:bg-blue-600 hover:text-white border-solid border-2 border-gray-700 no-underline'
+
+  component_return_action:
+    tag: a
+    ui: false
+    css_class: 'py-2 px-4 bg-gray-500 text-sm text-black rounded-sm hover:bg-gray-600 hover:text-gray-900 border-solid border-2 border-gray-700 no-underline'

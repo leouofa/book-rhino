@@ -9,13 +9,25 @@ class WritingStylesController < ApplicationController
   end
 
   def new
+    @component = @component_klass.new
+  end
 
+  def create
+    @component = @component_klass.new(writing_style_params)
+    if @component.save
+      redirect_to writing_styles_path, notice: 'Writing style was successfully created.'
+    else
+      render :new
+    end
   end
 
   private
+
   def set_component
     @component_klass = 'WritingStyle'.constantize
     @component_name = 'Writing Styles'
+    @component_list_path = 'writing_styles_path'
+    @component_path = 'writing_style_path'
     @component_new_path = 'new_writing_style_path'
   end
 
