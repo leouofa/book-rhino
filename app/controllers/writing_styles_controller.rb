@@ -13,7 +13,7 @@ class WritingStylesController < ApplicationController
   end
 
   def create
-    @component = @component_klass.new(writing_style_params)
+    @component = @component_klass.new(component_params)
     if @component.save
       redirect_to writing_styles_path, notice: 'Writing style was successfully created.'
     else
@@ -29,6 +29,10 @@ class WritingStylesController < ApplicationController
     @component_list_path = 'writing_styles_path'
     @component_path = 'writing_style_path'
     @component_new_path = 'new_writing_style_path'
+  end
+
+  def component_params
+    params.require(:writing_style).permit(:name)
   end
 
   def set_scope

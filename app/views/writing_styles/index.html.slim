@@ -11,8 +11,9 @@
       =r ux.div 'text-center'
         = paginate @component_list
 
-      - @component_list.each do |tweet|
-        = render 'tweet', tweet: tweet
+      - @component_list.each do |component|
+        =component.name
+        / = render 'tweet', tweet: tweet
 
       =r ux.div 'text-center'
         = paginate @component_list
