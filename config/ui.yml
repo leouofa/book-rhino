@@ -155,7 +155,7 @@ ui:
 
   field:
     tag: div
-    css_class: 'input'
+    css_class: 'field'
 
   statistics:
     tag: div
@@ -238,7 +238,7 @@ ui:
 
   component_counter:
     tag: div
-    css_class: 'label circular !bg-black !text-white small'
+    css_class: 'label circular !bg-black !text-white tiny'
 
   component_action:
     tag: a

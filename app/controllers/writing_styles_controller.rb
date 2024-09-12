@@ -4,7 +4,7 @@ class WritingStylesController < ApplicationController
   before_action :set_component
   def index
     scope = set_scope
-    @component_list = @component_klass.send(scope).order(id: :desc).page params[:page]
+    @component_list = @component_klass.send(scope).order(created_at: :desc).page params[:page]
     @component_count = @component_klass.send(scope).count
   end
 
