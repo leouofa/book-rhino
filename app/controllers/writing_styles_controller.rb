@@ -1,11 +1,11 @@
 class WritingStylesController < ApplicationController
   include RestrictedAccess
 
-  before_action :set_component
+  before_action :set_meta
+  before_action :set_component, only: [:edit, :update, :destroy]
   def index
     scope = set_scope
     @component_list = @component_klass.send(scope).order(created_at: :desc).page params[:page]
-    @component_count = @component_klass.send(scope).count
   end
 
   def new
@@ -21,14 +21,38 @@ class WritingStylesController < ApplicationController
     end
   end
 
+  def destroy
+
+    if @component.destroy
+      redirect_to writing_styles_path, notice: 'Writing style was successfully deleted.'
+    else
+      redirect_to writing_styles_path, alert: 'Failed to delete writing style.'
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @component.update(component_params)
+      redirect_to writing_styles_path, notice: 'Writing style was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
   private
 
-  def set_component
+  def set_meta
     @component_klass = 'WritingStyle'.constantize
-    @component_name = 'Writing Styles'
+    @component_name = 'Writing Style'
     @component_list_path = 'writing_styles_path'
     @component_path = 'writing_style_path'
     @component_new_path = 'new_writing_style_path'
+  end
+
+  def set_component
+    @component = @component_klass.find(params[:id])
   end
 
   def component_params
