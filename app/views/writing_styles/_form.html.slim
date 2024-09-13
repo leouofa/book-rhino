@@ -1,13 +1,10 @@
 - if @component.errors.any?
-  =r ux.h4 text: pluralize(@component.errors.count, "error") + " prohibited this #{@component_name.downcase.singularize} from being saved:"
-  ul
-    - @component.errors.full_messages.each do |message|
-      li= message
+  =render 'partials/form_errors'
 
-=r ux.segment '!bg-gray-50 !border-gray-300 !border-4 !py-8 !rounded-sm'
+=r ux.component_segment
   = form_with model: @component, class: 'ui form', local: true do |form|
-    =r ux.field 'large'
+    =r ux.component_field
       = form.label :name
-      = form.text_field :name, value: @component.name, class: '!border-4 !focus:border-blue-400 '
-    =r ux.field '!mt-8'
+      = form.text_field :name, value: @component.name
+    =r ux.component_submit_field
       = form.submit class: 'btn-primary'

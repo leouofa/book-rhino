@@ -1,0 +1,5 @@
+div.mb-10
+  =r ux.h4 class: '!text-red-500',  text: pluralize(@component.errors.count, "error") + " prohibited this #{@component_name.downcase.singularize} from being saved:"
+  ul
+    - @component.errors.full_messages.each do |message|
+      li= message
