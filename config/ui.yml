@@ -249,3 +249,8 @@ ui:
     tag: a
     ui: false
     css_class: 'py-2 px-4 bg-gray-500 text-sm text-white rounded-sm hover:bg-gray-600 hover:text-gray-100 border-solid border-2 border-gray-700 no-underline'
+
+  component_return_delete_action:
+    tag: a
+    ui: false
+    css_class: 'py-2 px-4 bg-red-500 text-sm text-white rounded-sm hover:bg-red-600 hover:text-red-100 border-solid border-2 border-red-700 no-underline'

@@ -1,0 +1,2 @@
+module WritingStyleTextHelper
+end
