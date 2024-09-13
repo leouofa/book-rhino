@@ -3,6 +3,7 @@
     =r ux.column width: 16
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
-          =r ux.component_header text: "New #{@component_name.singularize}"
+          =r ux.component_header text: "Edit #{@component_name.singularize}"
           =r ux.component_return_action text: '< Back', url: send(@component_list_path)
         =r ux.divider '!mb-12'
+        =render 'form'
