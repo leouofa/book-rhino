@@ -6,7 +6,7 @@
           =r ux.component_header
             =@component_name.pluralize
           =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
-        =r ux.divider '!mb-8'
+        =r ux.component_divider
 
         =r ux.div 'text-center'
           = paginate @component_list

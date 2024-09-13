@@ -5,5 +5,5 @@
         =r ux.component_container
           =r ux.component_header
             =@component_name.pluralize
-          =r ux.component_action text: 'New Writing Style Text', url: send(@component_new_path)
-        =r ux.divider '!mb-8'
+          =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
+        =r ux.component_divider
