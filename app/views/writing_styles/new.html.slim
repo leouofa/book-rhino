@@ -5,5 +5,5 @@
         =r ux.component_container
           =r ux.component_header text: "New #{@component_name.singularize}"
           =r ux.component_return_action text: '< Back', url: send(@component_list_path)
-        =r ux.divider '!mb-12'
+        =r ux.component_divider
         =render 'form'

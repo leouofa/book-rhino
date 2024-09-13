@@ -236,9 +236,22 @@ ui:
     ui: false
     css_class: '!font-mono !mb-0 left-aligned'
 
-  component_counter:
+  component_divider:
     tag: div
-    css_class: 'label circular !bg-black !text-white tiny'
+    css_class: 'divider !mb-12'
+
+  component_segment:
+    tag: div
+    css_class: 'segment !bg-gray-50 !border-gray-300 !border-4 !py-8 !rounded-sm'
+
+  component_field:
+    tag: div
+    css_class: 'component field'
+
+  component_submit_field:
+    tag: div
+    css_class: 'field !mt-8'
+
 
   component_action:
     tag: a
