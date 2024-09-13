@@ -1,4 +1,5 @@
 class SettingsController < ApplicationController
+  include RestrictedAccess
   def index
     @settings = Setting.instance
   end

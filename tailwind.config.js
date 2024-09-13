@@ -9,6 +9,7 @@ module.exports = {
         './app/views/devise/**/*',
         './app/views/unauthorized/**/*',
         './app/components/**/*',
+        './config/ui.yml'
     ],
     theme: {
         extend: {},

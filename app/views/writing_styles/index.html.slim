@@ -1,0 +1,22 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            =@component_name
+            =r ux.component_counter text: @component_count
+          =r ux.component_action text: 'New Writing Style', url: send(@component_new_path)
+        =r ux.divider '!mb-8'
+
+        =r ux.div 'text-center'
+          = paginate @component_list
+
+        =r ux.table class: 'relaxed celled striped'
+          - @component_list.each do |component|
+            =r ux.tr
+              =r ux.td
+                =link_to component.name, writing_style_writing_style_text_index_path(component), class: 'item'
+
+        =r ux.div 'text-center'
+          = paginate @component_list

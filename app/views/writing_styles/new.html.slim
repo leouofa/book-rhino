@@ -1,0 +1,20 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header text: "New #{@component_name.singularize}"
+          =r ux.component_return_action text: '< Back', url: send(@component_list_path)
+        =r ux.divider '!mb-12'
+        =r ux.segment
+          = form_with model: @component, class: 'ui form', local: true do |form|
+            - if @component.errors.any?
+              h2= pluralize(@writing_style.errors.count, "error") + " prohibited this writing style from being saved:"
+              ul
+                - @component.errors.full_messages.each do |message|
+                  li= message
+            =r ux.field
+              = form.label :name
+              = form.text_field :name, value: @component.name
+            =r ux.field
+              = form.submit class: 'btn-primary'
