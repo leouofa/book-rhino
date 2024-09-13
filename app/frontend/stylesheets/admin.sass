@@ -6,9 +6,12 @@
 @import "admin/codemirror"
 @import 'codemirror/lib/codemirror.css'
 
-.ui.component.field
-    label
-      font-size: 1.1em
+@layer
+  .ui.component.field
+      label
+        font-size: 1.1em
+      input[type="text"]
+        @apply border-4 focus:border-blue-400 !important
 
 @layer
   .btn-primary
