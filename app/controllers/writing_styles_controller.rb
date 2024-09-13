@@ -49,6 +49,7 @@ class WritingStylesController < ApplicationController
     @component_list_path = 'writing_styles_path'
     @component_path = 'writing_style_path'
     @component_new_path = 'new_writing_style_path'
+    @component_edit_path = 'edit_writing_style_path'
   end
 
   def set_component
