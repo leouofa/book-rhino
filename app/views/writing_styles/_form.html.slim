@@ -1,8 +1,5 @@
 - if @component.errors.any?
-  =r ux.h4 text: pluralize(@component.errors.count, "error") + " prohibited this #{@component_name.downcase.singularize} from being saved:"
-  ul
-    - @component.errors.full_messages.each do |message|
-      li= message
+  =render 'partials/form_errors'
 
 =r ux.component_segment
   = form_with model: @component, class: 'ui form', local: true do |form|
