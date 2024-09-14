@@ -1,4 +1,6 @@
 class WritingStyleTextsController < MetaController
+  before_action :set_parent, only: [:new, :edit, :update, :destroy]
+
   private
 
   def component_name
@@ -16,6 +18,11 @@ class WritingStyleTextsController < MetaController
   def set_where
     { writing_style_id: params[:writing_style_id] }
   end
+
+  def set_parent
+    @parent = WritingStyle.find(params[:writing_style_id])
+  end
+
 
 
   # def set_component

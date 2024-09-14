@@ -2,9 +2,9 @@
   =render 'partials/form_errors'
 
 =r ux.component_segment
-  = form_with model: @component, class: 'ui form', local: true do |form|
+  = form_with model: [@parent, @component], class: 'ui form', local: true do |form|
     =r ux.component_field
-      = form.label :name
-      = form.text_field :name, value: @component.name
+      = form.label :corpus
+      = form.text_area :corpus, value: @component.corpus, rows: 20
     =r ux.component_submit_field
       = form.submit class: 'btn-primary'
