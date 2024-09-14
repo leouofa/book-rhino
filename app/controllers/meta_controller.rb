@@ -14,6 +14,10 @@ class MetaController < ApplicationController
     @component = @component_klass.new
   end
 
+  def edit; end
+
+  def show; end
+
   def create
     @component = @component_klass.new(component_params)
     if @component.save

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   root "page#index"
   resources :writing_styles do
-    resources :writing_style_text
+    resources :writing_style_texts
   end
 
   resources :unauthorized, only: %i[index]

@@ -1,4 +1,4 @@
-class WritingStyleTextController < MetaController
+class WritingStyleTextsController < MetaController
   private
 
   def component_name
@@ -12,6 +12,7 @@ class WritingStyleTextController < MetaController
   def prefix
     'writing_style_'
   end
+
   def set_where
     { writing_style_id: params[:writing_style_id] }
   end

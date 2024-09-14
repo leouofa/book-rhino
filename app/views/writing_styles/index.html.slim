@@ -19,7 +19,7 @@
           - @component_list.each do |component|
             =r ux.tr
               =r ux.td
-                =link_to component.name, writing_style_writing_style_text_index_path(component), class: 'item text-sm'
+                =link_to component.name, writing_style_writing_style_texts_path(component), class: 'item text-sm'
               = r ux.td 'collapsing'
                 = link_to 'Edit', send(@component_edit_path, component), class: 'btn-list-edit'
 
