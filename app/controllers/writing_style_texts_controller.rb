@@ -1,5 +1,4 @@
 class WritingStyleTextsController < MetaController
-  before_action :set_parent, only: [:new, :edit, :update, :destroy]
 
   private
 
@@ -21,6 +20,10 @@ class WritingStyleTextsController < MetaController
 
   def set_parent
     @parent = WritingStyle.find(params[:writing_style_id])
+  end
+
+  def component_params
+    params.require(@computer_name.to_sym).permit(:corpus)
   end
 
 

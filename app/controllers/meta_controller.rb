@@ -3,6 +3,7 @@ class MetaController < ApplicationController
 
   before_action :set_meta
   before_action :set_component, only: [:edit, :update, :destroy]
+  before_action :set_parent, only: [:new, :edit, :update, :destroy]
 
   def index
     scope = set_scope
@@ -82,4 +83,6 @@ class MetaController < ApplicationController
   def set_where
     ''
   end
+
+  def set_parent; end
 end

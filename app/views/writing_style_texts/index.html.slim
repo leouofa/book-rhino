@@ -7,3 +7,17 @@
             =@component_name.pluralize
           =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
         =r ux.component_divider
+
+        = r ux.div 'text-center'
+          = paginate @component_list
+
+        =r ux.table class: 'relaxed celled striped structured'
+          =r ux.thead
+            =r ux.tr
+              =r ux.th text: 'Style Name'
+              th.center.aligned colspan="2" Actions
+          - @component_list.each do |component|
+            = component.inspect
+
+        = r ux.div 'text-center'
+          = paginate @component_list
