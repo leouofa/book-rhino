@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  prompt     :text
+#  analysis   :text
 #
 class WritingStyle < ApplicationRecord
   has_many :texts, dependent: :destroy
