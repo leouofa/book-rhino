@@ -9,6 +9,6 @@
 #  prompt     :text
 #
 class WritingStyle < ApplicationRecord
-  has_many :writing_style_texts, dependent: :destroy
+  has_many :texts, dependent: :destroy
   validates :name, presence: true
 end
