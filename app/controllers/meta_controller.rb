@@ -67,9 +67,11 @@ class MetaController < ApplicationController
     @component_klass = component_class
     @computer_name = @component_klass.name.underscore
     @component_list_path = "#{prefix}#{component_path.pluralize}_path"
+    @component_detail_path = "#{prefix}#{component_path}_path"
     @component_path = "#{prefix}#{component_path}_path"
     @component_new_path = "new_#{prefix}#{component_path}_path"
     @component_edit_path = "edit_#{prefix}#{component_path}_path"
+    @component_delete_path = "#{prefix}#{component_path}_path"
   end
 
   def set_component
