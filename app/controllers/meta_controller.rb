@@ -2,8 +2,8 @@ class MetaController < ApplicationController
   include RestrictedAccess
 
   before_action :set_meta
-  before_action :set_component, only: [:edit, :update, :destroy]
-  before_action :set_parent, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_component, only: [:show, :edit, :update, :destroy]
+  before_action :set_parent, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   def index
     scope = set_scope
