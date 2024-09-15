@@ -23,6 +23,6 @@ class TextsController < MetaController
   end
 
   def component_params
-    params.require(@computer_name.to_sym).permit(:corpus)
+    params.require(@computer_name.to_sym).permit(:corpus, :writing_style_id)
   end
 end

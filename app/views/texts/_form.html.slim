@@ -3,6 +3,7 @@
 
 =r ux.component_segment
   = form_with model: [@parent, @component], class: 'ui form', local: true do |form|
+    = parent_reference(form, @parent)
     =r ux.component_field
       = form.label :corpus
       = form.text_area :corpus, value: @component.corpus, rows: 20
