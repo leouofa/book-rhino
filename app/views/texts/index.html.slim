@@ -4,7 +4,8 @@
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
           =r ux.component_header
-            =@component_name.pluralize
+            = breadcrumb_parent @parent_name, send(@parent_path)
+            = @component_name.pluralize
           =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
         =r ux.component_divider
 

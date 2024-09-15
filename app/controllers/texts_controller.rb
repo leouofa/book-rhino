@@ -20,6 +20,8 @@ class TextsController < MetaController
 
   def set_parent
     @parent = WritingStyle.find(params[:writing_style_id])
+    @parent_name = 'Writing Styles'
+    @parent_path = 'writing_styles_path'
   end
 
   def component_params
