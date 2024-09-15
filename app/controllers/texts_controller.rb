@@ -1,4 +1,4 @@
-class WritingStyleTextsController < MetaController
+class TextsController < MetaController
 
   private
 
@@ -24,6 +24,10 @@ class WritingStyleTextsController < MetaController
 
   def component_params
     params.require(@computer_name.to_sym).permit(:corpus)
+  end
+
+  def component_path
+    'text'
   end
 
 
