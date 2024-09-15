@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_10_201138) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_15_000555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -29,6 +29,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_201138) do
     t.text "tunings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "texts", force: :cascade do |t|
+    t.text "corpus"
+    t.bigint "writing_style_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["writing_style_id"], name: "index_texts_on_writing_style_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,14 +65,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_201138) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "writing_style_texts", force: :cascade do |t|
-    t.text "corpus"
-    t.bigint "writing_style_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["writing_style_id"], name: "index_writing_style_texts_on_writing_style_id"
-  end
-
   create_table "writing_styles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -72,5 +72,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_201138) do
     t.text "prompt"
   end
 
-  add_foreign_key "writing_style_texts", "writing_styles"
+  add_foreign_key "texts", "writing_styles"
 end

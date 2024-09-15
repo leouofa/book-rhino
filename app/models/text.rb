@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: writing_style_texts
+# Table name: texts
 #
 #  id               :bigint           not null, primary key
 #  corpus           :text
@@ -8,6 +8,6 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-class WritingStyleText < ApplicationRecord
+class Text < ApplicationRecord
   belongs_to :writing_style
 end

@@ -3,7 +3,7 @@ class MetaController < ApplicationController
 
   before_action :set_meta
   before_action :set_component, only: [:edit, :update, :destroy]
-  before_action :set_parent, only: [:new, :edit, :update, :destroy]
+  before_action :set_parent, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     scope = set_scope
@@ -58,14 +58,20 @@ class MetaController < ApplicationController
     raise NotImplementedError
   end
 
+  def component_path
+    @computer_name
+  end
+
   def set_meta
     @component_name = component_name
     @component_klass = component_class
     @computer_name = @component_klass.name.underscore
-    @component_list_path = "#{prefix}#{@computer_name.pluralize}_path"
-    @component_path = "#{prefix}#{@computer_name}_path"
-    @component_new_path = "new_#{prefix}#{@computer_name}_path"
-    @component_edit_path = "edit_#{prefix}#{@computer_name}_path"
+    @component_list_path = "#{prefix}#{component_path.pluralize}_path"
+    @component_detail_path = "#{prefix}#{component_path}_path"
+    @component_path = "#{prefix}#{component_path}_path"
+    @component_new_path = "new_#{prefix}#{component_path}_path"
+    @component_edit_path = "edit_#{prefix}#{component_path}_path"
+    @component_delete_path = "#{prefix}#{component_path}_path"
   end
 
   def set_component
