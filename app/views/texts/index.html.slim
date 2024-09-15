@@ -5,7 +5,7 @@
         =r ux.component_container
           =r ux.component_header
             = breadcrumb_parent @parent_name, send(@parent_path)
-            = @component_name.pluralize
+            = @parent.name
           =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
         =r ux.component_divider
 
@@ -15,12 +15,12 @@
         =r ux.table class: 'relaxed celled striped structured'
           =r ux.thead
             =r ux.tr
-              =r ux.th text: 'Style Name'
+              =r ux.th text: 'Text Name'
               th.center.aligned colspan="2" Actions
           - @component_list.each do |component|
             =r ux.tr
               =r ux.td
-                =link_to component.corpus, send(@component_detail_path, id: component.id), class: 'item text-sm'
+                =link_to component.name, send(@component_detail_path, id: component.id), class: 'item text-sm'
               = r ux.td 'collapsing'
                 = link_to 'Edit', send(@component_edit_path, id: component.id), class: 'btn-list-edit'
               = r ux.td 'collapsing'

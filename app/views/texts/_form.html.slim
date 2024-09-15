@@ -5,6 +5,9 @@
   = form_with model: [@parent, @component], class: 'ui form', local: true do |form|
     = parent_reference(form, @parent)
     =r ux.component_field
+      = form.label :name
+      = form.text_field :name, value: @component.name
+    =r ux.component_field
       = form.label :corpus
       = form.text_area :corpus, value: @component.corpus, rows: 20
     =r ux.component_submit_field

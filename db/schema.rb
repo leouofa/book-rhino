@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_15_000555) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_15_224106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_15_000555) do
     t.bigint "writing_style_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["writing_style_id"], name: "index_texts_on_writing_style_id"
   end
 
