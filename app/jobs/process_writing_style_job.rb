@@ -11,7 +11,7 @@ class ProcessWritingStyleJob < ApplicationJob
     @client = OpenAI::Client.new
 
     system_role = <<~SYSTEM_ROLE
-        You are a college level english teacher. Analyze the following writing style and produce a set of instructions for ChatGPT in order to reproduce this writing style. Return ONLY the list with numbers 1 through n. DONT MAKE ANYTHING UP.
+        You are a college level english teacher. Analyze the following writing style and produce a set of instructions for ChatGPT in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
     SYSTEM_ROLE
 
     messages = [
@@ -21,6 +21,7 @@ class ProcessWritingStyleJob < ApplicationJob
 
     response = chat(messages:)
 
+
     writing_style.update(prompt: response["choices"][0]["message"]["content"])
   end
 
@@ -29,7 +30,8 @@ class ProcessWritingStyleJob < ApplicationJob
       parameters: {
         model: ENV['OPENAI_GPT_MODEL'], # Required.
         messages:,
-        temperature: 0.7
+        temperature: 0.7,
+        response_format: { type: "json_object" }
       }
     )
   end
