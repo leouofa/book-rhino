@@ -1,0 +1,6 @@
+- if prompt.present?
+  =r ux.h5 text: 'Prompting Instructions'
+  =r ux.segment '!bg-yellow-100 !mb-10'
+    =r ux.ordered_list
+      - JSON.parse(prompt).each_with_index do |item, index|
+        =r ux.list_item text:item[1]

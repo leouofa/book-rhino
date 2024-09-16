@@ -7,7 +7,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  prompt     :text
-#  analysis   :text
 #
 class WritingStyle < ApplicationRecord
   serialize :prompt, coder: JSON

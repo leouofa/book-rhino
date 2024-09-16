@@ -12,12 +12,9 @@
         =r ux.div 'text-center'
           = paginate @component_list
 
-        - if @parent.prompt.present?
-          =r ux.h5 text: 'Prompting Instructions'
-          =r ux.segment '!bg-yellow-100 !mb-10'
-            =r ux.ordered_list
-              - JSON.parse(@parent.prompt).each_with_index do |item, index|
-                =r ux.list_item text:item[1]
+        = turbo_stream_from "writing_style_#{@parent.id}"
+        = turbo_frame_tag "writing_style_#{@parent.id}_prompt"
+          = render partial: 'prompt', locals: { prompt: @parent.prompt }
 
         =r ux.table class: 'relaxed celled striped structured'
           =r ux.thead
