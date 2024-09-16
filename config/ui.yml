@@ -106,6 +106,15 @@ ui:
     tag: div
     css_class: 'list'
 
+  ordered_list:
+    tag: ol
+    css_class: 'list suffixed'
+
+  list_item:
+    tag: li
+    css_class: ''
+    ui: false
+
   checkbox:
     tag: div
     css_class: 'checkbox'

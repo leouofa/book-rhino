@@ -10,6 +10,8 @@
 #  analysis   :text
 #
 class WritingStyle < ApplicationRecord
+  serialize :prompt, coder: JSON
+
   has_many :texts, dependent: :destroy
   validates :name, presence: true
 end
