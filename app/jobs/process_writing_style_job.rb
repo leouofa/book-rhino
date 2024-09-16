@@ -19,11 +19,12 @@ class ProcessWritingStyleJob < ApplicationJob
       { role: "user", content: question }
     ]
 
+    writing_style. update(pending: true)
+    broadcast_writing_style_update(writing_style)
+
     response = chat(messages:)
 
-    writing_style.update(prompt: response["choices"][0]["message"]["content"])
-
-    sleep(10)
+    writing_style.update(prompt: response["choices"][0]["message"]["content"], pending: false)
 
     # Broadcasting Turbo Stream after updating the writing style
     broadcast_writing_style_update(writing_style)
@@ -48,7 +49,7 @@ class ProcessWritingStyleJob < ApplicationJob
       "writing_style_#{writing_style.id}", # unique identifier for the writing style
       target: "writing_style_#{writing_style.id}_prompt", # the DOM ID where the prompt will be inserted
       partial: "texts/prompt", # partial view to render the updated content
-      locals: { prompt: writing_style.prompt}
+      locals: { writing_style: writing_style}
     )
   end
 end

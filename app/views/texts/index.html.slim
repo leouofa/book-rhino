@@ -14,7 +14,7 @@
 
         = turbo_stream_from "writing_style_#{@parent.id}"
         = turbo_frame_tag "writing_style_#{@parent.id}_prompt"
-          = render partial: 'prompt', locals: { prompt: @parent.prompt }
+          = render partial: 'prompt', locals: { writing_style: @parent }
 
         =r ux.table class: 'relaxed celled striped structured'
           =r ux.thead
