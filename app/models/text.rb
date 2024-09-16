@@ -7,7 +7,20 @@
 #  writing_style_id :bigint           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  name             :string
 #
 class Text < ApplicationRecord
   belongs_to :writing_style
+
+  validates :name, presence: true
+  validates :corpus, presence: true
+
+  after_create_commit :process_writing_style
+  after_update_commit :process_writing_style
+
+  private
+
+  def process_writing_style
+    ProcessWritingStyleJob.perform_later(writing_style)
+  end
 end
