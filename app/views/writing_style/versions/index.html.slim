@@ -9,10 +9,13 @@
         =r ux.component_divider
         - @versions_with_prompt_changes.each do |version|
           = r ux.segments '!mb-20'
-            = r ux.segment
-              | Revert
-              | Merge With Current Prompt
-            = r ux.segment
+            =r ux.menu class: 'top tabular attached !border-0', ui: :true
+              =r ux.menu 'right'
+                =r ux.item '!pr-0'
+                  = link_to 'Revert Version', '#', class: 'text-blue-600 hover:text-blue-600'
+                =r ux.item '!pl-4 !pr-3'
+                  = link_to 'Merge With Current', '#', class: 'text-blue-600 hover:text-blue-600'
+            =r ux.segment '!bg-indigo-100'
               =r ux.component_container
                 = r ux.h6 text: "Version ID: #{version[:id]}", class: '!mb-0 !mt-0'
                 = r ux.h6 text: "Changed: #{version[:updated_at].strftime('%m/%d/%Y')}", class: '!mb-0 !mt-0'
