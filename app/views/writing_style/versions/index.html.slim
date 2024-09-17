@@ -7,25 +7,14 @@
             | Previous Writing Style Versions
           =r ux.component_return_action text: '< Back', url: writing_style_texts_path
         =r ux.component_divider
-        - @versions.each do |version|
-          - if version.object_changes.present?
-            - permitted_classes = [Time, Date, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
-            - object_changes = YAML.safe_load(version.object_changes, permitted_classes: permitted_classes, aliases: true)
-
-            - found = false
-            - object_changes.each do |property, (old_value, new_value)|
-              - found = true if  property == 'prompt' && old_value
-            - next unless found
-
-            =r ux.segment 'version'
-              =r ux.header text: "Version ID: #{version.id}"
-              ul
-                - object_changes.each do |property, (old_value, new_value)|
-                  - if property == 'updated_at'
-                    =r ux.h6 text: "Changed #{new_value}"
-                  - elsif property == 'prompt' && old_value
-                    =r ux.h6 text: 'Previous Prompt'
-                    =r ux.segment '!bg-yellow-100 !mb-10'
-                      =r ux.ordered_list
-                        - parse_version_json(old_value).each do |item|
-                          =r ux.list_item text:item[1]
+        - @versions_with_prompt_changes.each do |version|
+          = r ux.segment 'version'
+            = r ux.header text: "Version ID: #{version[:id]}"
+            - if version[:updated_at]
+              = r ux.h6 text: "Changed #{version[:updated_at]}"
+            - if version[:old_prompt]
+              = r ux.h6 text: 'Previous Prompt'
+              = r ux.segment '!bg-yellow-100 !mb-10'
+                = r ux.ordered_list
+                - version[:old_prompt].each do |item|
+                  = r ux.list_item text: item[1]
