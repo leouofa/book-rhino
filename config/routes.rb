@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   root "page#index"
   resources :writing_styles do
     resources :texts
+    scope module: :writing_style do
+      resources :versions
+    end
   end
 
   resources :unauthorized, only: %i[index]

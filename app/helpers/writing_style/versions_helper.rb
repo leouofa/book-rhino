@@ -1,0 +1,2 @@
+module WritingStyle::VersionsHelper
+end

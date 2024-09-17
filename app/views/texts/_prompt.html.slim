@@ -5,7 +5,13 @@
       div class="ui text loader small elastic" Processing Your Request
 
 - if writing_style.prompt.present? && !writing_style.pending
-  =r ux.h5 text: 'Prompt Instructions'
+  =r ux.h5
+    | Prompt Instructions
+    -if writing_style.versions.present?
+      span.ml-2
+        |[
+      = link_to "Previous Versions", writing_style_versions_path, class: 'text-blue-700 hover:text-blue-700'
+      |]
   =r ux.segment '!bg-yellow-100 !mb-10'
     =r ux.ordered_list
       - JSON.parse(writing_style.prompt).each_with_index do |item, index|
