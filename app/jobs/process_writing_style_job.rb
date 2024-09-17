@@ -22,6 +22,8 @@ class ProcessWritingStyleJob < ApplicationJob
     writing_style. update(pending: true)
     broadcast_writing_style_update(writing_style)
 
+    sleep(10)
+
     response = chat(messages:)
 
     writing_style.update(prompt: response["choices"][0]["message"]["content"], pending: false)

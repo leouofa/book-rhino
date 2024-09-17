@@ -14,4 +14,6 @@ class WritingStyle < ApplicationRecord
 
   has_many :texts, dependent: :destroy
   validates :name, presence: true
+
+  has_paper_trail ignore: [:name, :pending]
 end
