@@ -4,7 +4,7 @@
     div class="ui active inverted dimmer"
       div class="ui text loader small elastic" Processing Your Request
 
-- if writing_style.prompt.present?
+- if writing_style.prompt.present? && !writing_style.pending
   =r ux.h5 text: 'Prompt Instructions'
   =r ux.segment '!bg-yellow-100 !mb-10'
     =r ux.ordered_list

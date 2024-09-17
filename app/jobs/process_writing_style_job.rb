@@ -19,8 +19,12 @@ class ProcessWritingStyleJob < ApplicationJob
       { role: "user", content: question }
     ]
 
+    sleep(0.5)
+
     writing_style. update(pending: true)
     broadcast_writing_style_update(writing_style)
+
+    sleep(10)
 
     response = chat(messages:)
 
