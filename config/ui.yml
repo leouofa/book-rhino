@@ -283,11 +283,6 @@ ui:
     tag: div
     css_class: 'menu !border-0 !mb-0 !rounded-b-none !bg-slate-100'
 
-  version_action:
-    tag: a
-    css_class: 'text-blue-600 hover:text-blue-600'
-    ui: false
-
   version_meta:
     tag: div
     css_class: 'segment !bg-slate-300 !border-1 !border-b-2 !border-t-2 !border-l-0 !border-r-0 !border-slate-400 !border-solid'

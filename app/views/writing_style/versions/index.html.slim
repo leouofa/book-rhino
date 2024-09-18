@@ -11,9 +11,9 @@
             =r ux.version_menu
               =r ux.menu 'right'
                 =r ux.item
-                  =r ux.version_action text: 'Revert Version', url: '#'
+                  = button_to 'Revert Version', revert_writing_style_version_path(id: version[:id]), method: :post, class: 'btn-primary'
                 =r ux.item
-                  =r ux.version_action text: 'Merge With Current', url: '#'
+                  = button_to 'Merge With Current', merge_writing_style_version_path(id: version[:id]), method: :post, class: 'btn-secondary'
             =r ux.version_meta
               =r ux.component_container
                 = r ux.version_meta_text text: "Version ID: #{version[:id]}"
