@@ -30,14 +30,6 @@ class WritingStyle::VersionsController < ApplicationController
   def merge
     @writing_style.revert_to!(@version)
     redirect_to writing_style_versions_path(@writing_style), notice: "Version reverted successfully."
-
-    # Logic to merge changes from the specific version
-    # merged_version = merge_version_changes(@version)
-    # if merged_version.save
-    #   redirect_to writing_style_versions_path(@writing_style), notice: "Version merged successfully."
-    # else
-    #   redirect_to writing_style_versions_path(@writing_style), alert: "Failed to merge version."
-    # end
   end
 
 
