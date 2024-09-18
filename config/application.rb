@@ -40,5 +40,7 @@ module BookRhino
     config.generators.system_tests = nil
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.active_record.yaml_column_permitted_classes = [Time, Date, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
   end
 end

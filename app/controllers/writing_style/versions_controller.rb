@@ -20,8 +20,11 @@ class WritingStyle::VersionsController < ApplicationController
 
   def revert
     # Logic to revert to the specific version
-    @writing_style.revert_to!(@version)
-    redirect_to writing_style_versions_path(@writing_style), notice: "Version reverted successfully."
+    version_to_revert = @version.reify
+    version_to_revert.pending = false
+    version_to_revert.save
+
+    redirect_to writing_style_texts_path, notice: "Version reverted successfully."
   end
 
   def merge
