@@ -3,23 +3,22 @@
     =r ux.column width: 16
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
-          =r ux.component_header
-            | Previous Writing Style Versions
+          =r ux.component_header text: 'Previous Writing Style Versions'
           =r ux.component_return_action text: '< Back', url: writing_style_texts_path
         =r ux.component_divider
         - @versions_with_prompt_changes.each do |version|
-          = r ux.segments '!mb-20 !shadow-none !border-2 !border-solid !border-slate-400'
-            =r ux.menu class: '!border-0 !mb-0 !rounded-b-none !bg-slate-100', ui: :true
+          = r ux.version
+            =r ux.version_menu
               =r ux.menu 'right'
                 =r ux.item
-                  = link_to 'Revert Version', '#', class: 'text-blue-600 hover:text-blue-600'
+                  =r ux.version_action text: 'Revert Version', url: '#'
                 =r ux.item
-                  = link_to 'Merge With Current', '#', class: 'text-blue-600 hover:text-blue-600'
-            =r ux.segment '!bg-slate-300 !border-1 !border-b-2 !border-t-2 !border-l-0 !border-r-0 !border-slate-400 !border-solid'
+                  =r ux.version_action text: 'Merge With Current', url: '#'
+            =r ux.version_meta
               =r ux.component_container
-                = r ux.h6 text: "Version ID: #{version[:id]}", class: '!mb-0 !mt-0'
-                = r ux.h6 text: "Changed: #{version[:updated_at].strftime('%m/%d/%Y')}", class: '!mb-0 !mt-0'
-            = r ux.segment '!bg-yellow-100 !mb-0 basic !px-6 !pt-2 !pb-6'
+                = r ux.version_meta_text text: "Version ID: #{version[:id]}"
+                = r ux.version_meta_text text: "Changed: #{version[:updated_at].strftime('%m/%d/%Y')}"
+            =r ux.version_content
               = r ux.ordered_list
               - version[:old_prompt].each do |item|
                 = r ux.list_item text: item[1]

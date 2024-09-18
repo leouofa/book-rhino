@@ -234,7 +234,6 @@ ui:
     tag: span
     ui: false
 
-
   component_container:
     tag: div
     ui: false
@@ -261,7 +260,6 @@ ui:
     tag: div
     css_class: 'field !mt-8'
 
-
   component_action:
     tag: a
     ui: false
@@ -276,3 +274,29 @@ ui:
     tag: a
     ui: false
     css_class: 'py-2 px-4 bg-red-500 text-sm text-white rounded-sm hover:bg-red-600 hover:text-red-100 border-solid border-2 border-red-700 no-underline'
+
+  version:
+    tag: div
+    css_class: 'segments !mb-20 !shadow-none !border-2 !border-solid !border-slate-400'
+
+  version_menu:
+    tag: div
+    css_class: 'menu !border-0 !mb-0 !rounded-b-none !bg-slate-100'
+
+  version_action:
+    tag: a
+    css_class: 'text-blue-600 hover:text-blue-600'
+    ui: false
+
+  version_meta:
+    tag: div
+    css_class: 'segment !bg-slate-300 !border-1 !border-b-2 !border-t-2 !border-l-0 !border-r-0 !border-slate-400 !border-solid'
+
+  version_meta_text:
+    tag: h6
+    class: 'header !mb-0 !mt-0'
+
+  version_content:
+    tag: div
+    css_class: 'segment !bg-yellow-100 !mb-0 basic !px-6 !pt-2 !pb-6'
+
