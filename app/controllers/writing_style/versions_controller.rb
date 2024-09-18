@@ -28,8 +28,10 @@ class WritingStyle::VersionsController < ApplicationController
   end
 
   def merge
-    @writing_style.revert_to!(@version)
-    redirect_to writing_style_versions_path(@writing_style), notice: "Version reverted successfully."
+    version_to_merge = @version.reify
+    MergeWritingStylesJob.perform_later(@writing_style, version_to_merge)
+
+    redirect_to writing_style_texts_path
   end
 
 
