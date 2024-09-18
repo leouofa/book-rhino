@@ -1,6 +1,9 @@
 class WritingStyle::VersionsController < ApplicationController
+  before_action :set_writing_style
+  before_action :set_version, only: %i[revert merge]
+
   def index
-    @writing_style = WritingStyle.find_by!(id: params[:writing_style_id])
+    # @writing_style = WritingStyle.find_by!(id: params[:writing_style_id])
     @versions_with_prompt_changes = @writing_style.versions.map do |version|
       changes = parse_object_changes(version)
       found = changes.any? { |property, (old_value, _new_value)| property == 'prompt' && old_value }
@@ -15,7 +18,35 @@ class WritingStyle::VersionsController < ApplicationController
     end.compact
   end
 
+  def revert
+    # Logic to revert to the specific version
+    @writing_style.revert_to!(@version)
+    redirect_to writing_style_versions_path(@writing_style), notice: "Version reverted successfully."
+  end
+
+  def merge
+    @writing_style.revert_to!(@version)
+    redirect_to writing_style_versions_path(@writing_style), notice: "Version reverted successfully."
+
+    # Logic to merge changes from the specific version
+    # merged_version = merge_version_changes(@version)
+    # if merged_version.save
+    #   redirect_to writing_style_versions_path(@writing_style), notice: "Version merged successfully."
+    # else
+    #   redirect_to writing_style_versions_path(@writing_style), alert: "Failed to merge version."
+    # end
+  end
+
+
   private
+
+  def set_writing_style
+    @writing_style = WritingStyle.find_by!(id: params[:writing_style_id])
+  end
+
+  def set_version
+    @version = @writing_style.versions.find_by!(id: params[:id])
+  end
 
   def parse_object_changes(version)
     permitted_classes = [Time, Date, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]

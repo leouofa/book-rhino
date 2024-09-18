@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   resources :writing_styles do
     resources :texts
     scope module: :writing_style do
-      resources :versions
+      resources :versions do
+        member do
+          post :revert
+          post :merge
+        end
+      end
     end
   end
 
