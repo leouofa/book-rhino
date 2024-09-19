@@ -1,4 +1,10 @@
 class WritingStylesController < MetaController
+  def iterate
+    set_component
+    message = params[:message]
+    IterateOnWritingStyleJob.perform_later(@component, message)
+  end
+
   private
 
   def component_name
