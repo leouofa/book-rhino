@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   root "page#index"
   resources :writing_styles do
     resources :texts
+    member do
+      post :iterate
+    end
+
     scope module: :writing_style do
       resources :versions do
         member do

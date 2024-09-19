@@ -1,28 +1,24 @@
-class MergeWritingStylesJob < ApplicationJob
+class IterateOnWritingStyleJob < ApplicationJob
   queue_as :default
 
-  MAX_RETRIES = 8
-
-  def perform(writing_style, version_to_merge)
-    json_1 = JSON.parse(writing_style.prompt)
-    json_2 = JSON.parse(version_to_merge.prompt)
+  def perform(writing_style, message)
+    writing_style_json = JSON.parse(writing_style.prompt)
 
     @client = OpenAI::Client.new
 
     system_role = <<~SYSTEM_ROLE
-        You are an expert in analyzing and combining writing styles. 
-        You will be provided with two sets of instructions in forms of lists. 
-        Your task is to join the two lists and factor out commonalities, merging them into a cohesive, unified set of instructions. 
-        Return ONLY the merged list with numbers 3 through n in JSON format. 
-        DONT MAKE ANYTHING UP.
+        You are a college level english teacher. 
+        You will be provided with a list(containing a set of instructions describing a writing style) and
+        a request asking to modify it. Complete the request and return the new list with numbers 1 through n in JSON format
     SYSTEM_ROLE
 
     messages = [
       { role: "system", content: system_role },
-      { role: "user", content: "#{json_1}\n--------\n#{json_2}" }
+      { role: "user", content: "Writing Style:\n#{writing_style_json}\n--------\nRequest:\n#{message}" }
     ]
 
     sleep(0.5)
+
 
     writing_style.update(pending: true)
     broadcast_writing_style_update(writing_style)
@@ -31,13 +27,12 @@ class MergeWritingStylesJob < ApplicationJob
 
     response = retry_on_failure { chat(messages:) }
 
-    merged_prompt = response["choices"][0]["message"]["content"]
+    new_prompt = response["choices"][0]["message"]["content"]
 
-    # Update the writing style with the merged result
-    writing_style.update(prompt: merged_prompt, pending: false)
+    writing_style.update(prompt: new_prompt, pending: false)
 
-    # Broadcast the update
     broadcast_writing_style_update(writing_style)
+
   end
 
   def chat(messages:)
