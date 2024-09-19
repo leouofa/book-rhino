@@ -13,7 +13,7 @@ class MergeWritingStylesJob < ApplicationJob
         You are an expert in analyzing and combining writing styles. 
         You will be provided with two sets of instructions in forms of lists. 
         Your task is to join the two lists and factor out commonalities, merging them into a cohesive, unified set of instructions. 
-        Return ONLY the merged list with numbers 3 through n in JSON format. 
+        Return ONLY the merged list with numbers 1 through n in JSON format. 
         DONT MAKE ANYTHING UP.
     SYSTEM_ROLE
 
