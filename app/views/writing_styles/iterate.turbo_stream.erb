@@ -1,3 +1,5 @@
 <%= turbo_stream.replace "writing_style_form" do %>
-  <%= render partial: 'texts/iterate_form', locals: { parent: @component} %>
+  <%= turbo_frame_tag "writing_style_form" do %>
+    <%= render partial: 'texts/iterate_form', locals: { parent: @component} %>
+  <%end %>
 <% end %>
