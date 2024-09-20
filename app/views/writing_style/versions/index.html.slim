@@ -4,16 +4,16 @@
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
           =r ux.component_header text: 'Previous Writing Style Versions'
-          =r ux.component_return_action text: '< Back', url: writing_style_texts_path
+          =r ux.component_return_action text: '< Back', url: writing_style_texts_path, data: { 'turbo-action': 'replace'}
         =r ux.component_divider
         - @versions_with_prompt_changes.each do |version|
           = r ux.version
             =r ux.version_menu
               =r ux.menu 'right'
                 =r ux.item
-                  = button_to 'Revert Version', revert_writing_style_version_path(id: version[:id]), method: :post, class: 'btn-primary'
+                  = button_to 'Revert Version', revert_writing_style_version_path(id: version[:id]), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
                 =r ux.item
-                  = button_to 'Merge With Current', merge_writing_style_version_path(id: version[:id]), method: :post, class: 'btn-secondary'
+                  = button_to 'Merge With Current', merge_writing_style_version_path(id: version[:id]), method: :post, class: 'btn-secondary', data: { 'turbo-action': 'replace'}
             =r ux.version_meta
               =r ux.component_container
                 = r ux.version_meta_text text: "Version ID: #{version[:id]}"
