@@ -23,7 +23,7 @@ class IterateOnWritingStyleJob < ApplicationJob
     writing_style.update(pending: true)
     broadcast_writing_style_update(writing_style)
 
-    sleep(10)
+    sleep(3)
 
     response = retry_on_failure { chat(messages:) }
 
