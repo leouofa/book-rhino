@@ -16,11 +16,8 @@
         = turbo_frame_tag "writing_style_#{@parent.id}_prompt"
           = render partial: 'prompt', locals: { writing_style: @parent }
 
-        = form_with url: iterate_writing_style_path(@parent), class: 'ui reply form !mb-20', method: :post, local: true do |form|
-          .field
-            = form.text_area :message, rows: 3, placeholder: 'Instructions. I.e. "Remove Lines 10 and 11"'
-          .actions
-            = form.submit 'Iterate On Prompt', class: 'btn-primary'
+        = turbo_frame_tag "writing_style_form"
+          = render partial: 'iterate_form', locals: { parent: @parent }
 
 
         =r ux.table class: 'relaxed celled striped structured'

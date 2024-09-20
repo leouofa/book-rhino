@@ -3,6 +3,11 @@ class WritingStylesController < MetaController
     set_component
     message = params[:message]
     IterateOnWritingStyleJob.perform_later(@component, message)
+
+    @parent = @component
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
