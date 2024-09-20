@@ -17,7 +17,7 @@ class IterateOnWritingStyleJob < ApplicationJob
       { role: "user", content: "Writing Style:\n#{writing_style_json}\n--------\nRequest:\n#{message}" }
     ]
 
-    sleep(0.5)
+    sleep(0.1)
 
 
     writing_style.update(pending: true)
