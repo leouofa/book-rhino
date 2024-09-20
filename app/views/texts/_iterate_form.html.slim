@@ -1,4 +1,4 @@
-= form_with url: iterate_writing_style_path(@parent), class: 'ui reply form !mb-20', method: :post, local: true do |form|
+= form_with url: iterate_writing_style_path(parent), class: 'ui reply form !mb-20', method: :post, local: true do |form|
   .field
     = form.text_area :message, rows: 3, placeholder: 'Instructions. I.e. "Remove Lines 10 and 11"', id: 'form_text_area'
   .actions
