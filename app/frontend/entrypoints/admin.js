@@ -7,3 +7,5 @@ import 'jquery-address';
 // Hotwired
 import "@hotwired/turbo-rails";
 import '../controllers/index';
+
+
