@@ -12,7 +12,5 @@
 #  updated_at :datetime         not null
 #
 class Perspective < ApplicationRecord
-  class Perspective < ApplicationRecord
-    validates :name, :narrator, :effect, :pronouns, :example, presence: true
-  end
+  validates :name, :narrator, :effect, :pronouns, :example, presence: true
 end
