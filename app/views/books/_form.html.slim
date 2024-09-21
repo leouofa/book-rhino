@@ -1,0 +1,15 @@
+- if @component.errors.any?
+  =render 'partials/form_errors'
+
+=r ux.component_segment
+  = form_with model: @component, class: 'ui form', local: true do |form|
+    =r ux.component_field
+      = form.label :title
+      = form.text_field :title, value: @component.title
+
+    = r ux.component_field
+      = form.label :writing_style_id, "Writing Style"
+      = form.collection_select :writing_style_id, WritingStyle.all, :id, :name, { prompt: "Select a Writing Style" }, class: "ui dropdown"
+
+    =r ux.component_submit_field
+      = form.submit class: 'btn-primary'

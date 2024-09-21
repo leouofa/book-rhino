@@ -8,8 +8,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   root "page#index"
+
   resources :writing_styles do
     resources :texts
+
     member do
       post :iterate
     end
@@ -22,6 +24,10 @@ Rails.application.routes.draw do
         end
       end
     end
+  end
+
+  resources :books do
+
   end
 
   resources :unauthorized, only: %i[index]

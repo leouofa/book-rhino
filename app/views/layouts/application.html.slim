@@ -36,9 +36,14 @@ html lang="en"
                   =r ux.item url: root_path, class: "logo-item #{menu_active?(root_path)}}"
                     =r ux.header text: 'Book Rhino', class: 'inverted logo !font-mono'
 
-                  = link_to writing_styles_path, class: "item #{menu_active?(writing_styles_path)}"
+                  = link_to books_path, class: "item #{menu_active?(books_path)}"
                     =r ux.icon 'book'
+                    | Books
+
+                  = link_to writing_styles_path, class: "item #{menu_active?(writing_styles_path)}"
+                    =r ux.icon 'vest patches'
                     | Writing Styles
+
 
                   /
                   /
