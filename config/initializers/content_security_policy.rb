@@ -8,7 +8,7 @@
 Rails.application.config.content_security_policy do |policy|
   policy.connect_src :self, :https
 
-  policy.connect_src(*policy.connect_src, "ws://#{ViteRuby.config.host_with_port}") if Rails.env.development?
+  policy.connect_src(*policy.connect_src, "ws://#{ViteRuby.config.host_with_port}", "http://#{ViteRuby.config.host_with_port}") if Rails.env.development?
 
   policy.default_src :self, :https
   policy.font_src    :self, :https, :data

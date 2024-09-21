@@ -6,5 +6,5 @@
     =r ux.component_field
       = form.label :name
       = form.text_field :name, value: @component.name
-    =r ux.component_submit_field
-      = form.submit class: 'btn-primary'
+    =r ux.component_submit_field controller: 'form'
+      = form.submit class: 'btn-primary', data: {'form-target': 'button'}
