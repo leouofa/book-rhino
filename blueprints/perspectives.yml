@@ -1,0 +1,72 @@
+perspectives:
+  - name: First-Person Perspective
+    narrator: "A character within the story tells the story from their own point of view."
+    pronouns: ["I", "me", "my", "we", "us"]
+    effect: "Offers an intimate look at the narrator's thoughts and feelings, but limits the perspective to what that character knows and experiences."
+    example: "I walked through the forest, hearing the crunch of leaves under my feet."
+
+  - name: Second-Person Perspective
+    narrator: "The narrator speaks directly to the reader, making them a character in the story."
+    pronouns: ["You", "your"]
+    effect: "Creates an immersive, direct interaction with the reader, but it can be challenging to sustain for long works."
+    example: "You walk through the forest, hearing the crunch of leaves under your feet."
+
+  - name: Third-Person Limited
+    narrator: "The narrator knows the thoughts and feelings of only one character."
+    pronouns: ["He", "she", "they", "him", "her", "them"]
+    effect: "Provides a focused perspective from a single character’s point of view."
+    example: "She walked through the forest, hearing the crunch of leaves under her feet, thinking about her meeting."
+
+  - name: Third-Person Omniscient
+    narrator: "The narrator knows the thoughts and feelings of all characters."
+    pronouns: ["He", "she", "they", "him", "her", "them"]
+    effect: "Offers an expansive view of the story, knowing all events and thoughts of every character."
+    example: "She walked through the forest, while he watched her from a distance, planning his next move."
+
+  - name: Third-Person Objective
+    narrator: "The narrator only reports what is observable, with no access to characters’ thoughts or feelings."
+    pronouns: ["He", "she", "they", "him", "her", "them"]
+    effect: "Presents a neutral, observational tone, limiting insight into the characters' internal thoughts."
+    example: "She walked through the forest as he watched from behind a tree."
+
+  - name: Alternating Perspectives
+    narrator: "The story shifts between different narrators or points of view, which can be first-person, third-person, or a mix."
+    pronouns: ["I", "he", "she", "they"]
+    effect: "Provides a multi-dimensional view of the story, showing events and characters from multiple angles."
+    example: "One chapter may be told by a first-person narrator, while another might switch to third-person limited for a different character."
+
+  - name: Third-Person Subjective
+    narrator: "Focuses deeply on the inner thoughts, emotions, and consciousness of one character but remains in third-person."
+    pronouns: ["He", "she", "they", "him", "her", "them"]
+    effect: "Creates a blend between first-person intimacy and third-person narrative distance."
+    example: "He trudged through the rain, each droplet like a cold reminder of his past mistakes."
+
+  - name: Stream of Consciousness
+    narrator: "The narrative mimics the flow of thoughts, feelings, and impressions inside a character's mind, often in a chaotic or disjointed manner."
+    pronouns: ["I", "he", "she", "they"]
+    effect: "Captures the inner workings of the mind in real time, often appearing fragmented or non-linear."
+    example: "Rain. Cold. Why didn’t I bring the umbrella? Can’t stand this anymore—what did she say? What was I thinking?"
+
+  - name: Second-Person Plural
+    narrator: "The narrator addresses a group of people, making the audience part of a collective 'you'."
+    pronouns: ["You", "your", "y'all"]
+    effect: "Creates a shared or communal experience, often evoking a sense of unity or collective responsibility."
+    example: "You all walked down the road, together but alone in your thoughts, yet bound by the same mission."
+
+  - name: Unreliable Narrator
+    narrator: "Can be either first-person or third-person, but the narrator cannot be fully trusted to present the truth."
+    pronouns: ["I", "he", "she", "they"]
+    effect: "Creates ambiguity or tension, as the reader must decide how much of the story to believe."
+    example: "I couldn’t have done it. I wasn’t even there... or maybe I was. I can’t remember."
+
+  - name: Epistolary (Letters or Documents)
+    narrator: "The story is told through letters, diary entries, or other forms of written communication, which can be written by multiple characters."
+    pronouns: ["I", "he", "she", "they"]
+    effect: "Offers a fragmented or piecemeal view of events, often limiting perspective to only what’s revealed through the documents."
+    example: "Dear Diary, today was another strange day. I think something is happening that I can’t quite understand yet."
+
+  - name: Detached Observer
+    narrator: "A purely observational narrator reports the events as they happen without providing insight into the thoughts or emotions of any character."
+    pronouns: ["He", "she", "they", "him", "her", "them"]
+    effect: "Creates a neutral, often clinical tone, leaving readers to interpret events and motivations on their own."
+    example: "The man entered the room. He sat down. He took off his hat and looked around."
