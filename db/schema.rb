@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_17_002639) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_21_193059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "vector"
+
+  create_table "books", force: :cascade do |t|
+    t.text "title"
+    t.bigint "writing_style_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["writing_style_id"], name: "index_books_on_writing_style_id"
+  end
 
   create_table "locks", force: :cascade do |t|
     t.string "name", null: false
@@ -85,5 +93,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_17_002639) do
     t.boolean "pending", default: false
   end
 
+  add_foreign_key "books", "writing_styles"
   add_foreign_key "texts", "writing_styles"
 end

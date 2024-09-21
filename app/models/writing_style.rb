@@ -13,6 +13,8 @@ class WritingStyle < ApplicationRecord
   serialize :prompt, coder: JSON
 
   has_many :texts, dependent: :destroy
+  has_many :books, dependent: :nullify
+
   validates :name, presence: true
 
   has_paper_trail ignore: [:name, :pending], versions: {
