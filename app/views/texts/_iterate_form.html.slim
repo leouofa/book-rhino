@@ -1,5 +1,5 @@
-= form_with url: iterate_writing_style_path(parent), class: 'ui reply form !mb-20', method: :post, local: true do |form|
+= form_with url: iterate_writing_style_path(parent), data: {'controller': 'form'}, class: 'ui reply form !mb-20', method: :post, local: true do |form|
   .field
-    = form.text_area :message, rows: 3, placeholder: 'Instructions. I.e. "Remove Lines 10 and 11"', id: 'form_text_area'
+    = form.text_area :message, rows: 3, placeholder: 'Instructions. I.e. "Remove Lines 10 and 11"', id: 'form_text_area', data: {'form-target': 'textarea', 'action': 'input->form#onInput'}
   .actions
-    = form.submit 'Iterate On Prompt', class: 'btn-primary'
+    = form.submit 'Iterate On Prompt', class: 'btn-primary', data: {'form-target': 'button'}
