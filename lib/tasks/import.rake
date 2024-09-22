@@ -45,4 +45,22 @@ namespace :import do
       puts "File not found: #{file_path}"
     end
   end
+
+  desc "Import personality traits from a YAML file"
+  task personality_traits: :environment do
+    yaml_file = Rails.root.join("blueprints/personality_traits.yml")
+    personality_traits = YAML.load_file(yaml_file)['personality_traits']
+
+    personality_traits.each do |trait_data|
+      trait = PersonalityTrait.find_or_initialize_by(name: trait_data['name'])
+      trait.description = trait_data['description']
+
+      if trait.save
+        puts "Successfully imported: #{trait.name}"
+      else
+        puts "Failed to import: #{trait.name}"
+        puts trait.errors.full_messages
+      end
+    end
+  end
 end
