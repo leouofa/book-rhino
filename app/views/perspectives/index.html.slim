@@ -1,0 +1,39 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            =@component_name.pluralize
+        =r ux.component_divider
+
+        =r ux.div 'text-center'
+          = paginate @component_list
+
+        =r ux.table class: 'relaxed celled striped structured'
+          =r ux.thead
+            =r ux.tr
+              =r ux.th text: 'Perspective Name'
+              =r ux.th text: 'Description'
+          - @component_list.each do |component|
+            =r ux.tr
+              =r ux.td '!pr-4 !border-b-4 border-solid'
+                =r ux.h4 text: component.name
+                br
+                - YAML.load(component.pronouns).each do |pronoun|
+                  =r ux.label text: pronoun.capitalize, class: '!mb-3 !bg-violet-500 !text-white !font-normal'
+              =r ux.td '!border-b-4 border-solid'
+                =r ux.segment '!mt-3 !bg-blue-100'
+                  =r ux.h4 text: "Explanation"
+                  = component.narrator
+
+                =r ux.segment '!mt-3 !bg-green-100'
+                  =r ux.h4 text: "Effect"
+                  = component.effect
+
+                =r ux.segment '!mt-3 !mb-2 !bg-yellow-100'
+                  =r ux.h4 text: "Example"
+                  = component.example
+
+        =r ux.div 'text-center'
+          = paginate @component_list

@@ -27,8 +27,9 @@ Rails.application.routes.draw do
   end
 
   resources :books do
-
   end
+
+  resources :perspectives
 
   resources :unauthorized, only: %i[index]
   resources :settings, only: [:index, :edit]
