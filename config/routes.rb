@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   end
 
   resources :perspectives
+  resources :archetypes
 
   resources :unauthorized, only: %i[index]
   resources :settings, only: [:index, :edit]

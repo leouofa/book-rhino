@@ -1,0 +1,240 @@
+archetypes:
+  - name: Hero
+    traits: Courageous, brave, often on a quest
+    examples: [King Arthur, Luke Skywalker, Frodo Baggins]
+
+  - name: Mentor
+    traits: Wise, guiding, older, often helps the hero
+    examples: [Yoda, Dumbledore, Gandalf]
+
+  - name: Outlaw
+    traits: Defies authority, challenges the status quo
+    examples: [Robin Hood, Han Solo, Jack Sparrow]
+
+  - name: Innocent
+    traits: Pure, optimistic, seeks happiness
+    examples: [Dorothy Gale, Forrest Gump, Snow White]
+
+  - name: Caregiver
+    traits: Compassionate, nurturing, self-sacrificing
+    examples: [Mary Poppins, Samwise Gamgee, Marmee]
+
+  - name: Ruler
+    traits: Power-hungry, seeks control
+    examples: [Darth Vader, Queen Cersei, Scar]
+
+  - name: Lover
+    traits: Passionate, emotionally driven
+    examples: [Romeo & Juliet, Jack & Rose, Gatsby]
+
+  - name: Jester
+    traits: Playful, humorous, uses wit
+    examples: [The Joker, Puck, Tyrion Lannister]
+
+  - name: Sage
+    traits: Seeks truth and wisdom
+    examples: [Sherlock Holmes, The Oracle, Obi-Wan Kenobi]
+
+  - name: Magician
+    traits: Seeks to transform the world, visionary
+    examples: [Merlin, Doctor Strange, Willy Wonka]
+
+  - name: Creator
+    traits: Imaginative, inventive
+    examples: [Tony Stark, Leonardo da Vinci, Walt Disney]
+
+  - name: Everyman
+    traits: Relatable, humble, grounded
+    examples: [Bilbo Baggins, John McClane, Katniss Everdeen]
+
+  - name: Shadow
+    traits: Represents the darker side of the hero
+    examples: [Voldemort, Sauron, The Wicked Witch of the West]
+
+  - name: Explorer
+    traits: Adventurous, curious
+    examples: [Indiana Jones, Lara Croft, Moana]
+
+  - name: Shape-shifter
+    traits: Unpredictable, can change sides
+    examples: [Mystique, Severus Snape, Loki]
+
+  - name: Martyr
+    traits: Sacrifices for a greater cause
+    examples: [Joan of Arc, Sydney Carton, Neo]
+
+  - name: Trickster
+    traits: Mischievous, challenges the natural order
+    examples: [Loki, Bugs Bunny, Hermes]
+
+  - name: Anti-Hero
+    traits: Flawed, morally ambiguous
+    examples: [Deadpool, Walter White, Tony Soprano]
+
+  - name: Damsel in Distress
+    traits: Helpless, needs rescue
+    examples: [Princess Leia, Rapunzel, Andromeda]
+
+  - name: Temptress
+    traits: Seductive, manipulative
+    examples: [Circe, Helen of Troy, The Sirens]
+
+  - name: Destroyer
+    traits: Brings destruction and chaos
+    examples: [Hades, Shiva, The Terminator]
+
+  - name: Prophet
+    traits: Foretells the future, speaks truth to power
+    examples: [Cassandra, Tiresias, The Oracle]
+
+  - name: Herald
+    traits: Brings important news or calls to action
+    examples: [R2-D2, Gandalf, Hermes]
+
+  - name: Guardian
+    traits: Protects important people or places
+    examples: [Cerberus, Heimdall, The Sphinx]
+
+  - name: Companion
+    traits: Loyal friend or ally
+    examples: [Samwise Gamgee, Ron Weasley, Chewbacca]
+
+  - name: Scapegoat
+    traits: Takes blame for others
+    examples: [Jesus Christ, Piggy, The Hunchback of Notre Dame]
+
+  - name: Avenger
+    traits: Seeks justice or revenge
+    examples: [Batman, The Bride, Edmond Dantès]
+
+  - name: Monster
+    traits: Represents primal fears
+    examples: [Frankenstein’s creature, Grendel, The Demogorgon]
+
+  - name: Seducer
+    traits: Uses charm and allure for self-gain
+    examples: [Don Juan, James Bond, Casanova]
+
+  - name: Seeker
+    traits: In search of truth or self-discovery
+    examples: [Siddhartha, Odysseus, Mulder]
+
+  - name: Fool
+    traits: Naïve, can possess hidden wisdom
+    examples: [The Fool, Forrest Gump, Don Quixote]
+
+  - name: Healer
+    traits: Nurturing, seeks to restore balance
+    examples: [Florence Nightingale, Doctor McCoy, Katara]
+
+  - name: Judge
+    traits: Focuses on fairness and justice
+    examples: [Solomon, Judge Dredd, Atticus Finch]
+
+  - name: Warrior
+    traits: Strong, disciplined, focused on victory
+    examples: [Achilles, Wonder Woman, Aragorn]
+
+  - name: Innocent Fool
+    traits: Lacks experience but shows bravery
+    examples: [Donkey, LeFou, Luna Lovegood]
+
+  - name: Dreamer
+    traits: Idealistic, lost in fantasies
+    examples: [Don Quixote, Amélie, Luna Lovegood]
+
+  - name: Survivor
+    traits: Resilient, endures hardship
+    examples: [Katniss Everdeen, Ellen Ripley, Max Rockatansky]
+
+  - name: Rival
+    traits: Competitive, seeks to outdo the hero
+    examples: [Draco Malfoy, Vegeta, Apollo Creed]
+
+  - name: Peacemaker
+    traits: Mediates conflicts, seeks harmony
+    examples: [Friar Lawrence, Katara, Gandhi]
+
+  - name: Sycophant
+    traits: Seeks to please those in power
+    examples: [Wormtongue, Peter Pettigrew, Smithers]
+
+  - name: Loyalist
+    traits: Faithful, dedicated to a cause
+    examples: [Brienne of Tarth, Alfred Pennyworth, Samwise Gamgee]
+
+  - name: Sedentary
+    traits: Prefers comfort, avoids risk
+    examples: [Hobbits, Winnie the Pooh, Bilbo Baggins]
+
+  - name: Pioneer
+    traits: Ventures into new territories
+    examples: [Christopher Columbus, Neil Armstrong, Lewis & Clark]
+
+  - name: Leader
+    traits: Commanding presence, takes charge
+    examples: [Aragorn, Julius Caesar, Katniss Everdeen]
+
+  - name: Paragon
+    traits: Represents the ideal, symbol of purity
+    examples: [Superman, Captain America, Galadriel]
+
+  - name: Rebel Leader
+    traits: Charismatic, stands against authority
+    examples: [Spartacus, Leia Organa, Morpheus]
+
+  - name: Cynic
+    traits: Disillusioned, critical
+    examples: [Dr. House, Rick, Holden Caulfield]
+
+  - name: Stoic
+    traits: Unemotional, endures hardship calmly
+    examples: [Mr. Spock, Marcus Aurelius, Geralt]
+
+  - name: Outsider
+    traits: Alienated, different from the majority
+    examples: [Frankenstein’s Monster, Edward Scissorhands, The Hunchback]
+
+  - name: Visionary
+    traits: Sees possibilities, often an innovator
+    examples: [Steve Jobs, Nikola Tesla, Elon Musk]
+
+  - name: Crusader
+    traits: Passionate about a cause, willing to fight
+    examples: [Joan of Arc, V, Malcolm X]
+
+  - name: Loner
+    traits: Prefers solitude, independent
+    examples: [Clint Eastwood’s Man, John Wick, Lisbeth Salander]
+
+  - name: Tyrant
+    traits: Desires power, rules through fear
+    examples: [Commodus, The Emperor, Lord Voldemort]
+
+  - name: Altruist
+    traits: Selflessly concerned for others
+    examples: [Mother Teresa, Atticus Finch, Neville Longbottom]
+
+  - name: Opportunist
+    traits: Seizes chances for personal gain
+    examples: [Littlefinger, Frank Underwood, Jordan Belfort]
+
+  - name: Puppet Master
+    traits: Manipulates others from behind the scenes
+    examples: [Palpatine, Lex Luthor, Petyr Baelish]
+
+  - name: Lost Soul
+    traits: Searching for purpose or identity
+    examples: [Holden Caulfield, The Narrator, Don Draper]
+
+  - name: Villainess
+    traits: Cunning, ambitious, ruthless
+    examples: [Cruella de Vil, Maleficent, Cersei Lannister]
+
+  - name: Puppet
+    traits: Controlled by others, lacks agency
+    examples: [The Borg, Pinocchio, Gollum]
+
+  - name: Doppelgänger
+    traits: Duplicate or mirror image, symbolizes duality
+    examples: [Dr. Jekyll and Mr. Hyde, Tyler Durden, Black Swan]
