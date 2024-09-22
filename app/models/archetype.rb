@@ -1,0 +1,2 @@
+class Archetype < ApplicationRecord
+end
