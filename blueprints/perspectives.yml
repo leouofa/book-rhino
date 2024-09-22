@@ -47,18 +47,6 @@ perspectives:
     effect: "Captures the inner workings of the mind in real time, often appearing fragmented or non-linear."
     example: "Rain. Cold. Why didn’t I bring the umbrella? Can’t stand this anymore—what did she say? What was I thinking?"
 
-  - name: Second-Person Plural
-    narrator: "The narrator addresses a group of people, making the audience part of a collective 'you'."
-    pronouns: ["You", "your", "y'all"]
-    effect: "Creates a shared or communal experience, often evoking a sense of unity or collective responsibility."
-    example: "You all walked down the road, together but alone in your thoughts, yet bound by the same mission."
-
-  - name: Unreliable Narrator
-    narrator: "Can be either first-person or third-person, but the narrator cannot be fully trusted to present the truth."
-    pronouns: ["I", "he", "she", "they"]
-    effect: "Creates ambiguity or tension, as the reader must decide how much of the story to believe."
-    example: "I couldn’t have done it. I wasn’t even there... or maybe I was. I can’t remember."
-
   - name: Epistolary (Letters or Documents)
     narrator: "The story is told through letters, diary entries, or other forms of written communication, which can be written by multiple characters."
     pronouns: ["I", "he", "she", "they"]
