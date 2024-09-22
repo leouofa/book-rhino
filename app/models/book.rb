@@ -8,6 +8,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  perspective_id   :bigint
+#  moral            :text
 #
 class Book < ApplicationRecord
   belongs_to :writing_style

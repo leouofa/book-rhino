@@ -8,6 +8,6 @@ class BooksController < MetaController
   end
 
   def component_params
-    params.require(@computer_name.to_sym).permit(:title, :writing_style_id, :perspective_id)
+    params.require(@computer_name.to_sym).permit(:title, :writing_style_id, :perspective_id, :moral)
   end
 end
