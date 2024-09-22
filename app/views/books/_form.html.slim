@@ -15,5 +15,10 @@
       = form.label :perspective_id, "Perspective"
       = form.collection_select :perspective_id, Perspective.all, :id, :name, { prompt: "Select a Perspective" }, class: "ui dropdown"
 
+    = r ux.component_field
+      = form.label :moral
+      = form.text_area :moral, value: @component.moral
+
+
     =r ux.component_submit_field
       = form.submit class: 'btn-primary'
