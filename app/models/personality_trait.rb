@@ -9,4 +9,5 @@
 #  updated_at  :datetime         not null
 #
 class PersonalityTrait < ApplicationRecord
+  paginates_per 100
 end

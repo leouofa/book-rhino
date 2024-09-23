@@ -10,5 +10,5 @@
 #  updated_at :datetime         not null
 #
 class Archetype < ApplicationRecord
-  max_paginates_per 100
+  paginates_per 100
 end
