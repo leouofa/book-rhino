@@ -18,10 +18,7 @@
                 =r ux.h4 text: component.name
               =r ux.td '!border-b-4 border-solid'
                 =r ux.segment '!mt-3 !bg-blue-100'
-                  =r ux.h4 text: "Traits"
-                  = component.traits
-                - YAML.load(component.examples).each do |example|
-                  =r ux.label text: example, class: '!mb-3 !bg-violet-500 !text-white !font-normal'
+                  = component.description
 
         =r ux.div 'text-center'
           = paginate @component_list

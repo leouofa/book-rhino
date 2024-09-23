@@ -1,0 +1,180 @@
+personality_traits:
+  - name: "Brave"
+    description: "Willing to face danger or difficulty."
+
+  - name: "Cynical"
+    description: "Distrustful of human sincerity or integrity."
+
+  - name: "Compassionate"
+    description: "Caring and empathetic towards others."
+
+  - name: "Ambitious"
+    description: "Driven to achieve goals or success."
+
+  - name: "Introverted"
+    description: "Prefers solitary activities and deep reflection."
+
+  - name: "Extroverted"
+    description: "Enjoys social interactions and being around others."
+
+  - name: "Rebellious"
+    description: "Challenges authority and norms."
+
+  - name: "Loyal"
+    description: "Faithful and devoted to friends or causes."
+
+  - name: "Intelligent"
+    description: "Quick-witted and insightful."
+
+  - name: "Naive"
+    description: "Lacking experience or sophistication; innocent."
+
+  - name: "Obsessive"
+    description: "Preoccupied with a single idea or focus."
+
+  - name: "Sarcastic"
+    description: "Uses irony or mockery to convey contempt."
+
+  - name: "Resourceful"
+    description: "Capable of finding quick and clever solutions."
+
+  - name: "Pessimistic"
+    description: "Tends to see the worst aspect of things."
+
+  - name: "Optimistic"
+    description: "Hopeful and confident about the future."
+
+  - name: "Charismatic"
+    description: "Charming and able to attract and influence others."
+
+  - name: "Stubborn"
+    description: "Unyielding and resistant to change."
+
+  - name: "Whimsical"
+    description: "Playfully quaint or fanciful; unpredictable."
+
+  - name: "Melancholic"
+    description: "Deeply reflective and often sad."
+
+  - name: "Impulsive"
+    description: "Acts on whims without considering consequences."
+
+  - name: "Altruistic"
+    description: "Selflessly concerned for the well-being of others."
+
+  - name: "Judgmental"
+    description: "Quick to form opinions about others."
+
+  - name: "Idealistic"
+    description: "Guided by ideals rather than practical considerations."
+
+  - name: "Skeptical"
+    description: "Doubtful and questioning of beliefs or claims."
+
+  - name: "Diligent"
+    description: "Hardworking and attentive to detail."
+
+  - name: "Egotistical"
+    description: "Excessively self-absorbed or conceited."
+
+  - name: "Pragmatic"
+    description: "Practical and focused on results rather than theory."
+
+  - name: "Creative"
+    description: "Imaginative and innovative in thinking and problem-solving."
+
+  - name: "Nostalgic"
+    description: "Longing for the past; sentimental."
+
+  - name: "Indifferent"
+    description: "Lacking interest or concern."
+
+  - name: "Paranoid"
+    description: "Distrustful and suspicious of others’ intentions."
+
+  - name: "Eccentric"
+    description: "Unconventional and slightly strange in behavior or ideas."
+
+  - name: "Gregarious"
+    description: "Fond of company; sociable."
+
+  - name: "Vengeful"
+    description: "Seeking revenge or retribution."
+
+  - name: "Idealistic"
+    description: "Aspiring to high ideals; often unrealistic."
+
+  - name: "Disorganized"
+    description: "Lacking structure or order; chaotic."
+
+  - name: "Patient"
+    description: "Able to accept delays or problems without frustration."
+
+  - name: "Proud"
+    description: "Having a high opinion of oneself; self-respecting."
+
+  - name: "Manipulative"
+    description: "Skilled at influencing others to achieve personal goals."
+
+  - name: "Insecure"
+    description: "Lacking confidence or assurance."
+
+  - name: "Witty"
+    description: "Quick and inventive verbal humor."
+
+  - name: "Sincere"
+    description: "Genuine and honest in expression."
+
+  - name: "Sentimental"
+    description: "Excessively emotional, often about the past."
+
+  - name: "Dramatic"
+    description: "Expressive and theatrical; often exaggerates emotions."
+
+  - name: "Resilient"
+    description: "Able to recover quickly from difficulties."
+
+  - name: "Alone"
+    description: "Prefers solitude; may feel disconnected from others."
+
+  - name: "Hopeful"
+    description: "Optimistic about the future; believes in positive outcomes."
+
+  - name: "Sensitive"
+    description: "Easily affected by emotions or criticism; empathetic."
+
+  - name: "Disciplined"
+    description: "Self-controlled and focused on goals."
+
+  - name: "Fickle"
+    description: "Changeable; not consistent in feelings or loyalties."
+
+  - name: "Zealous"
+    description: "Passionate and fervent about beliefs or causes."
+
+  - name: "Judicious"
+    description: "Wise and careful in making decisions."
+
+  - name: "Frugal"
+    description: "Economical; careful with spending resources."
+
+  - name: "Intuitive"
+    description: "Relies on instincts and gut feelings rather than logic."
+
+  - name: "Evasive"
+    description: "Avoids giving direct answers or commitments."
+
+  - name: "Oblivious"
+    description: "Unaware of surroundings or the feelings of others."
+
+  - name: "Impatient"
+    description: "Easily annoyed by delays; desires immediate results."
+
+  - name: "Curious"
+    description: "Eager to learn and explore new ideas or experiences."
+
+  - name: "Obedient"
+    description: "Compliant and follows rules or authority."
+
+  - name: "Judgmental"
+    description: "Quick to evaluate others, often critically."
