@@ -36,29 +36,42 @@ html lang="en"
                   =r ux.item url: root_path, class: "logo-item #{menu_active?(root_path)}}"
                     =r ux.header text: 'Book Rhino', class: 'inverted logo !font-mono'
 
-                  = link_to books_path, class: "item #{menu_active?(books_path)}"
-                    =r ux.icon 'book'
-                    | Books
+                  =r ux.item class: "dropdown #{dropdown_active?(archetypes_path)}", ui: :on
+                    =r ux.icon 'leaf'
+                    | Characters
+                    =r ux.icon 'dropdown'
+                    =r ux.menu
+                      = link_to books_path, class: "item #{menu_active?(books_path)}"
+                        =r ux.icon 'book'
+                        | All Books
 
-                  = link_to writing_styles_path, class: "item #{menu_active?(writing_styles_path)}"
-                    =r ux.icon 'vest patches'
-                    | Writing Styles
+                      = link_to writing_styles_path, class: "item #{menu_active?(writing_styles_path)}"
+                        =r ux.icon 'vest patches'
+                        | Writing Styles
 
-                  = link_to perspectives_path, class: "item #{menu_active?(perspectives_path)}"
-                    =r ux.icon 'user tie'
-                    | Perspectives
+                      = link_to perspectives_path, class: "item #{menu_active?(perspectives_path)}"
+                        =r ux.icon 'user tie'
+                        | Perspectives
 
-                  = link_to archetypes_path, class: "item #{menu_active?(archetypes_path)}"
-                    =r ux.icon 'mask'
-                    | Archetypes
+                  =r ux.item class: "dropdown #{dropdown_active?(archetypes_path)}", ui: :on
+                    =r ux.icon 'hiking'
+                    | Characters
+                    =r ux.icon 'dropdown'
+                    =r ux.menu
+                      = link_to archetypes_path, class: "item #{menu_active?(archetypes_path)}"
+                        =r ux.icon 'hiking'
+                        | All Characters
+                      = link_to archetypes_path, class: "item #{menu_active?(archetypes_path)}"
+                        =r ux.icon 'mask'
+                        | Archetypes
 
-                  = link_to personality_traits_path, class: "item #{menu_active?(personality_traits_path)}"
-                    =r ux.icon 'glass martini alternate'
-                    | Personality Traits
+                      = link_to personality_traits_path, class: "item #{menu_active?(personality_traits_path)}"
+                        =r ux.icon 'glass martini alternate'
+                        | Personality Traits
 
-                  = link_to moral_alignments_path, class: "item #{menu_active?(moral_alignments_path)}"
-                    =r ux.icon 'angry'
-                    | Moral Alignments
+                      = link_to moral_alignments_path, class: "item #{menu_active?(moral_alignments_path)}"
+                        =r ux.icon 'angry'
+                        | Moral Alignments
 
 
                   /
