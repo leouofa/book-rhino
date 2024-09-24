@@ -1,0 +1,54 @@
+moral_alignments:
+  - name: "Lawful Good"
+    description: "Characters who believe in order, structure, and helping others. They follow laws and seek to do the right thing."
+    examples:
+      - "Superman (DC Comics)"
+      - "Atticus Finch (To Kill a Mockingbird)"
+
+  - name: "Neutral Good"
+    description: "These characters do the best they can to help others, guided by compassion and kindness, without being bound by law or chaos."
+    examples:
+      - "Samwise Gamgee (The Lord of the Rings)"
+      - "Hermione Granger (Harry Potter)"
+
+  - name: "Chaotic Good"
+    description: "Characters with good intentions, but they believe the best way to achieve their goals is through individualism, rejecting rules or authority if necessary."
+    examples:
+      - "Robin Hood (Various legends)"
+      - "Arya Stark (A Song of Ice and Fire)"
+
+  - name: "Lawful Neutral"
+    description: "These characters believe in following laws, traditions, or codes, but don’t necessarily act out of good or evil intentions."
+    examples:
+      - "Javert (Les Misérables)"
+      - "Spock (Star Trek)"
+
+  - name: "True Neutral"
+    description: "True neutral characters tend to remain balanced, seeking neither good nor evil, nor law nor chaos, but they act in accordance with their personal interests."
+    examples:
+      - "Tyrion Lannister (A Song of Ice and Fire)"
+      - "Tom Bombadil (The Lord of the Rings)"
+
+  - name: "Chaotic Neutral"
+    description: "Characters who follow their own desires and whims without a strong regard for rules, laws, or the needs of others, but they are not inherently evil."
+    examples:
+      - "Jack Sparrow (Pirates of the Caribbean)"
+      - "Deadpool (Marvel Comics)"
+
+  - name: "Lawful Evil"
+    description: "These characters use laws and order to achieve their own selfish or malevolent ends. They exploit structure and systems to maintain power or control."
+    examples:
+      - "Dolores Umbridge (Harry Potter)"
+      - "Saruman (The Lord of the Rings)"
+
+  - name: "Neutral Evil"
+    description: "Characters who do whatever they can get away with, without concern for law or chaos. They act purely out of selfishness and malice."
+    examples:
+      - "Littlefinger (A Song of Ice and Fire)"
+      - "Iago (Othello)"
+
+  - name: "Chaotic Evil"
+    description: "Characters who are driven by destructive, chaotic impulses. They reject order entirely and act violently or selfishly, with no regard for others."
+    examples:
+      - "The Joker (DC Comics)"
+      - "Sauron (The Lord of the Rings)"
