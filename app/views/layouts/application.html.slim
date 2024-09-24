@@ -36,9 +36,9 @@ html lang="en"
                   =r ux.item url: root_path, class: "logo-item #{menu_active?(root_path)}}"
                     =r ux.header text: 'Book Rhino', class: 'inverted logo !font-mono'
 
-                  =r ux.item class: "dropdown #{dropdown_active?(archetypes_path)}", ui: :on
-                    =r ux.icon 'leaf'
-                    | Characters
+                  =r ux.item class: "dropdown #{dropdown_active?(books_path)}", ui: :on
+                    =r ux.icon 'book'
+                    | Books
                     =r ux.icon 'dropdown'
                     =r ux.menu
                       = link_to books_path, class: "item #{menu_active?(books_path)}"
@@ -53,12 +53,12 @@ html lang="en"
                         =r ux.icon 'user tie'
                         | Perspectives
 
-                  =r ux.item class: "dropdown #{dropdown_active?(archetypes_path)}", ui: :on
+                  =r ux.item class: "dropdown #{dropdown_active?(characters_path)}", ui: :on
                     =r ux.icon 'hiking'
                     | Characters
                     =r ux.icon 'dropdown'
                     =r ux.menu
-                      = link_to archetypes_path, class: "item #{menu_active?(archetypes_path)}"
+                      = link_to characters_path, class: "item #{menu_active?(characters_path)}"
                         =r ux.icon 'hiking'
                         | All Characters
                       = link_to archetypes_path, class: "item #{menu_active?(archetypes_path)}"
