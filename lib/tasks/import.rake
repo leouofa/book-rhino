@@ -63,4 +63,23 @@ namespace :import do
       end
     end
   end
+
+  desc "Import moral alignments from a YAML file"
+  task moral_alignments: :environment do
+    yaml_file = Rails.root.join("blueprints/moral_alignments.yml")
+    alignments = YAML.load_file(yaml_file)['moral_alignments']
+
+    alignments.each do |alignment_data|
+      alignment = MoralAlignment.find_or_initialize_by(name: alignment_data['name'])
+      alignment.description = alignment_data['description']
+      alignment.examples = alignment_data['examples']
+
+      if alignment.save
+        puts "Successfully imported: #{alignment.name}"
+      else
+        puts "Failed to import: #{alignment.name}"
+        puts alignment.errors.full_messages
+      end
+    end
+  end
 end
