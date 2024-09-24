@@ -26,8 +26,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :books do
-  end
+  resources :books
+  resources :characters
 
   resources :perspectives
   resources :archetypes
