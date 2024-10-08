@@ -9,6 +9,9 @@
 #  updated_at       :datetime         not null
 #  perspective_id   :bigint
 #  moral            :text
+#  plot             :text
+#  chapters         :integer
+#  pages            :integer
 #
 class Book < ApplicationRecord
   belongs_to :writing_style
