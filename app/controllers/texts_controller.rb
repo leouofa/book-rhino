@@ -1,5 +1,4 @@
 class TextsController < MetaController
-
   private
 
   def component_name
