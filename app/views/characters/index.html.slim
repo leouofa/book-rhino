@@ -14,12 +14,12 @@
         =r ux.table class: 'relaxed celled striped structured'
           =r ux.thead
             =r ux.tr
-              =r ux.th text: 'Book Name'
+              =r ux.th text: 'Character Name'
               th.center.aligned colspan="2" Actions
           - @component_list.each do |component|
             =r ux.tr
               =r ux.td
-                =link_to component.title, book_path(component), class: 'item text-sm', data: {'turbo-action': 'replace'}
+                =link_to component.name, character_path(component), class: 'item text-sm', data: {'turbo-action': 'replace'}
               = r ux.td 'collapsing'
                 = link_to 'Edit', send(@component_edit_path, component), class: 'btn-list-edit'
               = r ux.td 'collapsing'

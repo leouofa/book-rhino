@@ -12,4 +12,9 @@ class CharactersController < MetaController
   def component_class
     'Character'.constantize
   end
+
+  def component_params
+    params.require(@computer_name.to_sym).permit(:name, :gender, :age, :ethnicity, :nationality, :appearance,
+                                                 :health, :fears, :desires, :backstory, :skills, :values)
+  end
 end
