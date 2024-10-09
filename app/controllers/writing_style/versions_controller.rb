@@ -34,7 +34,6 @@ class WritingStyle::VersionsController < ApplicationController
     redirect_to writing_style_texts_path
   end
 
-
   private
 
   def set_writing_style
@@ -47,7 +46,7 @@ class WritingStyle::VersionsController < ApplicationController
 
   def parse_object_changes(version)
     permitted_classes = [Time, Date, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
-    YAML.safe_load(version.object_changes, permitted_classes: permitted_classes, aliases: true)
+    YAML.safe_load(version.object_changes, permitted_classes:, aliases: true)
   end
 
   def parse_version_json(json)

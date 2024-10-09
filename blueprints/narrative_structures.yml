@@ -1,0 +1,89 @@
+narrative_structures:
+  - name: "Freytag's Pyramid"
+    description: "A five-part structure with a clear progression from exposition to resolution."
+    parts:
+      - Exposition
+      - Rising Action
+      - Climax
+      - Falling Action
+      - Resolution
+
+  - name: "Three-Act Structure"
+    description: "A simplified structure used in film and literature, focusing on setup, confrontation, and resolution."
+    parts:
+      - Act 1. Setup
+      - Act 2. Confrontation
+      - Act 3. Resolution
+
+  - name: "Hero's Journey (Monomyth)"
+    description: "A cyclical journey where the hero goes from their ordinary world to the extraordinary, facing trials, and returning transformed."
+    parts:
+      - The Ordinary World
+      - The Call to Adventure
+      - Refusal of the Call
+      - Meeting the Mentor
+      - Crossing the Threshold
+      - Tests, Allies, and Enemies
+      - Approach to the Inmost Cave
+      - The Ordeal
+      - The Reward
+      - The Road Back
+      - The Resurrection
+      - Return with the Elixir
+
+  - name: "In Medias Res"
+    description: "A structure where the story begins in the middle of the action, with the backstory revealed later."
+    parts:
+      - Start in the Middle
+      - Flashbacks
+      - Exposition
+
+  - name: "Nonlinear Narrative"
+    description: "Events are presented out of chronological order, often using flashbacks or fragmented time."
+    parts:
+      - Flashbacks
+      - Flash-forwards
+      - Time Jumps
+
+  - name: "Kishōtenketsu"
+    description: "A four-part structure, common in East Asian storytelling, that emphasizes contrast and thematic development over conflict."
+    parts:
+      - Introduction (Ki)
+      - Development (Shō)
+      - Twist (Ten)
+      - Conclusion (Ketsu)
+
+  - name: "Circular Narrative"
+    description: "The story ends where it began, creating a loop that emphasizes themes of inevitability or fate."
+    parts:
+      - Beginning
+      - Events leading back to the beginning
+      - Repeating themes
+
+  - name: "Frame Story"
+    description: "A story within a story, where one narrative serves as a framework for others."
+    parts:
+      - Outer Narrative
+      - Inner Story/Stories
+
+  - name: "Episodic Structure"
+    description: "A narrative made up of loosely connected episodes, where each part has its own mini-conflict and resolution."
+    parts:
+      - Episode 1. Conflict and Resolution
+      - Episode 2. Conflict and Resolution
+      - Episode 3. Conflict and Resolution
+
+  - name: "Reverse Chronology"
+    description: "A narrative told in reverse order, starting with the end and revealing earlier events gradually."
+    parts:
+      - Ending
+      - Events leading to the end
+      - Beginning
+
+  - name: "Fichtean Curve"
+    description: "Focuses on multiple crises throughout the story, with continuous rising action leading to the climax."
+    parts:
+      - Multiple Crises
+      - Rising Action
+      - Climax
+

@@ -82,4 +82,23 @@ namespace :import do
       end
     end
   end
+
+  desc "Import narrative structures from a YAML file"
+  task narrative_structures: :environment do
+    yaml_file = Rails.root.join("blueprints/narrative_structures.yml")
+    structures = YAML.load_file(yaml_file)['narrative_structures']
+
+    structures.each do |structure_data|
+      narrative_structure = NarrativeStructure.find_or_initialize_by(name: structure_data['name'])
+      narrative_structure.description = structure_data['description']
+      narrative_structure.parts = structure_data['parts']
+
+      if narrative_structure.save
+        puts "Successfully imported: #{narrative_structure.name}"
+      else
+        puts "Failed to import: #{narrative_structure.name}"
+        puts narrative_structure.errors.full_messages
+      end
+    end
+  end
 end
