@@ -49,6 +49,10 @@ html lang="en"
                         =r ux.icon 'vest patches'
                         | Writing Styles
 
+                      = link_to narrative_structures_path, class: "item #{menu_active?(narrative_structures_path)}"
+                        =r ux.icon 'kaaba'
+                        | Narrative Structures
+
                       = link_to perspectives_path, class: "item #{menu_active?(perspectives_path)}"
                         =r ux.icon 'user tie'
                         | Perspectives

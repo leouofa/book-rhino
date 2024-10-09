@@ -1,0 +1,2 @@
+module NarrativeStructuresHelper
+end
