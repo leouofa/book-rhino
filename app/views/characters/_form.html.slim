@@ -1,0 +1,56 @@
+- if @component.errors.any?
+  =render 'partials/form_errors'
+
+=r ux.component_segment
+  = form_with model: @component, class: 'ui form', local: true do |form|
+    =r ux.component_field
+      = form.label :name
+      = form.text_field :name, value: @component.name
+
+    =r ux.component_field
+      = form.label :gender
+      = form.text_field :gender, value: @component.gender
+
+    =r ux.component_field
+      = form.label :age
+      = form.number_field :age, value: @component.age
+
+    =r ux.component_field
+      = form.label :ethnicity
+      = form.text_field :ethnicity, value: @component.ethnicity
+
+    =r ux.component_field
+      = form.label :nationality
+      = form.text_field :nationality, value: @component.nationality
+
+    =r ux.component_field
+      = form.label :appearance
+      = form.text_area :appearance, value: @component.appearance
+
+    =r ux.component_field
+      = form.label :health
+      = form.text_area :health, value: @component.health
+
+    =r ux.component_field
+      = form.label :fears
+      = form.text_area :fears, value: @component.fears
+
+    =r ux.component_field
+      = form.label :desires
+      = form.text_area :desires, value: @component.desires
+
+    =r ux.component_field
+      = form.label :backstory
+      = form.text_area :backstory, value: @component.backstory
+
+    =r ux.component_field
+      = form.label :skills
+      = form.text_area :skills, value: @component.skills
+
+    =r ux.component_field
+      = form.label :values
+      = form.text_area :values, value: @component.values
+
+    =r ux.component_submit_field
+      = form.submit class: 'btn-primary'
+
