@@ -66,13 +66,6 @@ narrative_structures:
       - Outer Narrative
       - Inner Story/Stories
 
-  - name: "Episodic Structure"
-    description: "A narrative made up of loosely connected episodes, where each part has its own mini-conflict and resolution."
-    parts:
-      - Episode 1. Conflict and Resolution
-      - Episode 2. Conflict and Resolution
-      - Episode 3. Conflict and Resolution
-
   - name: "Reverse Chronology"
     description: "A narrative told in reverse order, starting with the end and revealing earlier events gradually."
     parts:

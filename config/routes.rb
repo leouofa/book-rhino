@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :archetypes
   resources :personality_traits
   resources :moral_alignments
+  resources :narrative_structures
 
   resources :unauthorized, only: %i[index]
   resources :settings, only: [:index, :edit]
