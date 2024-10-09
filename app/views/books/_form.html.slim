@@ -11,6 +11,14 @@
       = form.label :writing_style_id, "Writing Style"
       = form.collection_select :writing_style_id, WritingStyle.all, :id, :name, { prompt: "Select a Writing Style" }, class: "ui dropdown"
 
+    = r ux.component_field
+      = form.label :perspective_id, "Perspective"
+      = form.collection_select :perspective_id, Perspective.all, :id, :name, { prompt: "Select a Perspective" }, class: "ui dropdown"
+
+    = r ux.component_field
+      = form.label :narrative_structure_id, "Narrative Structure"
+      = form.collection_select :narrative_structure_id, NarrativeStructure.all, :id, :name, { prompt: "Select Narrative Structure" }, class: "ui dropdown"
+
     =r ux.component_field
       = form.label :chapters
       = form.number_field :chapters, value: @component.chapters
@@ -18,10 +26,6 @@
     =r ux.component_field
       = form.label :pages
       = form.number_field :pages, value: @component.pages
-
-    = r ux.component_field
-      = form.label :perspective_id, "Perspective"
-      = form.collection_select :perspective_id, Perspective.all, :id, :name, { prompt: "Select a Perspective" }, class: "ui dropdown"
 
     = r ux.component_field
       = form.label :moral
