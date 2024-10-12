@@ -101,4 +101,24 @@ namespace :import do
       end
     end
   end
+
+  desc "Import character types from a YAML file"
+  task character_types: :environment do
+    yaml_file = Rails.root.join("blueprints/character_types.yml")
+    character_types = YAML.load_file(yaml_file)['characters']
+
+    character_types.each do |character_data|
+      character_type = CharacterType.find_or_initialize_by(name: character_data['type'])
+      character_type.definition = character_data['definition']
+      character_type.purpose = character_data['purpose']
+      character_type.example = character_data['example']
+
+      if character_type.save
+        puts "Successfully imported: #{character_type.name}"
+      else
+        puts "Failed to import: #{character_type.name}"
+        puts character_type.errors.full_messages
+      end
+    end
+  end
 end

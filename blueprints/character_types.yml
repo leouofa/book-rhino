@@ -1,0 +1,81 @@
+characters:
+  - type: Protagonist
+    definition: The central character around whom the story revolves.
+    purpose: The reader typically follows the protagonist's journey, goals, and struggles.
+    example: "Harry Potter in *Harry Potter*"
+    
+  - type: Antagonist
+    definition: The character who opposes the protagonist and creates conflict.
+    purpose: Challenges the protagonist, acting as a force that the protagonist must overcome.
+    example: "Darth Vader in *Star Wars*"
+    
+  - type: Deuteragonist
+    definition: The second most important character, often serving as a sidekick, companion, or foil to the protagonist.
+    purpose: Can help or hinder the protagonist’s journey and may have their own subplots.
+    example: "Samwise Gamgee in *The Lord of the Rings*"
+    
+  - type: Tertiary Characters
+    definition: Minor characters who play small but important roles in the plot.
+    purpose: They add depth to the world and often serve as background characters.
+    example: "The shopkeeper or background townspeople"
+    
+  - type: Foil
+    definition: A character whose traits contrast sharply with those of the protagonist or another key character.
+    purpose: By contrasting with another character, the foil highlights specific qualities of that character.
+    example: "Draco Malfoy as a foil to Harry Potter"
+    
+  - type: Confidant(e)
+    definition: A character in whom the protagonist confides, often revealing their inner thoughts and feelings.
+    purpose: Acts as a sounding board for the protagonist, helping to develop character depth.
+    example: "Dr. Watson in *Sherlock Holmes*"
+    
+  - type: Dynamic Character
+    definition: A character who undergoes significant internal change throughout the story.
+    purpose: Their transformation often forms part of the central narrative arc.
+    example: "Ebenezer Scrooge in *A Christmas Carol*"
+    
+  - type: Static Character
+    definition: A character who remains largely unchanged throughout the story.
+    purpose: They serve a consistent role or personality and don’t experience internal growth.
+    example: "Sherlock Holmes in most of Arthur Conan Doyle’s stories"
+    
+  - type: Round Character
+    definition: A complex, well-developed character with a multi-faceted personality, background, and motives.
+    purpose: Their depth makes them feel more 'real' and relatable to the reader.
+    example: "Elizabeth Bennet in *Pride and Prejudice*"
+    
+  - type: Flat Character
+    definition: A simple, one-dimensional character with limited development.
+    purpose: They serve a specific, unchanging role in the story, often representing a single trait or idea.
+    example: "Mr. Collins in *Pride and Prejudice*"
+    
+  - type: Stock Character
+    definition: A stereotypical character type that appears frequently in literature.
+    purpose: Easily recognizable by readers, these characters fill familiar roles.
+    example: "The 'dumb jock' or 'mean cheerleader' in high school dramas"
+    
+  - type: Symbolic Character
+    definition: A character who represents a larger idea or concept beyond their individual identity.
+    purpose: They often symbolize themes, values, or societal issues.
+    example: "Aslan in *The Chronicles of Narnia*"
+    
+  - type: Anti-Hero
+    definition: A protagonist who lacks traditional heroic qualities, such as morality or bravery.
+    purpose: They create a different kind of engagement, often portraying more flawed, complex human nature.
+    example: "Walter White in *Breaking Bad*"
+    
+  - type: Tragic Hero
+    definition: A character who has heroic traits but is doomed to fail due to a tragic flaw or circumstance.
+    purpose: Their downfall evokes pity and fear in the reader or audience.
+    example: "Oedipus in *Oedipus Rex*"
+    
+  - type: Nemesis
+    definition: A character who is a persistent and often insurmountable rival to the protagonist.
+    purpose: Unlike a simple antagonist, a nemesis may be a deeply ingrained adversary, sometimes symbolizing a personal flaw or internal struggle.
+    example: "Professor Moriarty in *Sherlock Holmes*"
+    
+  - type: Love Interest
+    definition: A character whose relationship with the protagonist revolves around romantic attraction.
+    purpose: Adds emotional depth and can influence the protagonist's motivations and actions.
+    example: "Romeo and Juliet in *Romeo and Juliet*"
+
