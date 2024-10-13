@@ -19,6 +19,11 @@
 #  updated_at  :datetime         not null
 #
 class Character < ApplicationRecord
+  has_and_belongs_to_many :character_types
+  has_and_belongs_to_many :moral_alignments
+  has_and_belongs_to_many :personality_traits
+  has_and_belongs_to_many :archetypes
+
   validates :name, presence: true
   validates :age, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 end

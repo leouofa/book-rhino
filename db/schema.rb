@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_10_145730) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_13_210924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -22,6 +22,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_10_145730) do
     t.text "examples"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "archetypes_characters", id: false, force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "archetype_id", null: false
+    t.index ["archetype_id", "character_id"], name: "index_archetypes_characters_on_archetype_id_and_character_id"
+    t.index ["character_id", "archetype_id"], name: "index_archetypes_characters_on_character_id_and_archetype_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -49,6 +56,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_10_145730) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "character_types_characters", id: false, force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "character_type_id", null: false
+    t.index ["character_id", "character_type_id"], name: "idx_on_character_id_character_type_id_432f58b042"
+    t.index ["character_type_id", "character_id"], name: "idx_on_character_type_id_character_id_a9c66b3fa3"
+  end
+
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "gender"
@@ -64,6 +78,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_10_145730) do
     t.text "values"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "characters_moral_alignments", id: false, force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "moral_alignment_id", null: false
+    t.index ["character_id", "moral_alignment_id"], name: "idx_on_character_id_moral_alignment_id_110fe45616"
+    t.index ["moral_alignment_id", "character_id"], name: "idx_on_moral_alignment_id_character_id_b452e3076d"
+  end
+
+  create_table "characters_personality_traits", id: false, force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "personality_trait_id", null: false
+    t.index ["character_id", "personality_trait_id"], name: "idx_on_character_id_personality_trait_id_bde1d5670b"
+    t.index ["personality_trait_id", "character_id"], name: "idx_on_personality_trait_id_character_id_aa8c32a6c8"
   end
 
   create_table "locks", force: :cascade do |t|
