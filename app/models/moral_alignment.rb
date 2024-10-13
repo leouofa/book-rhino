@@ -10,6 +10,8 @@
 #  updated_at  :datetime         not null
 #
 class MoralAlignment < ApplicationRecord
+  has_and_belongs_to_many :characters
+
   serialize :examples, coder: YAML
 
   validates :name, presence: true, uniqueness: true

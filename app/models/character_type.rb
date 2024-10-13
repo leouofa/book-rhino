@@ -11,6 +11,8 @@
 #  updated_at :datetime         not null
 #
 class CharacterType < ApplicationRecord
+  has_and_belongs_to_many :characters
+
   validates :name, presence: true
   validates :definition, :purpose, :example, presence: true
 end

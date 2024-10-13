@@ -10,5 +10,7 @@
 #  updated_at :datetime         not null
 #
 class Archetype < ApplicationRecord
+  has_and_belongs_to_many :characters
+
   paginates_per 100
 end
