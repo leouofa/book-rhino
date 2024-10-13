@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_09_210951) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_10_145730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -38,6 +38,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_09_210951) do
     t.index ["narrative_structure_id"], name: "index_books_on_narrative_structure_id"
     t.index ["perspective_id"], name: "index_books_on_perspective_id"
     t.index ["writing_style_id"], name: "index_books_on_writing_style_id"
+  end
+
+  create_table "character_types", force: :cascade do |t|
+    t.string "name"
+    t.text "definition"
+    t.text "purpose"
+    t.text "example"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "characters", force: :cascade do |t|
