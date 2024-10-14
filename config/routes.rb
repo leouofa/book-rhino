@@ -27,7 +27,11 @@ Rails.application.routes.draw do
   end
 
   resources :books
-  resources :characters
+  resources :characters do
+    member do
+      post :generate_prompt
+    end
+  end
 
   resources :perspectives
   resources :archetypes

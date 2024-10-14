@@ -5,6 +5,12 @@ class CharactersController < MetaController
     @component_list = @component_klass.send('where', where).send(scope).order(created_at: :asc).page params[:page]
   end
 
+  def generate_prompt
+    set_component
+  end
+
+  private
+
   def component_name
     'Characters'
   end
