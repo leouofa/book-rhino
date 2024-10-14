@@ -14,7 +14,9 @@ class CharactersController < MetaController
   end
 
   def component_params
-    params.require(@computer_name.to_sym).permit(:name, :gender, :age, :ethnicity, :nationality, :appearance,
-                                                 :health, :fears, :desires, :backstory, :skills, :values)
+    params.require(@computer_name.to_sym).permit(:name, :gender, :age, :ethnicity, :nationality, :appearance, :health,
+                                                 :fears, :desires, :backstory, :skills, :values,
+                                                 character_type_ids: [], moral_alignment_ids: [],
+                                                 personality_trait_ids: [], archetype_ids: [])
   end
 end
