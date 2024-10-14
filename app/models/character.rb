@@ -26,4 +26,9 @@ class Character < ApplicationRecord
 
   validates :name, presence: true
   validates :age, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
+
+  has_paper_trail ignore: %i[name gender age ethnicity nationality appearance
+                             health fears desires backstory skills values], versions: {
+                               scope: -> { order('id desc') }
+                             }
 end
