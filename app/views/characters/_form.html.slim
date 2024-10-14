@@ -1,7 +1,7 @@
 - if @component.errors.any?
   =render 'partials/form_errors'
 
-=r ux.component_segment
+=r ux.component_segment controller: 'dropdown'
   = form_with model: @component, class: 'ui form', local: true do |form|
     =r ux.component_field
       = form.label :name
@@ -14,6 +14,23 @@
     =r ux.component_field
       = form.label :age
       = form.number_field :age, value: @component.age
+
+    =r ux.component_field
+      = form.label :character_type_ids, 'Chracter Types'
+      = form.collection_select :character_type_ids, CharacterType.all, :id, :name, {}, { multiple: true, class: 'ui fluid dropdown'}
+
+    =r ux.component_field
+      = form.label :moral_alignment_ids, 'Moral Alignments'
+      = form.collection_select :moral_alignment_ids, MoralAlignment.all, :id, :name, {}, { multiple: true, class: 'ui fluid dropdown'}
+
+    =r ux.component_field
+      = form.label :personality_trait_ids, 'Personality Traits'
+      = form.collection_select :personality_trait_ids, PersonalityTrait.all, :id, :name, {}, { multiple: true, class: 'ui fluid dropdown'}
+
+    =r ux.component_field
+      = form.label :archetype_ids, 'Archetypes'
+      = form.collection_select :archetype_ids, Archetype.all, :id, :name, {}, { multiple: true, class: 'ui fluid dropdown'}
+
 
     =r ux.component_field
       = form.label :ethnicity
