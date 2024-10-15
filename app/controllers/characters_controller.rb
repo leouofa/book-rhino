@@ -7,6 +7,7 @@ class CharactersController < MetaController
 
   def generate_prompt
     set_component
+    GenerateCharacterPromptJob.perform_later(@component)
   end
 
   private

@@ -17,6 +17,8 @@
 #  values      :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  prompt      :text
+#  pending     :boolean
 #
 class Character < ApplicationRecord
   has_and_belongs_to_many :character_types
@@ -31,4 +33,16 @@ class Character < ApplicationRecord
                              health fears desires backstory skills values], versions: {
                                scope: -> { order('id desc') }
                              }
+
+  def as_json(options = {})
+    super(options.merge(
+      except: [:id, :prompt, :pending, :created_at, :updated_at],
+      include: {
+        character_types: { only: [:name, :definition, :purpose, :example] },
+        moral_alignments: { only: [:name, :description, :examples] },
+        personality_traits: { only: [:name, :description] },
+        archetypes: { only: [:name, :traits, :examples] }
+      }
+    ))
+  end
 end

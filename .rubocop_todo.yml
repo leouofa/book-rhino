@@ -56,12 +56,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/models/*'
     - 'spec/jobs/*'
-    - 'spec/jobs/stories/*'
-    - 'spec/jobs/images/*'
-    - 'spec/jobs/tweets/*'
-    - 'spec/jobs/discussions/*'
-    - 'app/lib/publisher.rb'
-    - 'spec/jobs/pillars/populate_pillar_columns_job_spec.rb'
+    - 'lib/tasks/import.rake'
 
 # Offense count: 1
 # Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
@@ -175,3 +170,19 @@ Metrics/PerceivedComplexity:
     - 'app/controllers/tweets_controller.rb'
     - 'app/controllers/instapins_controller.rb'
     - 'app/controllers/stories_controller.rb'
+
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - 'app/models/character.rb'
+    - 'app/models/archetype.rb'
+    - 'app/models/character_type.rb'
+    - 'app/models/moral_alignment.rb'
+    - 'app/models/personality_trait.rb'
+  
+Style/MutableConstant:
+  Exclude:
+    - 'bin/setup'
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/controllers/writing_style/versions_controller.rb'
