@@ -10,6 +10,16 @@ class CharactersController < MetaController
     GenerateCharacterPromptJob.perform_later(@component)
   end
 
+  def iterate
+    set_component
+    message = params[:message]
+    IterateOnCharacterPromptJob.perform_later(@component, message)
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
 
   def component_name
