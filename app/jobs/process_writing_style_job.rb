@@ -5,13 +5,13 @@ class ProcessWritingStyleJob < ApplicationJob
     question = ""
 
     writing_style.texts.each do |text|
-      question.concat "``````","Text Name: #{text.name}, Corpus: #{text.corpus}", "``````"
+      question.concat "``````", "Text Name: #{text.name}, Corpus: #{text.corpus}", "``````"
     end
 
     @client = OpenAI::Client.new
 
     system_role = <<~SYSTEM_ROLE
-        You are a college level english teacher. Analyze the following writing style and produce a set of instructions for ChatGPT in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
+      You are a college level english teacher. Analyze the following writing style and produce a set of instructions for ChatGPT in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
     SYSTEM_ROLE
 
     messages = [
@@ -21,7 +21,7 @@ class ProcessWritingStyleJob < ApplicationJob
 
     sleep(0.5)
 
-    writing_style. update(pending: true)
+    writing_style.update(pending: true)
     broadcast_writing_style_update(writing_style)
 
     sleep(10)
@@ -53,7 +53,7 @@ class ProcessWritingStyleJob < ApplicationJob
       "writing_style_#{writing_style.id}", # unique identifier for the writing style
       target: "writing_style_#{writing_style.id}_prompt", # the DOM ID where the prompt will be inserted
       partial: "texts/prompt", # partial view to render the updated content
-      locals: { writing_style: writing_style}
+      locals: { writing_style: }
     )
   end
 end

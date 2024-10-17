@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :characters do
     member do
       post :generate_prompt
+      post :iterate
     end
   end
 
