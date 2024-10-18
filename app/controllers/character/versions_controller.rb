@@ -27,7 +27,7 @@ class Character::VersionsController < ApplicationController
 
   def merge
     version_to_merge = @version.reify
-    MergeWritingStylesJob.perform_later(@writing_style, version_to_merge)
+    MergeCharacterPromptsJob.perform_later(@character, version_to_merge)
 
     redirect_to character_path(@character)
   end

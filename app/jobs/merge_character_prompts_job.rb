@@ -1,21 +1,26 @@
-class IterateOnCharacterPromptJob < ApplicationJob
+class MergeCharacterPromptsJob < ApplicationJob
   queue_as :default
 
-  def perform(character, message)
+  def perform(character, version_to_merge)
+    prompt_1 = character.prompt
+    prompt_2 = version_to_merge.prompt
+
     @client = OpenAI::Client.new
 
     system_role = <<~SYSTEM_ROLE
       You are a college level english teacher.
-      You will be provided with a character description for ChatGPT and
-      a request asking to modify it. Return only the character description.
+      You will be provided with two character descriptions for ChatGPT.
+      Your task is to join the two character descriptions and factor out commonalities, merging them into a cohesive, unified character description.#{' '}
+      Return only the character description.
+      DONT MAKE ANYTHING UP.
     SYSTEM_ROLE
 
     messages = [
       { role: "system", content: system_role },
-      { role: "user", content: "Character Description:\n#{character.prompt}\n--------\nRequest:\n#{message}" }
+      { role: "user", content: "description_1:\n#{prompt_1}\n--------\n#description_2:\n#{prompt_2}" }
     ]
 
-    sleep(0.1)
+    sleep(0.5)
 
     character.update(pending: true)
     broadcast_character_update(character)
