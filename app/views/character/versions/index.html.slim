@@ -19,4 +19,4 @@
                 = r ux.version_meta_text text: "Version ID: #{version[:id]}"
                 = r ux.version_meta_text text: "Changed: #{version[:updated_at].strftime('%m/%d/%Y')}"
             =r ux.version_content
-              = version[:old_prompt]
+              = simple_format version[:old_prompt]

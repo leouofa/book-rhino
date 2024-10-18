@@ -8,6 +8,10 @@ class CharactersController < MetaController
   def generate_prompt
     set_component
     GenerateCharacterPromptJob.perform_later(@component)
+
+    respond_to do |format|
+      format.turbo_stream { render :iterate }
+    end
   end
 
   def iterate
