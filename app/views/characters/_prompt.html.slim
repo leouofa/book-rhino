@@ -7,10 +7,10 @@
 - if character.prompt.present? && !character.pending
   =r ux.h5
     | Prompt Instructions
-    /-if writing_style.versions.present?
-    /  span.ml-2
-    /    |[
-    /  = link_to "Previous Versions", writing_style_versions_path(writing_style_id: writing_style.id), class: 'text-blue-700 hover:text-blue-700', data: {turbo_frame: "_top"}
-    /  |]
+    -if character.versions.present?
+      span.ml-2
+        |[
+      = link_to "Previous Versions", character_versions_path(character_id: character.id), class: 'text-blue-700 hover:text-blue-700', data: {turbo_frame: "_top"}
+      |]
   =r ux.segment '!bg-yellow-100 !mb-10'
     = simple_format character.prompt

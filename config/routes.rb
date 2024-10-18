@@ -32,6 +32,15 @@ Rails.application.routes.draw do
       post :generate_prompt
       post :iterate
     end
+
+    scope module: :character do
+      resources :versions do
+        member do
+          post :revert
+          post :merge
+        end
+      end
+    end
   end
 
   resources :perspectives
