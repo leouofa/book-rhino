@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     member do
       post :generate_prompt
       post :iterate
+      get :edit_prompt
     end
 
     scope module: :character do
