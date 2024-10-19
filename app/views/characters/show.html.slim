@@ -6,7 +6,6 @@
           =r ux.component_header
             = breadcrumb_parent @component_name, send(@component_list_path)
             = @component.name
-          /div.flex.justify-between
           =r ux.component_button_holder
             = button_to 'Edit Prompt', edit_prompt_character_path, method: :get, class: 'btn-secondary mr-2', data: { 'turbo-action': 'replace'}
             = button_to 'Generate Prompt', generate_prompt_character_path, method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
