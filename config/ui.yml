@@ -244,6 +244,11 @@ ui:
     ui: false
     css_class: '!font-mono !mb-0 left-aligned'
 
+  component_button_holder:
+    tag: div
+    ui: false
+    css_class: 'flex justify-between items-center'
+
   component_divider:
     tag: div
     css_class: 'divider !mb-12'
