@@ -7,7 +7,7 @@
             = breadcrumb_parent @component_name, send(@component_list_path)
             = @component.name
           =r ux.component_button_holder
-            = button_to 'Edit Prompt', edit_prompt_character_path, method: :get, class: 'btn-secondary mr-2', data: { 'turbo-action': 'replace'}
+            = link_to 'Edit Prompt', edit_prompt_character_path, class: 'btn-secondary mr-2'
             = button_to 'Generate Prompt', generate_prompt_character_path, method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
         =r ux.component_divider
 

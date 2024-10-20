@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
 
+  # Admin access to Sidekiq
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -9,41 +10,36 @@ Rails.application.routes.draw do
 
   root "page#index"
 
+  concern :versionable do
+    resources :versions, only: %i[index] do
+      member do
+        post :revert
+        post :merge
+      end
+    end
+  end
+
   resources :writing_styles do
     resources :texts
-
-    member do
-      post :iterate
-    end
+    post :iterate, on: :member
 
     scope module: :writing_style do
-      resources :versions do
-        member do
-          post :revert
-          post :merge
-        end
-      end
+      concerns :versionable
     end
   end
 
   resources :books
+
   resources :characters do
-    member do
-      post :generate_prompt
-      post :iterate
-      get :edit_prompt
-    end
+    post :generate_prompt, :iterate, on: :member
+    get :edit_prompt, on: :member
 
     scope module: :character do
-      resources :versions do
-        member do
-          post :revert
-          post :merge
-        end
-      end
+      concerns :versionable
     end
   end
 
+  # Static resources
   resources :perspectives
   resources :archetypes
   resources :personality_traits
@@ -51,7 +47,8 @@ Rails.application.routes.draw do
   resources :narrative_structures
   resources :character_types
 
+  # Other resources
   resources :unauthorized, only: %i[index]
-  resources :settings, only: [:index, :edit]
-  resource :settings, only: [:update]
+  resources :settings, only: %i[index edit]
+  resource :settings, only: %i[update]
 end
