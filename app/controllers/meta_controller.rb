@@ -2,7 +2,7 @@ class MetaController < ApplicationController
   include RestrictedAccess
 
   before_action :set_meta
-  before_action :set_component, only: [:show, :edit, :update, :destroy]
+  before_action :set_component, only: [:show, :edit, :edit_prompt, :update, :destroy]
   before_action :set_parent, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   def index
@@ -18,6 +18,8 @@ class MetaController < ApplicationController
   def edit; end
 
   def show; end
+
+  def edit_prompt; end
 
   def create
     @component = @component_klass.new(component_params)
@@ -38,9 +40,13 @@ class MetaController < ApplicationController
 
   def update
     if @component.update(component_params)
-      redirect_to send(@component_list_path), notice: "#{@component_name} was successfully updated."
+      if component_params[:prompt]
+        redirect_to send(@component_detail_path, @component.id), notice: "#{@component_name} was successfully updated."
+      else
+        redirect_to send(@component_list_path), notice: "#{@component_name} was successfully updated."
+      end
     else
-      render :edit
+      render component_params[:prompt] ? :edit_prompt : :edit
     end
   end
 
