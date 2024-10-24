@@ -1,0 +1,39 @@
+- if @component.errors.any?
+  =render 'partials/form_errors'
+
+=r ux.component_segment
+  = form_with model: @component, class: 'ui form', local: true do |form|
+    =r ux.component_field
+      = form.label :name
+      = form.text_field :name, value: @component.name
+
+    =r ux.component_field
+      = form.label :lighting
+      = form.text_area :lighting, value: @component.lighting
+
+    =r ux.component_field
+      = form.label :time
+      = form.text_area :time, value: @component.time
+
+    =r ux.component_field
+      = form.label :noise_level
+      = form.text_area :noise_level, value: @component.noise_level
+
+    =r ux.component_field
+      = form.label :comfort
+      = form.text_area :comfort, value: @component.comfort
+
+    =r ux.component_field
+      = form.label :aesthetics
+      = form.text_area :aesthetics, value: @component.aesthetics
+
+    =r ux.component_field
+      = form.label :accessibility
+      = form.text_area :accessibility, value: @component.accessibility
+
+    =r ux.component_field
+      = form.label :personalization
+      = form.text_area :personalization, value: @component.personalization
+
+    =r ux.component_submit_field
+      = form.submit class: 'btn-primary'

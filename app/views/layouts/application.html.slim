@@ -82,6 +82,10 @@ html lang="en"
                         | Character Types
 
 
+                  = link_to locations_path, class: "item #{menu_active?(locations_path)}"
+                    =r ux.icon 'building'
+                    | Locations
+
                   /
                   /
                   / =r ux.item class: "dropdown #{dropdown_active?(stories_path)}", ui: :on

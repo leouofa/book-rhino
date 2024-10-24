@@ -121,4 +121,23 @@ namespace :import do
       end
     end
   end
+
+  desc "Import locations from a YAML file"
+  task locations: :environment do
+    yaml_file = Rails.root.join("blueprints/locations.yml")
+    locations = YAML.load_file(yaml_file)['locations']
+
+    locations.each do |location_data|
+      location = Location.find_or_initialize_by(name: location_data['name'])
+      location.description = location_data['description']
+      location.examples = location_data['examples']
+
+      if location.save
+        puts "Successfully imported: #{location.name}"
+      else
+        puts "Failed to import: #{location.name}"
+        puts location.errors.full_messages
+      end
+    end
+  end
 end
