@@ -10,30 +10,72 @@
     =r ux.component_field
       = form.label :lighting
       = form.text_area :lighting, value: @component.lighting
+      =r ux.component_hint text: 'The type and quality of light available in the reading location.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: 'Natural sunlight streaming through a window.'
+        =r ux.list_item text: 'Soft, warm lamp lighting in a cozy room.'
+        =r ux.list_item text: 'Bright, overhead lights in a library.'
 
     =r ux.component_field
       = form.label :time
       = form.text_area :time, value: @component.time
+      =r ux.component_hint text: 'The influence of time of day and season on the ambiance of the reading location.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: 'Early morning light filtering through curtains.'
+        =r ux.list_item text: 'Reading in the late evening under dimmed lights.'
+        =r ux.list_item text: 'Curling up with a book on a snowy winter afternoon.'
 
     =r ux.component_field
       = form.label :noise_level
       = form.text_area :noise_level, value: @component.noise_level
+      =r ux.component_hint text: 'The amount of background noise present in the location.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: 'Complete silence in a home library.'
+        =r ux.list_item text: 'Mild chatter and background music in a café.'
+        =r ux.list_item text: 'The sound of birds chirping in a park.'
 
     =r ux.component_field
       = form.label :comfort
       = form.text_area :comfort, value: @component.comfort
+      =r ux.component_hint text: 'The physical comfort provided by the environment, including seating and temperature.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: 'Sitting in a soft, cushioned armchair.'
+        =r ux.list_item text: 'Lying on a hammock outdoors.'
+        =r ux.list_item text: 'Reading with a warm blanket in a cool room.'
 
     =r ux.component_field
       = form.label :aesthetics
       = form.text_area :aesthetics, value: @component.aesthetics
+      =r ux.component_hint text: 'The visual appeal and design elements of the location.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: 'A room decorated with warm, inviting colors.'
+        =r ux.list_item text: 'A modern, minimalist study with a clean design.'
+        =r ux.list_item text: 'A scenic view of mountains or a garden while reading.'
 
     =r ux.component_field
       = form.label :accessibility
       = form.text_area :accessibility, value: @component.accessibility
+      =r ux.component_hint text: 'The convenience of accessing books and the location itself.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: "A bookshelf within arm's reach."
+        =r ux.list_item text: 'A comfortable corner in a nearby café.'
+        =r ux.list_item text: "A study area easily accessible from the reader's home."
 
     =r ux.component_field
       = form.label :personalization
       = form.text_area :personalization, value: @component.personalization
+      =r ux.component_hint text: 'The personal connection or familiarity a reader has with the location.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: 'A favorite chair by the fireplace.'
+        =r ux.list_item text: 'A special reading nook in a childhood home.'
+        =r ux.list_item text: 'A corner of the library where the reader has established a routine.'
 
     =r ux.component_submit_field
       = form.submit class: 'btn-primary'

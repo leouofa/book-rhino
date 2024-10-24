@@ -261,6 +261,11 @@ ui:
     tag: div
     css_class: 'component field'
 
+  component_hint:
+    tag: div
+    ui: false
+    css_class: 'text text-gray-600 mt-3 mb-2'
+
   component_submit_field:
     tag: div
     css_class: 'field !mt-8'
