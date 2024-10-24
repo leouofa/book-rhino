@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :locations
+
   # Static resources
   resources :perspectives
   resources :archetypes

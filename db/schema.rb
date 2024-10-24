@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_14_231106) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_22_224939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -94,6 +94,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_14_231106) do
     t.bigint "personality_trait_id", null: false
     t.index ["character_id", "personality_trait_id"], name: "idx_on_character_id_personality_trait_id_bde1d5670b"
     t.index ["personality_trait_id", "character_id"], name: "idx_on_personality_trait_id_character_id_aa8c32a6c8"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.text "lighting"
+    t.text "time"
+    t.text "noise_level"
+    t.text "comfort"
+    t.text "aesthetics"
+    t.text "accessibility"
+    t.text "personalization"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "locks", force: :cascade do |t|
