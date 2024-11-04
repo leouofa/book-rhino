@@ -2,7 +2,7 @@ class MetaController < ApplicationController
   include RestrictedAccess
 
   before_action :set_meta
-  before_action :set_component, only: [:show, :edit, :edit_prompt, :update, :destroy, :iterate]
+  before_action :set_component, only: [:show, :edit, :edit_prompt, :update, :destroy, :iterate, :generate_prompt]
   before_action :set_parent, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   before_action :set_message, only: [:iterate]
 
@@ -51,6 +51,14 @@ class MetaController < ApplicationController
     end
   end
 
+  def generate_prompt
+    generate_prompt_job.perform_later(@component)
+
+    respond_to do |format|
+      format.turbo_stream { render :iterate }
+    end
+  end
+
   def iterate
       iterate_job.perform_later(@component, @message)
 
@@ -75,6 +83,10 @@ class MetaController < ApplicationController
 
   def iterate_job
     raise NotImplementedError, "#{self.class} must implement iterate_job"
+  end
+
+  def generate_prompt_job
+    raise NotImplementedError, "#{self.class} must implement generate_prompt_job"
   end
 
   def component_path
