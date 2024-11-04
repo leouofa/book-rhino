@@ -1,16 +1,14 @@
 class CharacterTypesController < MetaController
-  def index
-    scope = set_scope
-    where = set_where
-    @component_list = @component_klass.send('where', where).send(scope).order(created_at: :asc).page params[:page]
-  end
-
   def component_name
     'Character Types'
   end
 
   def component_class
     'CharacterType'.constantize
+  end
+
+  def sort_direction
+    :asc
   end
 
   def component_params
