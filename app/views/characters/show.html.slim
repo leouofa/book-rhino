@@ -15,4 +15,4 @@
         = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
           = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
 
-        = render partial: 'iterate_form', locals: { component: @component}
+        = render partial: 'iterate_form', locals: { component: @component, computer_name: @computer_name}
