@@ -1,10 +1,4 @@
 class CharactersController < MetaController
-  def index
-    scope = set_scope
-    where = set_where
-    @component_list = @component_klass.send('where', where).send(scope).order(created_at: :asc).page params[:page]
-  end
-
   private
 
   def component_name
@@ -21,6 +15,10 @@ class CharactersController < MetaController
 
   def generate_prompt_job
     GenerateCharacterPromptJob
+  end
+
+  def sort_direction
+    :desc
   end
 
   def component_params

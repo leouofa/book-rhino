@@ -9,7 +9,11 @@ class MetaController < ApplicationController
   def index
     scope = set_scope
     where = set_where
-    @component_list = @component_klass.send('where', where).send(scope).order(created_at: :desc).page params[:page]
+    @component_list = @component_klass
+                      .send('where', where)
+                      .send(scope)
+                      .order(created_at: sort_direction)
+                      .page params[:page]
   end
 
   def new
@@ -60,11 +64,11 @@ class MetaController < ApplicationController
   end
 
   def iterate
-      iterate_job.perform_later(@component, @message)
+    iterate_job.perform_later(@component, @message)
 
-      respond_to do |format|
-        format.turbo_stream
-      end
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
@@ -116,6 +120,10 @@ class MetaController < ApplicationController
 
   def set_scope
     'all'
+  end
+
+  def sort_direction
+    :desc
   end
 
   def prefix
