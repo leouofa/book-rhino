@@ -45,17 +45,19 @@ html lang="en"
                         =r ux.icon 'book'
                         | All Books
 
+                      =r ux.divider
+
                       = link_to writing_styles_path, class: "item #{menu_active?(writing_styles_path)}"
                         =r ux.icon 'vest patches'
                         | Writing Styles
 
-                      = link_to narrative_structures_path, class: "item #{menu_active?(narrative_structures_path)}"
-                        =r ux.icon 'kaaba'
-                        | Narrative Structures
-
                       = link_to perspectives_path, class: "item #{menu_active?(perspectives_path)}"
                         =r ux.icon 'user tie'
                         | Perspectives
+
+                      = link_to narrative_structures_path, class: "item #{menu_active?(narrative_structures_path)}"
+                        =r ux.icon 'kaaba'
+                        | Narrative Structures
 
                   =r ux.item class: "dropdown #{dropdown_active?(characters_path)}", ui: :on
                     =r ux.icon 'hiking'
@@ -65,6 +67,13 @@ html lang="en"
                       = link_to characters_path, class: "item #{menu_active?(characters_path)}"
                         =r ux.icon 'hiking'
                         | All Characters
+
+                      =r ux.divider
+
+                      = link_to character_types_path, class: "item #{menu_active?(character_types_path)}"
+                        =r ux.icon 'frog'
+                        | Character Types
+
                       = link_to archetypes_path, class: "item #{menu_active?(archetypes_path)}"
                         =r ux.icon 'mask'
                         | Archetypes
@@ -76,10 +85,6 @@ html lang="en"
                       = link_to moral_alignments_path, class: "item #{menu_active?(moral_alignments_path)}"
                         =r ux.icon 'angry'
                         | Moral Alignments
-
-                      = link_to character_types_path, class: "item #{menu_active?(character_types_path)}"
-                        =r ux.icon 'frog'
-                        | Character Types
 
 
                   = link_to locations_path, class: "item #{menu_active?(locations_path)}"
