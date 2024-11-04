@@ -17,10 +17,6 @@ class CharactersController < MetaController
     GenerateCharacterPromptJob
   end
 
-  def sort_direction
-    :desc
-  end
-
   def component_params
     params.require(@computer_name.to_sym).permit(:name, :gender, :age, :ethnicity, :nationality, :appearance, :health,
                                                  :fears, :desires, :backstory, :skills, :values, :prompt,
