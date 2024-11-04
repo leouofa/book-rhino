@@ -4,7 +4,7 @@
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
           =r ux.component_header text: 'Previous Character Versions'
-          =r ux.component_return_action text: '< Back', url: character_path(@character), data: { 'turbo-action': 'replace'}
+          / =r ux.component_return_action text: '< Back', url: character _path(@character), data: { 'turbo-action': 'replace'}
         =r ux.component_divider
         - @versions_with_prompt_changes.each do |version|
           = r ux.version
