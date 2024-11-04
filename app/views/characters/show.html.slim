@@ -11,8 +11,8 @@
             = button_to 'Generate Prompt', send(@component_generate_prompt_path), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
         =r ux.component_divider
 
-        = turbo_stream_from "character_#{@component.id}"
-        = turbo_frame_tag "character_#{@component.id}_prompt"
-          = render partial: 'prompt', locals: { character: @component }
+        = turbo_stream_from "#{@computer_name}_#{@component.id}"
+        = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
+          = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
 
         = render partial: 'iterate_form', locals: { component: @component}

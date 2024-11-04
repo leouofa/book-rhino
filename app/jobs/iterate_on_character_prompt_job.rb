@@ -1,7 +1,7 @@
 class IterateOnCharacterPromptJob < ApplicationJob
   queue_as :default
 
-  def perform(character, message)
+  def perform(component, message)
     @client = OpenAI::Client.new
 
     system_role = <<~SYSTEM_ROLE
@@ -12,21 +12,21 @@ class IterateOnCharacterPromptJob < ApplicationJob
 
     messages = [
       { role: "system", content: system_role },
-      { role: "user", content: "Character Description:\n#{character.prompt}\n--------\nRequest:\n#{message}" }
+      { role: "user", content: "Character Description:\n#{component.prompt}\n--------\nRequest:\n#{message}" }
     ]
 
     sleep(0.1)
 
-    character.update(pending: true)
-    broadcast_character_update(character)
+    component.update(pending: true)
+    broadcast_component_update(component)
 
     sleep(3)
 
     response = chat(messages:)
 
-    character.update(prompt: response["choices"][0]["message"]["content"], pending: false)
+    component.update(prompt: response["choices"][0]["message"]["content"], pending: false)
 
-    broadcast_character_update(character)
+    broadcast_component_update(component)
   end
 
   private
@@ -41,13 +41,14 @@ class IterateOnCharacterPromptJob < ApplicationJob
     )
   end
 
-  def broadcast_character_update(character)
-    # This broadcasts to the specific Turbo Stream channel for the writing style
+  def broadcast_component_update(component)
+    component_name = component.class.name.underscore
+
     Turbo::StreamsChannel.broadcast_update_to(
-      "character_#{character.id}", # unique identifier for the writing style
-      target: "character_#{character.id}_prompt", # the DOM ID where the prompt will be inserted
-      partial: "characters/prompt", # partial view to render the updated content
-      locals: { character: }
+      "#{component_name}_#{component.id}", # unique identifier for the component
+      target: "#{component_name}_#{component.id}_prompt", # the DOM ID where the prompt will be inserted
+      partial: "#{component_name.pluralize}/prompt", # partial view to render the updated content
+      locals: { component:, computer_name: component_name }
     )
   end
 end
