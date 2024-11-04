@@ -1,4 +1,5 @@
 class MetaVersionController < ApplicationController
+  before_action :set_meta
   before_action :set_parent
   before_action :set_version, only: %i[revert merge]
 
@@ -43,7 +44,17 @@ class MetaVersionController < ApplicationController
   end
 
   def redirect_path
-    raise NotImplementedError
+    send(parent_path, @parent)
+  end
+
+  def set_meta
+    parent_name = parent_class.name.underscore
+    base_path = "#{parent_name}_version"
+
+    @version_header = "Previous #{parent_class.name} Versions"
+    @parent_path = parent_path
+    @revert_path = "revert_#{base_path}_path"
+    @merge_path = "merge_#{base_path}_path"
   end
 
   def parse_version_prompt(prompt)

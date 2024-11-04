@@ -3,17 +3,19 @@
     =r ux.column width: 16
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
-          =r ux.component_header text: 'Previous Character Versions'
-          / =r ux.component_return_action text: '< Back', url: character _path(@character), data: { 'turbo-action': 'replace'}
+          =r ux.component_header text: @version_header
+          =r ux.component_return_action text: '< Back', url: send(@parent_path, @parent), data: { 'turbo-action': 'replace'}
         =r ux.component_divider
         - @versions_with_prompt_changes.each do |version|
           = r ux.version
             =r ux.version_menu
               =r ux.menu 'right'
                 =r ux.item
-                  = button_to 'Revert Version', revert_character_version_path(id: version[:id]), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
+                  / = button_to 'Revert Version', revert_character_version_path(id: version[:id]), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
+                  = button_to 'Revert Version', send(@revert_path, id: version[:id]), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
                 =r ux.item
-                  = button_to 'Merge With Current', merge_character_version_path(id: version[:id]), method: :post, class: 'btn-secondary', data: { 'turbo-action': 'replace'}
+                  / = button_to 'Merge With Current', merge_character_version_path(id: version[:id]), method: :post, class: 'btn-secondary', data: { 'turbo-action': 'replace'}
+                  = button_to 'Merge With Current', send(@merge_path, id: version[:id]), method: :post, class: 'btn-secondary', data: { 'turbo-action': 'replace'}
             =r ux.version_meta
               =r ux.component_container
                 = r ux.version_meta_text text: "Version ID: #{version[:id]}"

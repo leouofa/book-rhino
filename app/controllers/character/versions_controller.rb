@@ -9,7 +9,7 @@ class Character::VersionsController < MetaVersionController
     MergeCharacterPromptsJob
   end
 
-  def redirect_path
-    character_path(@parent)
+  def parent_path
+    "character_path"
   end
 end
