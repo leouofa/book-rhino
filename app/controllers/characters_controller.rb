@@ -14,16 +14,6 @@ class CharactersController < MetaController
     end
   end
 
-  def iterate
-    set_component
-    message = params[:message]
-    IterateOnCharacterPromptJob.perform_later(@component, message)
-
-    respond_to do |format|
-      format.turbo_stream
-    end
-  end
-
   private
 
   def component_name
@@ -32,6 +22,10 @@ class CharactersController < MetaController
 
   def component_class
     'Character'.constantize
+  end
+
+  def iterate_job
+    IterateOnCharacterPromptJob
   end
 
   def component_params

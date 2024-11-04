@@ -2,8 +2,9 @@ class MetaController < ApplicationController
   include RestrictedAccess
 
   before_action :set_meta
-  before_action :set_component, only: [:show, :edit, :edit_prompt, :update, :destroy]
+  before_action :set_component, only: [:show, :edit, :edit_prompt, :update, :destroy, :iterate]
   before_action :set_parent, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :set_message, only: [:iterate]
 
   def index
     scope = set_scope
@@ -50,6 +51,14 @@ class MetaController < ApplicationController
     end
   end
 
+  def iterate
+      iterate_job.perform_later(@component, @message)
+
+      respond_to do |format|
+        format.turbo_stream
+      end
+  end
+
   private
 
   def component_name
@@ -62,6 +71,10 @@ class MetaController < ApplicationController
 
   def component_params
     raise NotImplementedError
+  end
+
+  def iterate_job
+    raise NotImplementedError, "#{self.class} must implement iterate_job"
   end
 
   def component_path
@@ -97,4 +110,8 @@ class MetaController < ApplicationController
   end
 
   def set_parent; end
+
+  def set_message
+    @message = params[:message]
+  end
 end

@@ -20,6 +20,10 @@ class WritingStylesController < MetaController
     'WritingStyle'.constantize
   end
 
+  def iterate_job
+    IterateOnWritingStyleJob
+  end
+
   def component_params
     params.require(@computer_name.to_sym).permit(:name)
   end
