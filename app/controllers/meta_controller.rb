@@ -97,12 +97,17 @@ class MetaController < ApplicationController
     @component_name = component_name
     @component_klass = component_class
     @computer_name = @component_klass.name.underscore
-    @component_list_path = "#{prefix}#{component_path.pluralize}_path"
-    @component_detail_path = "#{prefix}#{component_path}_path"
-    @component_path = "#{prefix}#{component_path}_path"
-    @component_new_path = "new_#{prefix}#{component_path}_path"
-    @component_edit_path = "edit_#{prefix}#{component_path}_path"
-    @component_delete_path = "#{prefix}#{component_path}_path"
+    base_path = "#{prefix}#{component_path}"
+
+    @component_list_path = "#{base_path.pluralize}_path"
+    @component_detail_path = "#{base_path}_path"
+    @component_path = "#{base_path}_path"
+    @component_new_path = "new_#{base_path}_path"
+    @component_edit_path = "edit_#{base_path}_path"
+    @component_delete_path = "#{base_path}_path"
+    @component_edit_prompt_path = "edit_prompt_#{base_path}_path"
+    @component_generate_prompt_path = "generate_prompt_#{base_path}_path"
+    @component_iterate_path = "iterate_#{base_path}_path"
   end
 
   def set_component
