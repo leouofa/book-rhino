@@ -5,25 +5,6 @@ class CharactersController < MetaController
     @component_list = @component_klass.send('where', where).send(scope).order(created_at: :asc).page params[:page]
   end
 
-  def generate_prompt
-    set_component
-    GenerateCharacterPromptJob.perform_later(@component)
-
-    respond_to do |format|
-      format.turbo_stream { render :iterate }
-    end
-  end
-
-  def iterate
-    set_component
-    message = params[:message]
-    IterateOnCharacterPromptJob.perform_later(@component, message)
-
-    respond_to do |format|
-      format.turbo_stream
-    end
-  end
-
   private
 
   def component_name
@@ -32,6 +13,14 @@ class CharactersController < MetaController
 
   def component_class
     'Character'.constantize
+  end
+
+  def iterate_job
+    IterateOnCharacterPromptJob
+  end
+
+  def generate_prompt_job
+    GenerateCharacterPromptJob
   end
 
   def component_params
