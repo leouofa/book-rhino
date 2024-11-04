@@ -107,6 +107,7 @@ class MetaController < ApplicationController
     @component_delete_path = "#{base_path}_path"
     @component_edit_prompt_path = "edit_prompt_#{base_path}_path"
     @component_generate_prompt_path = "generate_prompt_#{base_path}_path"
+    @component_iterate_path = "iterate_#{base_path}_path"
   end
 
   def set_component
