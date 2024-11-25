@@ -44,7 +44,7 @@ gem 'kaminari', github: 'kaminari/kaminari', branch: 'master'
 
 # Frontend
 gem 'meta-tags'
-gem 'rapid_ui', github: 'realstorypro/rapid-ui'
+gem 'rapid_ui', github: 'leouofa/rapid-ui'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'sprockets-rails'
