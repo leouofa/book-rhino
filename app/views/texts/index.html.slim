@@ -6,8 +6,9 @@
           =r ux.component_header
             = breadcrumb_parent @parent_name, send(@parent_path)
             = @parent.name
-          / =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
-          = link_to 'Edit Prompt', send(@parent_edit_prompt_path, params[:writing_style_id]), class: 'btn-secondary mr-2'
+          =r ux.component_button_holder
+            = link_to 'Edit Prompt', send(@parent_edit_prompt_path, params[:writing_style_id]), class: 'btn-secondary mr-2'
+            = button_to 'Generate Prompt', send(@parent_generate_prompt_path, params[:writing_style_id]), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
         =r ux.component_divider
 
         =r ux.div 'text-center'
