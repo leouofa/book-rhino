@@ -16,6 +16,7 @@ class WritingStylesController < MetaController
   def iterate_job
     IterateOnWritingStyleJob
   end
+
   def generate_prompt_job
     ProcessWritingStyleJob
   end

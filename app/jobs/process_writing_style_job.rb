@@ -1,43 +1,32 @@
-class ProcessWritingStyleJob < ApplicationJob
-  queue_as :default
-
-  def perform(writing_style)
-    question = ""
-
-    writing_style.texts.each do |text|
-      question.concat "``````", "Text Name: #{text.name}, Corpus: #{text.corpus}", "``````"
-    end
-
-    @client = OpenAI::Client.new
-
-    system_role = <<~SYSTEM_ROLE
-      You are a college level english teacher. Analyze the following writing style and produce a set of instructions for ChatGPT in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
-    SYSTEM_ROLE
-
-    messages = [
-      { role: "system", content: system_role },
-      { role: "user", content: question }
-    ]
+class ProcessWritingStyleJob < MetaJob
+  def perform(component)
+    @component = component
 
     sleep(0.5)
-
-    writing_style.update(pending: true)
-    broadcast_writing_style_update(writing_style)
-
+    super()
     sleep(10)
+  end
 
-    response = chat(messages:)
+  private
 
-    writing_style.update(prompt: response["choices"][0]["message"]["content"], pending: false)
+  def system_role
+    <<~SYSTEM_ROLE
+      You are a college level english teacher. Analyze the following writing style and produce a set of instructions for ChatGPT in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
+    SYSTEM_ROLE
+  end
 
-    # Broadcasting Turbo Stream after updating the writing style
-    broadcast_writing_style_update(writing_style)
+  def user_content
+    question = ""
+    @component.texts.each do |text|
+      question.concat "``````", "Text Name: #{text.name}, Corpus: #{text.corpus}", "``````"
+    end
+    question
   end
 
   def chat(messages:)
     @client.chat(
       parameters: {
-        model: ENV['OPENAI_GPT_MODEL'], # Required.
+        model: ENV['OPENAI_GPT_MODEL'],
         messages:,
         temperature: 0.7,
         response_format: { type: "json_object" }
@@ -45,15 +34,14 @@ class ProcessWritingStyleJob < ApplicationJob
     )
   end
 
-  private
+  def broadcast_component_update(component)
+    component_name = component.class.name.underscore
 
-  def broadcast_writing_style_update(writing_style)
-    # This broadcasts to the specific Turbo Stream channel for the writing style
     Turbo::StreamsChannel.broadcast_update_to(
-      "writing_style_#{writing_style.id}", # unique identifier for the writing style
-      target: "writing_style_#{writing_style.id}_prompt", # the DOM ID where the prompt will be inserted
+      "#{component_name}_#{component.id}",
+      target: "#{component_name}_#{component.id}_prompt",
       partial: "texts/prompt", # partial view to render the updated content
-      locals: { writing_style: }
+      locals: { component:, computer_name: component_name }
     )
   end
 end
