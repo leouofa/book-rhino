@@ -1,4 +1,8 @@
 class WritingStylesController < MetaController
+  def show
+    redirect_to writing_style_texts_path(writing_style_id: @component.id)
+  end
+
   private
 
   def component_name
@@ -14,6 +18,6 @@ class WritingStylesController < MetaController
   end
 
   def component_params
-    params.require(@computer_name.to_sym).permit(:name)
+    params.require(@computer_name.to_sym).permit(:name, :prompt)
   end
 end

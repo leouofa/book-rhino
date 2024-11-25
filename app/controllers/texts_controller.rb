@@ -21,6 +21,7 @@ class TextsController < MetaController
     @parent = WritingStyle.find(params[:writing_style_id])
     @parent_name = 'Writing Styles'
     @parent_path = 'writing_styles_path'
+    @parent_edit_prompt_path = 'edit_prompt_writing_style_path'
   end
 
   def component_params

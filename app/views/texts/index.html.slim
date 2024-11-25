@@ -6,7 +6,8 @@
           =r ux.component_header
             = breadcrumb_parent @parent_name, send(@parent_path)
             = @parent.name
-          =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
+          / =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
+          = link_to 'Edit Prompt', send(@parent_edit_prompt_path, params[:writing_style_id]), class: 'btn-secondary mr-2'
         =r ux.component_divider
 
         =r ux.div 'text-center'
@@ -19,6 +20,9 @@
         = render partial: 'iterate_form', locals: { parent: @parent }
 
 
+        =r ux.component_container
+          =r ux.component_header text: @component_name
+          =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
         =r ux.table class: 'relaxed celled striped structured'
           =r ux.thead
             =r ux.tr

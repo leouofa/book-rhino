@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
   resources :writing_styles do
     resources :texts
-    post :iterate, on: :member
+    post :generate_prompt, :iterate, on: :member
+    get :edit_prompt, on: :member
 
     scope module: :writing_style do
       concerns :versionable
