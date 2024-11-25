@@ -22,6 +22,7 @@ class TextsController < MetaController
     @parent_name = 'Writing Styles'
     @parent_path = 'writing_styles_path'
     @parent_edit_prompt_path = 'edit_prompt_writing_style_path'
+    @parent_generate_prompt_path = 'generate_prompt_writing_style_path'
   end
 
   def component_params

@@ -16,6 +16,9 @@ class WritingStylesController < MetaController
   def iterate_job
     IterateOnWritingStyleJob
   end
+  def generate_prompt_job
+    ProcessWritingStyleJob
+  end
 
   def component_params
     params.require(@computer_name.to_sym).permit(:name, :prompt)
