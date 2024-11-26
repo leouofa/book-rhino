@@ -68,8 +68,8 @@ class IterateOnWritingStyleJob < ApplicationJob
     Turbo::StreamsChannel.broadcast_update_to(
       "writing_style_#{writing_style.id}",
       target: "writing_style_#{writing_style.id}_prompt",
-      partial: "texts/prompt",
-      locals: { writing_style: writing_style }
+      partial: "writing_styles/prompt",
+      locals: { component: writing_style }
     )
   end
 end

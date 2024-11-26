@@ -16,9 +16,8 @@
 
         = turbo_stream_from "writing_style_#{@parent.id}"
         = turbo_frame_tag "writing_style_#{@parent.id}_prompt"
-          = render partial: 'prompt', locals: { component: @parent }
-
-        = render partial: 'iterate_form', locals: { parent: @parent }
+          = render partial: 'writing_styles/prompt', locals: { component: @parent }
+        = render partial: 'writing_styles/iterate_form', locals: { parent: @parent }
 
 
         =r ux.component_container
