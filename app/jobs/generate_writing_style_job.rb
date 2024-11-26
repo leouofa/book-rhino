@@ -1,4 +1,4 @@
-class ProcessWritingStyleJob < MetaJob
+class GenerateWritingStyleJob < MetaJob
   def perform(component)
     @component = component
 

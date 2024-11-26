@@ -18,7 +18,7 @@ class WritingStylesController < MetaController
   end
 
   def generate_prompt_job
-    ProcessWritingStyleJob
+    GenerateWritingStyleJob
   end
 
   def component_params
