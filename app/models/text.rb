@@ -15,12 +15,12 @@ class Text < ApplicationRecord
   validates :name, presence: true
   validates :corpus, presence: true
 
-  after_create_commit :process_writing_style
-  after_update_commit :process_writing_style
+  after_create_commit :generate_writing_style
+  after_update_commit :generate_writing_style
 
   private
 
-  def process_writing_style
-    ProcessWritingStyleJob.perform_later(writing_style)
+  def generate_writing_style
+    GenerateWritingStyleJob.perform_later(writing_style)
   end
 end
