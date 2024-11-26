@@ -11,4 +11,8 @@
 #  updated_at  :datetime         not null
 #
 class Region < ApplicationRecord
+  validates :name, presence: true, uniqueness: true
+  validates :city, presence: true
+  validates :country, presence: true
+  validates :description, presence: true
 end
