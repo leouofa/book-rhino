@@ -11,6 +11,7 @@ class RegionsController < MetaController
     params.require(@computer_name.to_sym).permit(
       :name,
       :city,
+      :state,
       :country,
       :description
     )
