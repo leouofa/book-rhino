@@ -13,17 +13,8 @@ class TextsController < MetaController
     'writing_style_'
   end
 
-  def set_where
-    { writing_style_id: params[:writing_style_id] }
-  end
-
-  def set_parent
-    @parent = WritingStyle.find(params[:writing_style_id])
-    @parent_name = 'Writing Styles'
-    @parent_computer_name = 'writing_style'
-    @parent_path = 'writing_styles_path'
-    @parent_edit_prompt_path = 'edit_prompt_writing_style_path'
-    @parent_generate_prompt_path = 'generate_prompt_writing_style_path'
+  def parent_class
+    WritingStyle
   end
 
   def component_params
