@@ -14,6 +14,9 @@
           = @component.name
           =r ux.h5 text: 'City'
           = @component.city
+          - if @component.state
+            =r ux.h5 text: 'State'
+            = @component.state
           =r ux.h5 text: 'Country'
           = @component.country
           =r ux.h5 text: 'Description'

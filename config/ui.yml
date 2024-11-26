@@ -261,6 +261,10 @@ ui:
     tag: div
     css_class: 'component field'
 
+  required_component_field:
+    tag: div
+    css_class: 'required component field'
+
   component_hint:
     tag: div
     ui: false
