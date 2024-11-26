@@ -33,15 +33,4 @@ class ProcessWritingStyleJob < MetaJob
       }
     )
   end
-
-  def broadcast_component_update(component)
-    component_name = component.class.name.underscore
-
-    Turbo::StreamsChannel.broadcast_update_to(
-      "#{component_name}_#{component.id}",
-      target: "#{component_name}_#{component.id}_prompt",
-      partial: "texts/prompt", # partial view to render the updated content
-      locals: { component:, computer_name: component_name }
-    )
-  end
 end
