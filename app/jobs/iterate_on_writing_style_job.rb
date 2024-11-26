@@ -1,44 +1,38 @@
-class IterateOnWritingStyleJob < ApplicationJob
-  queue_as :default
+class IterateOnWritingStyleJob < MetaJob
+  MAX_RETRIES = 3
 
-  def perform(writing_style, message)
-    writing_style_json = JSON.parse(writing_style.prompt)
-
-    @client = OpenAI::Client.new
-
-    system_role = <<~SYSTEM_ROLE
-        You are a college level english teacher. 
-        You will be provided with a list(containing a set of instructions describing a writing style) and
-        a request asking to modify it. Complete the request and return the new list with numbers 1 through n in JSON format
-    SYSTEM_ROLE
-
-    messages = [
-      { role: "system", content: system_role },
-      { role: "user", content: "Writing Style:\n#{writing_style_json}\n--------\nRequest:\n#{message}" }
-    ]
+  def perform(component, message)
+    @component = component
+    @message = message
+    @writing_style_json = JSON.parse(component.prompt)
 
     sleep(0.1)
-
-
-    writing_style.update(pending: true)
-    broadcast_writing_style_update(writing_style)
-
+    super()
     sleep(3)
+  end
 
-    response = retry_on_failure { chat(messages:) }
+  private
 
-    new_prompt = response["choices"][0]["message"]["content"]
+  def system_role
+    <<~SYSTEM_ROLE
+      You are a college level english teacher. 
+      You will be provided with a list(containing a set of instructions describing a writing style) and
+      a request asking to modify it. Complete the request and return the new list with numbers 1 through n in JSON format
+    SYSTEM_ROLE
+  end
 
-    writing_style.update(prompt: new_prompt, pending: false)
+  def user_content
+    "Writing Style:\n#{@writing_style_json}\n--------\nRequest:\n#{@message}"
+  end
 
-    broadcast_writing_style_update(writing_style)
-
+  def send_chat_request
+    retry_on_failure { chat(messages: build_messages) }
   end
 
   def chat(messages:)
     @client.chat(
       parameters: {
-        model: ENV['OPENAI_SMART_MODEL'], # Required.
+        model: ENV['OPENAI_SMART_MODEL'],
         messages:,
         temperature: 0.7,
         response_format: { type: "json_object" }
@@ -52,24 +46,15 @@ class IterateOnWritingStyleJob < ApplicationJob
     attempts = 0
 
     begin
-      yield # Execute the block passed to retry_on_failure
+      yield
     rescue Faraday::BadRequestError => e
       attempts += 1
       if attempts < MAX_RETRIES
-        sleep(5) # Wait before retrying
-        retry # Retry the block
+        sleep(5)
+        retry
       else
-        raise e # Reraise the exception after max retries
+        raise e
       end
     end
-  end
-
-  def broadcast_writing_style_update(writing_style)
-    Turbo::StreamsChannel.broadcast_update_to(
-      "writing_style_#{writing_style.id}",
-      target: "writing_style_#{writing_style.id}_prompt",
-      partial: "writing_styles/prompt",
-      locals: { component: writing_style }
-    )
   end
 end
