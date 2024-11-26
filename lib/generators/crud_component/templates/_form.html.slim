@@ -1,0 +1,14 @@
+- if @component.errors.any?
+  =render 'partials/form_errors'
+
+=r ux.component_segment
+  = form_with model: @component, class: 'ui form', local: true do |form|
+    <%- attributes.each do |attribute| -%>
+    =r ux.component_field
+      = form.label :<%= attribute.name %>
+      = form.<%= attribute.type == :text ? 'text_area' : 'text_field' %> :<%= attribute.name %>, value: @component.<%= attribute.name %>
+      =r ux.component_hint text: 'Enter <%= attribute.name.humanize.downcase %>'
+
+    <%- end -%>
+    =r ux.component_submit_field
+      = form.submit class: 'btn-primary'

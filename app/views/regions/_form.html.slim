@@ -1,0 +1,24 @@
+- if @component.errors.any?
+  =render 'partials/form_errors'
+
+=r ux.component_segment
+  = form_with model: @component, class: 'ui form', local: true do |form|
+    =r ux.component_field
+      = form.label :name
+      = form.text_field :name, value: @component.name
+      =r ux.component_hint text: 'Enter name'
+
+    =r ux.component_field
+      = form.label :city
+      = form.text_field :city, value: @component.city
+
+    =r ux.component_field
+      = form.label :country
+      = form.text_field :country, value: @component.country
+
+    =r ux.component_field
+      = form.label :description
+      = form.text_area :description, value: @component.description
+
+    =r ux.component_submit_field
+      = form.submit class: 'btn-primary'

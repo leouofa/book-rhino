@@ -1,0 +1,16 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            = breadcrumb_parent @component_name, send(@component_list_path)
+            = @component.name
+          =r ux.component_return_action text: '< Back', url: send(@component_list_path)
+        =r ux.component_divider
+
+        =r ux.segment
+          <%- attributes.each do |attribute| -%>
+          =r ux.h5 text: '<%= attribute.name.humanize %>'
+          = @component.<%= attribute.name %>
+          <%- end -%>
