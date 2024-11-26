@@ -130,11 +130,37 @@ class MetaController < ApplicationController
     ''
   end
 
-  def set_where
-    ''
+  def parent_class
+    nil
   end
 
-  def set_parent; end
+  def parent_param_key
+    return nil unless parent_class
+    "#{parent_class.name.underscore}_id".to_sym
+  end
+
+  def parent_name
+    return nil unless parent_class
+    parent_class.name.titleize.pluralize
+  end
+
+  def set_where
+    return {} unless parent_class && parent_param_key
+    { parent_param_key => params[parent_param_key] }
+  end
+
+  def set_parent
+    return unless parent_class && parent_param_key
+
+    @parent = parent_class.find(params[parent_param_key])
+    base_path = parent_class.name.underscore
+
+    @parent_name = parent_name
+    @parent_computer_name = base_path
+    @parent_path = "#{base_path.pluralize}_path"
+    @parent_edit_prompt_path = "edit_prompt_#{base_path}_path"
+    @parent_generate_prompt_path = "generate_prompt_#{base_path}_path"
+  end
 
   def set_message
     @message = params[:message]
