@@ -16,8 +16,8 @@
 
         = turbo_stream_from "#{@parent_computer_name}_#{@parent.id}"
         = turbo_frame_tag "#{@parent_computer_name}_#{@parent.id}_prompt"
-          = render partial: "#{@parent_computer_name.pluralize}/prompt", locals: { component: @parent }
-        = render partial: "#{@parent_computer_name.pluralize}/iterate_form", locals: { parent: @parent }
+          = render partial: "#{@parent_computer_name.pluralize}/prompt", locals: { component: @parent, computer_name: @parent_computer_name }
+        = render partial: "#{@parent_computer_name.pluralize}/iterate_form", locals: { component: @parent, computer_name: @parent_computer_name }
 
 
         =r ux.component_container
