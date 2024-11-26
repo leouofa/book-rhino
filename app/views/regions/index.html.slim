@@ -1,0 +1,31 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            =@component_name.pluralize
+          =r ux.component_action text: "New #{@component_name}", url: send(@component_new_path)
+        =r ux.component_divider
+
+        =r ux.div 'text-center'
+          = paginate @component_list
+
+        =r ux.table class: 'relaxed celled striped structured'
+          =r ux.thead
+            =r ux.tr
+              =r ux.th text: 'Region Name'
+              th.center.aligned colspan="2" Actions
+          - @component_list.each do |component|
+            =r ux.tr
+              =r ux.td
+                =link_to component.name, region_path(component), class: 'item text-sm', data: {'turbo-action': 'replace'}
+              = r ux.td 'collapsing'
+                = link_to 'Edit', send(@component_edit_path, component), class: 'btn-list-edit'
+              = r ux.td 'collapsing'
+                = button_to 'Delete', send(@component_delete_path, id: component.id), method: :delete,
+                        data: { turbo_confirm: "Are you sure you want to delete this #{@component_name.downcase}?" },
+                        class: 'btn-list-delete'
+
+        =r ux.div 'text-center'
+          = paginate @component_list

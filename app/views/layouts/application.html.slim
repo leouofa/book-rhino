@@ -86,10 +86,21 @@ html lang="en"
                         =r ux.icon 'angry'
                         | Moral Alignments
 
-
-                  = link_to locations_path, class: "item #{menu_active?(locations_path)}"
+                  =r ux.item class: "dropdown #{dropdown_active?(locations_path)}", ui: :on
                     =r ux.icon 'building'
                     | Locations
+                    =r ux.icon 'dropdown'
+                    =r ux.menu
+
+                      = link_to locations_path, class: "item #{menu_active?(locations_path)}"
+                        =r ux.icon 'building'
+                        | All Locations
+
+                      =r ux.divider
+
+                      = link_to regions_path, class: "item #{menu_active?(regions_path)}"
+                        =r ux.icon 'map marker'
+                        | Regions
 
                   /
                   /

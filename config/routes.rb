@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :regions
   require 'sidekiq/web'
 
   # Admin access to Sidekiq
