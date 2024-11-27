@@ -14,9 +14,11 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  region_id       :bigint
+#  description     :text
 #
 class Location < ApplicationRecord
   belongs_to :region, optional: true
 
   validates :name, presence: true, uniqueness: true
+  validates :description, presence: true
 end
