@@ -11,6 +11,16 @@
       = form.label :region_id, "Region"
       = form.collection_select :region_id, Region.all, :id, :name, { prompt: "Select a Region (Optional)" }, class: "ui dropdown"
 
+    =r ux.required_component_field
+      = form.label :description
+      = form.text_area :description, value: @component.description
+      =r ux.component_hint text: 'Provide a detailed description of the reading location.'
+      =r ux.h6 text: 'Examples'
+      =r ux.ordered_list class: '!mb-16 small'
+        =r ux.list_item text: 'A cozy corner in a local library with large windows and wooden furniture.'
+        =r ux.list_item text: 'A peaceful garden bench surrounded by flowering plants and trees.'
+        =r ux.list_item text: 'A modern coffee shop with comfortable seating and ambient music.'
+
     =r ux.component_field
       = form.label :lighting
       = form.text_area :lighting, value: @component.lighting

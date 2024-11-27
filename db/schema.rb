@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_27_022214) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_27_183045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -108,6 +108,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_022214) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "region_id"
+    t.text "description"
     t.index ["region_id"], name: "index_locations_on_region_id"
   end
 
