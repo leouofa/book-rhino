@@ -10,6 +10,11 @@
         =r ux.component_divider
 
         =r ux.segment
+          =r ux.h5 text: 'Region'
+          - if @component.region
+            = "#{@component.region.name} (#{@component.region.city}, #{@component.region.country})"
+          - else
+            | No region specified
           =r ux.h5 text: 'Lighting'
           = @component.lighting
           =r ux.h5 text: 'Time'

@@ -10,6 +10,7 @@ class LocationsController < MetaController
   def component_params
     params.require(@computer_name.to_sym).permit(
       :name,
+      :region_id,
       :lighting,
       :time,
       :noise_level,

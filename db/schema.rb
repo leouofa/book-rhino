@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_26_213615) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_27_022214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -107,6 +107,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_26_213615) do
     t.text "personalization"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "region_id"
+    t.index ["region_id"], name: "index_locations_on_region_id"
   end
 
   create_table "locks", force: :cascade do |t|
@@ -226,5 +228,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_26_213615) do
   add_foreign_key "books", "narrative_structures"
   add_foreign_key "books", "perspectives"
   add_foreign_key "books", "writing_styles"
+  add_foreign_key "locations", "regions"
   add_foreign_key "texts", "writing_styles"
 end
