@@ -3,7 +3,7 @@
 
 =r ux.component_segment
   = form_with model: @component, class: 'ui form', local: true do |form|
-    =r ux.component_field
+    =r ux.required_component_field
       = form.label :name
       = form.text_field :name, value: @component.name
 
