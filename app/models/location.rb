@@ -13,6 +13,10 @@
 #  personalization :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  region_id       :bigint
 #
 class Location < ApplicationRecord
+  belongs_to :region, optional: true
+
+  validates :name, presence: true, uniqueness: true
 end

@@ -9,8 +9,11 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  state       :string
 #
 class Region < ApplicationRecord
+  has_many :locations, dependent: :nullify
+
   validates :name, presence: true, uniqueness: true
   validates :city, presence: true
   validates :country, presence: true

@@ -3,9 +3,13 @@
 
 =r ux.component_segment
   = form_with model: @component, class: 'ui form', local: true do |form|
-    =r ux.component_field
+    =r ux.required_component_field
       = form.label :name
       = form.text_field :name, value: @component.name
+
+    = r ux.component_field
+      = form.label :region_id, "Region"
+      = form.collection_select :region_id, Region.all, :id, :name, { prompt: "Select a Region (Optional)" }, class: "ui dropdown"
 
     =r ux.component_field
       = form.label :lighting
