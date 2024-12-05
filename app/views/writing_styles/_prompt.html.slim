@@ -1,18 +1,19 @@
-- if component.pending
-  =r ux.h5 text: 'Prompt Instructions'
-  =r ux.segment '!bg-yellow-100 !mb-10 !h-32'
-    div class="ui active inverted dimmer"
-      div class="ui text loader small elastic" Processing Your Request
+= turbo_frame_tag "#{computer_name}_#{component.id}_prompt"
+  - if component.pending
+    =r ux.h5 text: 'Prompt Instructions'
+    =r ux.segment '!bg-yellow-100 !mb-10 !h-32'
+      div class="ui active inverted dimmer"
+        div class="ui text loader small elastic" Processing Your Request
 
-- if component.prompt.present? && !component.pending
-  =r ux.h5
-    | Prompt Instructions
-    -if component.versions.present?
-      span.ml-2
-        |[
-      = link_to "Previous Versions", send("#{computer_name}_versions_path", "#{computer_name}_id": component.id), class: 'text-blue-700 hover:text-blue-700', data: {turbo_frame: "_top"}
-      |]
-  =r ux.segment '!bg-yellow-100 !mb-10'
-    =r ux.ordered_list
-      - JSON.parse(component.prompt).each do |item|
-        =r ux.list_item text:item[1]
+  - if component.prompt.present? && !component.pending
+    =r ux.h5
+      | Prompt Instructions
+      -if component.versions.present?
+        span.ml-2
+          |[
+        = link_to "Previous Versions", send("#{computer_name}_versions_path", "#{computer_name}_id": component.id), class: 'text-blue-700 hover:text-blue-700', data: {turbo_frame: "_top"}
+        |]
+    =r ux.segment '!bg-yellow-100 !mb-10'
+      =r ux.ordered_list
+        - JSON.parse(component.prompt).each do |item|
+          =r ux.list_item text:item[1]

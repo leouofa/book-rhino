@@ -17,7 +17,21 @@ class WritingStyle < ApplicationRecord
 
   validates :name, presence: true
 
+  validate :prompt_is_valid_json
+
   has_paper_trail ignore: [:name, :pending], versions: {
     scope: -> { order('id desc') }
   }
+
+  private
+
+  def prompt_is_valid_json
+    return if prompt.blank?
+
+    begin
+      JSON.parse(prompt.is_a?(String) ? prompt : prompt.to_json)
+    rescue JSON::ParserError
+      errors.add(:prompt, 'must be a valid JSON object')
+    end
+  end
 end
