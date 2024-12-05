@@ -19,7 +19,7 @@
           - @component_list.each do |component|
             =r ux.tr
               =r ux.td
-                =link_to component.name, region_path(component), class: 'item text-sm', data: {'turbo-action': 'replace'}
+                =link_to component.name, region_path(component), class: 'item text-sm', data: {'turbo-action': 'advance'}
               = r ux.td 'collapsing'
                 = link_to 'Edit', send(@component_edit_path, component), class: 'btn-list-edit'
               = r ux.td 'collapsing'

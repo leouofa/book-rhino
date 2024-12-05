@@ -23,7 +23,7 @@
               <%- attributes.each do |attribute| -%>
               =r ux.td
                 <%- if attribute == attributes.first -%>
-                =link_to component.<%= attribute.name %>, <%= singular_table_name %>_path(component), class: 'item text-sm', data: {'turbo-action': 'replace'}
+                =link_to component.<%= attribute.name %>, <%= singular_table_name %>_path(component), class: 'item text-sm', data: {'turbo-action': 'advance'}
                 <%- else -%>
                 = component.<%= attribute.name %>
                 <%- end -%>
