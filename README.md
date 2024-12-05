@@ -1,5 +1,5 @@
 # Book Rhino 🦏
-<p align="center">“A Revolution in Content Marketing.”</p>
+<p align="center">“Book Writer That Takes Charge”</p>
 
 ----
 <p align="center">
@@ -13,7 +13,7 @@
 ## License
 MIT License
 
-Copyright (c) 2024 Booh Rhino
+Copyright (c) 2024 Book Rhino
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

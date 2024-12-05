@@ -12,7 +12,5 @@
         =r ux.component_divider
 
         = turbo_stream_from "#{@computer_name}_#{@component.id}"
-        = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
-          = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
-
+        = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
         = render partial: 'iterate_form', locals: { component: @component, computer_name: @computer_name}

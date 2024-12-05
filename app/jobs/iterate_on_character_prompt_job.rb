@@ -3,9 +3,7 @@ class IterateOnCharacterPromptJob < MetaJob
     @component = component
     @message = message
 
-    sleep(0.1)
     super()
-    sleep(3)
   end
 
   private

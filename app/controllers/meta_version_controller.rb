@@ -27,6 +27,8 @@ class MetaVersionController < ApplicationController
   end
 
   def merge
+    @parent.update(pending: true)
+
     version_to_merge = @version.reify
     merge_job.perform_later(@parent, version_to_merge)
 

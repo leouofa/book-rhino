@@ -4,8 +4,10 @@ class MetaJob < ApplicationJob
   def perform(...)
       initialize_client
       prepare_component
+      sleep(0.5)
       response = send_chat_request
       update_component(response)
+      sleep(10)
     end
 
     private
