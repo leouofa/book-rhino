@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_27_183045) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_05_202337) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -80,6 +80,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_183045) do
     t.datetime "updated_at", null: false
     t.text "prompt"
     t.boolean "pending"
+  end
+
+  create_table "characters_locations", force: :cascade do |t|
+    t.bigint "character_id"
+    t.bigint "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_characters_locations_on_character_id"
+    t.index ["location_id"], name: "index_characters_locations_on_location_id"
   end
 
   create_table "characters_moral_alignments", id: false, force: :cascade do |t|

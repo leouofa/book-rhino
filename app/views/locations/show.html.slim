@@ -15,6 +15,16 @@
             = "#{@component.region.name} (#{@component.region.city}, #{@component.region.country})"
           - else
             | No region specified
+
+          =r ux.h5 text: 'Associated Characters'
+          - if @component.characters.any?
+            =r ux.ordered_list
+              - @component.characters.each do |character|
+                =r ux.list_item text: character.name
+          - else
+            | No characters associated with this location.
+
+
           =r ux.h5 text: 'Description'
           = @component.description
           =r ux.h5 text: 'Lighting'

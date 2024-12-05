@@ -25,6 +25,7 @@ class Character < ApplicationRecord
   has_and_belongs_to_many :moral_alignments
   has_and_belongs_to_many :personality_traits
   has_and_belongs_to_many :archetypes
+  has_and_belongs_to_many :locations
 
   validates :name, presence: true
   validates :age, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
