@@ -64,6 +64,8 @@ class MetaController < ApplicationController
   end
 
   def iterate
+    @component.update(pending: true)
+
     iterate_job.perform_later(@component, @message)
 
     respond_to do |format|
