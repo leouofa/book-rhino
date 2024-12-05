@@ -138,16 +138,19 @@ class MetaController < ApplicationController
 
   def parent_param_key
     return nil unless parent_class
+
     "#{parent_class.name.underscore}_id".to_sym
   end
 
   def parent_name
     return nil unless parent_class
+
     parent_class.name.titleize.pluralize
   end
 
   def set_where
     return {} unless parent_class && parent_param_key
+
     { parent_param_key => params[parent_param_key] }
   end
 

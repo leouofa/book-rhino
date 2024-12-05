@@ -2,9 +2,7 @@ class GenerateWritingStyleJob < MetaJob
   def perform(component)
     @component = component
 
-    sleep(0.5)
     super()
-    sleep(10)
   end
 
   private

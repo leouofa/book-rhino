@@ -6,7 +6,7 @@
 
     =r ux.component_field
       = form.label :prompt
-      = form.text_area :prompt, value: @component.prompt, rows: 30
+      = form.text_area :prompt, value: @component.prompt, rows: 30, data: { controller: 'code' }
 
     =r ux.component_submit_field
       = form.submit class: 'btn-primary'

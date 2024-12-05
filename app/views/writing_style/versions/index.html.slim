@@ -1,7 +1,7 @@
 =r ux.container
   =r ux.row
     =r ux.column width: 16
-      = turbo_frame_tag 'crud_frame'
+      = turbo_frame_tag 'crud_frame', target: '_top'
         =r ux.component_container
           =r ux.component_header text: @version_header
           =r ux.component_return_action text: '< Back', url: send(@parent_path), data: { 'turbo-action': 'replace'}

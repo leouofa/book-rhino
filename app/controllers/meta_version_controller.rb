@@ -53,7 +53,7 @@ class MetaVersionController < ApplicationController
     parent_name = parent_class.name.underscore
     base_path = "#{parent_name}_version"
 
-    @version_header = "Previous #{parent_class.name} Versions"
+    @version_header = "Previous #{parent_class.name.underscore.titleize} Versions"
     @parent_path = parent_path
     @revert_path = "revert_#{base_path}_path"
     @merge_path = "merge_#{base_path}_path"
