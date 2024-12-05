@@ -5,6 +5,6 @@ module MetaHelper
 
   def breadcrumb_parent(name, path)
     link_to(name, path, class: 'text-blue-700 hover:text-blue-700',
-                        data: { 'turbo-action': 'replace' }) + '&nbsp;/&nbsp;'.html_safe
+                        data: { 'turbo-action': 'advance' }) + '&nbsp;/&nbsp;'.html_safe
   end
 end
