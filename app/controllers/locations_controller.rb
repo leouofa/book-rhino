@@ -18,7 +18,8 @@ class LocationsController < MetaController
       :comfort,
       :aesthetics,
       :accessibility,
-      :personalization
+      :personalization,
+      character_ids: []
     )
   end
 end

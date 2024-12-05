@@ -1,7 +1,7 @@
 - if @component.errors.any?
   =render 'partials/form_errors'
 
-=r ux.component_segment
+=r ux.component_segment controller: 'dropdown'
   = form_with model: @component, class: 'ui form', local: true do |form|
     =r ux.required_component_field
       = form.label :name
@@ -10,6 +10,12 @@
     = r ux.component_field
       = form.label :region_id, "Region"
       = form.collection_select :region_id, Region.all, :id, :name, { prompt: "Select a Region (Optional)" }, class: "ui dropdown"
+
+    =r ux.component_field
+      = form.label :character_ids, "Characters"
+      = form.collection_select :character_ids, Character.all, :id, :name,
+        { prompt: "Select Characters" },
+        { multiple: true, class: "ui fluid dropdown" }
 
     =r ux.required_component_field
       = form.label :description
