@@ -11,7 +11,7 @@ class GenerateCharacterPromptJob < MetaJob
 
   def system_role
     <<~SYSTEM_ROLE
-      You are a college level english teacher. Analyze the following JSON Object and create a 2 pargraph character description for ChatGPT. DONT MAKE ANYTHING UP.
+      You are a college level english teacher. Analyze the following JSON Object and create a 3 paragraph character description to be given to an LLM. DONT MAKE ANYTHING UP.
     SYSTEM_ROLE
   end
 
