@@ -1,5 +1,5 @@
 class MergeWritingStylesJob < MetaJob
-  MAX_RETRIES = 3
+  self.max_retries = 3
 
   def perform(component, version_to_merge)
     @component = component
@@ -26,10 +26,6 @@ class MergeWritingStylesJob < MetaJob
     "#{@json_1}\n--------\n#{@json_2}"
   end
 
-  def send_chat_request
-    retry_on_failure { chat(messages: build_messages) }
-  end
-
   def chat(messages:)
     @client.chat(
       parameters: {
@@ -39,23 +35,5 @@ class MergeWritingStylesJob < MetaJob
         response_format: { type: "json_object" }
       }
     )
-  end
-
-  private
-
-  def retry_on_failure
-    attempts = 0
-
-    begin
-      yield
-    rescue Faraday::BadRequestError => e
-      attempts += 1
-      if attempts < MAX_RETRIES
-        sleep(5)
-        retry
-      else
-        raise e
-      end
-    end
   end
 end
