@@ -7,6 +7,10 @@ class LocationsController < MetaController
     'Location'.constantize
   end
 
+  def iterate_job
+    IterateOnLocationPromptJob
+  end
+
   def generate_prompt_job
     GenerateLocationPromptJob
   end

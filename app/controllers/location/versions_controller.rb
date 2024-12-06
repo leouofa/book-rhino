@@ -10,6 +10,6 @@ class Location::VersionsController < MetaVersionController
   end
 
   def parent_path
-    "character_path"
+    "location_path"
   end
 end
