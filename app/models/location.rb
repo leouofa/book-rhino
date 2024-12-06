@@ -27,8 +27,8 @@ class Location < ApplicationRecord
 
   has_paper_trail ignore: %i[name lighting time noise_level comfort aesthetics
                              accessibility personalization description], versions: {
-    scope: -> { order('id desc') }
-  }
+                               scope: -> { order('id desc') }
+                             }
 
   def location_details
     as_json(
