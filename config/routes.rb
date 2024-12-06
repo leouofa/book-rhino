@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     post :generate_prompt, :iterate, on: :member
     get :edit_prompt, on: :member
 
-    scope module: :character do
+    scope module: :location do
       concerns :versionable
     end
   end
