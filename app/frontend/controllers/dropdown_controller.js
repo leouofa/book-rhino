@@ -12,6 +12,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    // Called any time the controller is disconnected from the DOM
+    $('.dropdown', this.element).dropdown('destroy')
   }
 }
