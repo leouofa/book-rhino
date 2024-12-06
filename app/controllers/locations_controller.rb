@@ -7,6 +7,10 @@ class LocationsController < MetaController
     'Location'.constantize
   end
 
+  def generate_prompt_job
+    GenerateLocationPromptJob
+  end
+
   def component_params
     params.require(@computer_name.to_sym).permit(
       :name,

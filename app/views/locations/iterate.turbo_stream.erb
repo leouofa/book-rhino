@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "#{@computer_name}_#{@component.id}_prompt" do %>
+  <%= render partial: 'prompt', locals: { component: @component, computer_name: @computer_name} %>
+<% end %>
+
+<%= turbo_stream.replace "#{@computer_name}_form" do %>
+  <%= render partial: 'iterate_form', locals: { component: @component, computer_name: @computer_name} %>
+<% end %>

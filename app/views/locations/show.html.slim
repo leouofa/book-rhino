@@ -6,8 +6,15 @@
           =r ux.component_header
             = breadcrumb_parent @component_name, send(@component_list_path)
             = @component.name
-          =r ux.component_return_action text: '< Back', url: send(@component_list_path)
+
+          =r ux.component_button_holder
+            = link_to 'Edit Prompt', send(@component_edit_prompt_path), class: 'btn-secondary mr-2'
+            = button_to 'Generate Prompt', send(@component_generate_prompt_path), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
         =r ux.component_divider
+
+        = turbo_stream_from "#{@computer_name}_#{@component.id}"
+        = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
+        = render partial: 'iterate_form', locals: { component: @component, computer_name: @computer_name}
 
         =r ux.segment
           =r ux.h5 text: 'Region'
