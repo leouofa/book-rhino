@@ -15,6 +15,8 @@
 #  updated_at      :datetime         not null
 #  region_id       :bigint
 #  description     :text
+#  prompt          :text
+#  pending         :boolean
 #
 class Location < ApplicationRecord
   belongs_to :region, optional: true
@@ -22,4 +24,18 @@ class Location < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
+
+  has_paper_trail ignore: %i[name lighting time noise_level comfort aesthetics
+                             accessibility personalization description], versions: {
+                               scope: -> { order('id desc') }
+                             }
+
+  def location_details
+    as_json(
+      except: [:id, :prompt, :pending],
+      include: {
+        characters: { only: [:name, :prompt] }
+      }
+    )
+  end
 end

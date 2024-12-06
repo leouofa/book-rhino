@@ -41,7 +41,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :locations
+  resources :locations do
+    post :generate_prompt, :iterate, on: :member
+    get :edit_prompt, on: :member
+
+    scope module: :location do
+      concerns :versionable
+    end
+  end
 
   # Static resources
   resources :perspectives
