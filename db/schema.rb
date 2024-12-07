@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_06_004436) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_07_061833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -66,7 +66,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_06_004436) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "gender"
-    t.integer "age"
+    t.bigint "age"
     t.string "ethnicity"
     t.string "nationality"
     t.text "appearance"

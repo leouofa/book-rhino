@@ -1,0 +1,9 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header text: "Edit #{@component_name.singularize} Prompt"
+          =r ux.component_return_action text: '< Back', url: send(@component_detail_path)
+        =r ux.component_divider
+        =render 'prompt_form'

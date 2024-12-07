@@ -10,7 +10,7 @@ class GenerateLocationPromptJob < MetaJob
 
   def system_role
     <<~SYSTEM_ROLE
-      You are a college level english teacher. Analyze the following JSON Object and create a 3 paragraph location description to be given to an LLM. DONT MAKE ANYTHING UP.
+      You are a college level english teacher. Analyze the following JSON Object and create a 3 paragraph location description to be given to an LLM. Focus on the location and omit character details. DONT MAKE ANYTHING UP.
     SYSTEM_ROLE
   end
 
