@@ -2,6 +2,7 @@ class MetaJob < ApplicationJob
   queue_as :default
 
   class_attribute :max_retries, default: 0 # Default to disabled
+  class_attribute :openai_model # Default to nil
 
   def perform(...)
     initialize_client
@@ -53,7 +54,7 @@ class MetaJob < ApplicationJob
   def chat(messages:)
     @client.chat(
       parameters: {
-        model: ENV['OPENAI_GPT_MODEL'],
+        model: self.class.openai_model || ENV['OPENAI_GPT_MODEL'],
         messages:,
         temperature: 0.7
       }
