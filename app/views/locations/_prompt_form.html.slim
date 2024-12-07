@@ -1,0 +1,13 @@
+- if @component.errors.any?
+  =render 'partials/form_errors'
+
+=r ux.component_segment controller: 'dropdown'
+  = form_with model: @component, class: 'ui form', local: true do |form|
+
+    =r ux.component_field
+      = form.label :prompt
+      = form.text_area :prompt, value: @component.prompt, rows: 30
+
+    =r ux.component_submit_field
+      = form.submit class: 'btn-primary'
+
