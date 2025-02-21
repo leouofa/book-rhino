@@ -12,5 +12,7 @@
 #  updated_at :datetime         not null
 #
 class Perspective < ApplicationRecord
+  has_many :books, dependent: :nullify
+
   validates :name, :narrator, :effect, :pronouns, :example, presence: true
 end

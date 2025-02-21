@@ -12,5 +12,7 @@
 class Archetype < ApplicationRecord
   has_and_belongs_to_many :characters
 
+  validates :name, presence: true
+
   paginates_per 100
 end

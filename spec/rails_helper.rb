@@ -44,6 +44,11 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  # Configure ActiveJob to use test adapter
+  config.before(:each) do
+    ActiveJob::Base.queue_adapter = :test
+  end
 end
 
 Shoulda::Matchers.configure do |config|

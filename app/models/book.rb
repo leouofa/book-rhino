@@ -21,7 +21,7 @@ class Book < ApplicationRecord
   belongs_to :narrative_structure
   belongs_to :protagonist, class_name: 'Character', optional: true
 
-  has_many :book_antagonists
+  has_many :book_antagonists, dependent: :destroy
   has_many :antagonists, through: :book_antagonists, source: :character
   has_and_belongs_to_many :characters
 
@@ -31,14 +31,33 @@ class Book < ApplicationRecord
   private
 
   def character_role_uniqueness
-    return unless protagonist_id
+    return unless changes_to_character_roles?
 
-    errors.add(:protagonist_id, "can't be both protagonist and antagonist") if antagonists.exists?(id: protagonist_id)
+    validate_protagonist_roles if protagonist
+    validate_antagonist_roles
+  end
 
-    errors.add(:protagonist_id, "can't be both protagonist and regular character") if characters.exists?(id: protagonist_id)
+  def changes_to_character_roles?
+    protagonist_id_changed? ||
+      association(:book_antagonists).loaded? ||
+      association(:characters).loaded? ||
+      book_antagonists.any? { |ba| ba.changed? || ba.new_record? } ||
+      characters.any?(&:new_record?)
+  end
 
-    antagonist_ids = antagonists.pluck(:id)
-    return unless characters.exists?(id: antagonist_ids)
+  def validate_protagonist_roles
+    if antagonists.to_a.any? { |a| a.id == protagonist.id }
+      errors.add(:protagonist_id, "can't be both protagonist and antagonist")
+    end
+
+    return unless characters.to_a.any? { |c| c.id == protagonist.id }
+
+    errors.add(:protagonist_id, "can't be both protagonist and regular character")
+  end
+
+  def validate_antagonist_roles
+    antagonist_ids = antagonists.map(&:id)
+    return unless characters.to_a.any? { |c| antagonist_ids.include?(c.id) }
 
     errors.add(:antagonists, "can't be both antagonists and regular characters")
   end

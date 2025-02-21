@@ -10,7 +10,9 @@
 #
 FactoryBot.define do
   factory :setting do
-    prompts { [] }
-    tunings { [] }
+    prompts { { 'character' => 'default prompt' } }
+    tunings { { 'temperature' => 0.7 } }
+    publish_start_time { Time.zone.parse('08:00') }
+    publish_end_time { Time.zone.parse('20:00') }
   end
 end

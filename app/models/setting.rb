@@ -18,6 +18,14 @@ class Setting < ApplicationRecord
     first_or_create!
   end
 
+  def prompts=(value)
+    super(stringify_keys(value))
+  end
+
+  def tunings=(value)
+    super(stringify_keys(value))
+  end
+
   def within_publish_window?
     current_time = only_time(Time.now.utc)
     publish_start_time_utc = only_time(publish_start_time.utc)
@@ -31,6 +39,12 @@ class Setting < ApplicationRecord
   end
 
   private
+
+  def stringify_keys(value)
+    return value unless value.is_a?(Hash)
+
+    value.transform_keys(&:to_s)
+  end
 
   def set_default_publish_times
     self.publish_start_time ||= Time.zone.parse('08:00')
