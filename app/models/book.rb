@@ -41,8 +41,12 @@ class Book < ApplicationRecord
     protagonist_id_changed? ||
       association(:book_antagonists).loaded? ||
       association(:characters).loaded? ||
-      book_antagonists.any? { |ba| ba.changed? || ba.new_record? } ||
+      antagonist_changes? ||
       characters.any?(&:new_record?)
+  end
+
+  def antagonist_changes?
+    book_antagonists.any? { |ba| ba.changed? || ba.new_record? }
   end
 
   def validate_protagonist_roles
