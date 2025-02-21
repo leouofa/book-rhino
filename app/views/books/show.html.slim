@@ -9,6 +9,57 @@
           =r ux.component_return_action text: '< Back', url: send(@component_list_path)
         =r ux.component_divider
 
-        /=r ux.segment
-        /  pre
-        /    = @component.corpus
+        =r ux.grid
+          =r ux.row
+            =r ux.column size: 10
+              =r ux.segment
+                =r ux.h4 text: 'Book Details'
+                =r ux.h5 text: 'Writing Style'
+                = @component.writing_style.name
+
+                =r ux.h5 text: 'Perspective'
+                = @component.perspective.name
+
+                =r ux.h5 text: 'Narrative Structure'
+                = @component.narrative_structure.name
+
+                =r ux.h5 text: 'Chapters'
+                = @component.chapters
+
+                =r ux.h5 text: 'Pages'
+                = @component.pages
+
+            =r ux.column size: 6
+              =r ux.segment
+                =r ux.h4 text: 'Characters'
+                =r ux.h5 text: 'Protagonist'
+                - if @component.protagonist
+                  = link_to @component.protagonist.name, character_path(@component.protagonist), class: 'text-blue-700'
+                - else
+                  | None assigned
+
+                =r ux.h5 text: 'Antagonists'
+                - if @component.antagonists.any?
+                  =r ux.ordered_list
+                    - @component.antagonists.each do |antagonist|
+                      =r ux.list_item
+                        = link_to antagonist.name, character_path(antagonist), class: 'text-blue-700'
+                - else
+                  | None assigned
+
+                =r ux.h5 text: 'Other Characters'
+                - if @component.characters.any?
+                  =r ux.ordered_list
+                    - @component.characters.each do |character|
+                      =r ux.list_item
+                        = link_to character.name, character_path(character), class: 'text-blue-700'
+                - else
+                  | None assigned
+
+        =r ux.segment
+          =r ux.h5 text: 'Moral'
+          = simple_format @component.moral
+
+        =r ux.segment
+          =r ux.h5 text: 'Plot'
+          = simple_format @component.plot

@@ -1,7 +1,7 @@
 - if @component.errors.any?
   =render 'partials/form_errors'
 
-=r ux.component_segment
+=r ux.component_segment controller: 'dropdown'
   = form_with model: @component, class: 'ui form', local: true do |form|
     =r ux.component_field
       = form.label :title
@@ -19,6 +19,22 @@
       = form.label :narrative_structure_id, "Narrative Structure"
       = form.collection_select :narrative_structure_id, NarrativeStructure.all, :id, :name, { prompt: "Select Narrative Structure" }, class: "ui dropdown"
 
+    = r ux.component_field
+      = form.label :protagonist_id, "Protagonist"
+      = form.collection_select :protagonist_id, Character.all, :id, :name, { prompt: "Select the Protagonist" }, class: "ui dropdown"
+
+    = r ux.component_field
+      = form.label :antagonist_ids, "Antagonists"
+      = form.collection_select :antagonist_ids, Character.all, :id, :name, 
+        { prompt: "Select Antagonists" }, 
+        { multiple: true, class: "ui fluid dropdown" }
+
+    = r ux.component_field
+      = form.label :character_ids, "Other Characters"
+      = form.collection_select :character_ids, Character.all, :id, :name,
+        { prompt: "Select Other Characters" },
+        { multiple: true, class: "ui fluid dropdown" }
+
     =r ux.component_field
       = form.label :chapters
       = form.number_field :chapters, value: @component.chapters
@@ -34,7 +50,6 @@
     = r ux.component_field
       = form.label :plot
       = form.text_area :plot, value: @component.plot
-
 
     =r ux.component_submit_field
       = form.submit class: 'btn-primary'

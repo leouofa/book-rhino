@@ -15,8 +15,7 @@ class Text < ApplicationRecord
   validates :name, presence: true
   validates :corpus, presence: true
 
-  after_create_commit :generate_writing_style
-  after_update_commit :generate_writing_style
+  after_save_commit :generate_writing_style
 
   private
 

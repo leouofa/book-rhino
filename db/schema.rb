@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_07_061833) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_21_045533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -31,6 +31,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_07_061833) do
     t.index ["character_id", "archetype_id"], name: "index_archetypes_characters_on_character_id_and_archetype_id"
   end
 
+  create_table "book_antagonists", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id", "character_id"], name: "index_book_antagonists_on_book_id_and_character_id", unique: true
+    t.index ["book_id"], name: "index_book_antagonists_on_book_id"
+    t.index ["character_id"], name: "index_book_antagonists_on_character_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.text "title"
     t.bigint "writing_style_id", null: false
@@ -42,9 +52,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_07_061833) do
     t.integer "chapters"
     t.integer "pages"
     t.bigint "narrative_structure_id"
+    t.bigint "protagonist_id"
     t.index ["narrative_structure_id"], name: "index_books_on_narrative_structure_id"
     t.index ["perspective_id"], name: "index_books_on_perspective_id"
+    t.index ["protagonist_id"], name: "index_books_on_protagonist_id"
     t.index ["writing_style_id"], name: "index_books_on_writing_style_id"
+  end
+
+  create_table "books_characters", id: false, force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "character_id", null: false
+    t.index ["book_id", "character_id"], name: "index_books_characters_on_book_id_and_character_id"
+    t.index ["character_id", "book_id"], name: "index_books_characters_on_character_id_and_book_id"
   end
 
   create_table "character_types", force: :cascade do |t|
@@ -181,6 +200,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_07_061833) do
     t.text "tunings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "publish_start_time"
+    t.datetime "publish_end_time"
   end
 
   create_table "texts", force: :cascade do |t|
@@ -237,6 +258,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_07_061833) do
     t.boolean "pending", default: false
   end
 
+  add_foreign_key "book_antagonists", "books"
+  add_foreign_key "book_antagonists", "characters"
+  add_foreign_key "books", "characters", column: "protagonist_id"
   add_foreign_key "books", "narrative_structures"
   add_foreign_key "books", "perspectives"
   add_foreign_key "books", "writing_styles"

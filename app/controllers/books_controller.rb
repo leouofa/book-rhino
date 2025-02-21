@@ -8,7 +8,18 @@ class BooksController < MetaController
   end
 
   def component_params
-    params.require(@computer_name.to_sym).permit(:title, :writing_style_id, :perspective_id, :narrative_structure_id, :moral,
-                                                 :plot, :chapters, :pages)
+    params.require(@computer_name.to_sym).permit(
+      :title,
+      :writing_style_id,
+      :perspective_id,
+      :narrative_structure_id,
+      :moral,
+      :plot,
+      :chapters,
+      :pages,
+      :protagonist_id,
+      antagonist_ids: [],
+      character_ids: []
+    )
   end
 end
