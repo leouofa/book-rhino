@@ -26,6 +26,11 @@ class Character < ApplicationRecord
   has_and_belongs_to_many :personality_traits
   has_and_belongs_to_many :archetypes
   has_and_belongs_to_many :locations
+  has_and_belongs_to_many :books
+
+  has_many :protagonist_books, class_name: 'Book', foreign_key: 'protagonist_id'
+  has_many :book_antagonists
+  has_many :antagonist_books, through: :book_antagonists, source: :book
 
   validates :name, presence: true
   validates :age, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
