@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "pre-commit": [
+      {
+        "name": "Documentation Sync Check",
+        "description": "Analyzes the codebase and updates documentation",
+        "action": {
+          "type": "analyze",
+          "steps": [
+            "Iterate through models, controllers, background jobs and rake tasks",
+            "Update notes.md with technical understanding of app functionality",
+            "Use notes.md to update README.md with user-facing documentation"
+          ],
+          "paths": {
+            "models": "app/models/**/*.rb",
+            "controllers": "app/controllers/**/*.rb",
+            "jobs": "app/jobs/**/*.rb",
+            "tasks": "lib/tasks/**/*.rake"
+          },
+          "outputs": ["notes.md", "README.md"]
+        },
+        "message": "Documentation has been automatically updated based on codebase analysis.",
+        "severity": "info"
+      }
+    ]
+  }
+} 
