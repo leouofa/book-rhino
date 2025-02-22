@@ -35,7 +35,7 @@ class BooksController < MetaController
       :narrative_structure_id,
       :moral,
       :plot,
-      :chapters,
+      :chapter_count,
       :pages,
       :protagonist_id,
       antagonist_ids: [],

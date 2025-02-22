@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_22_180922) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_22_195751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_22_180922) do
     t.bigint "perspective_id"
     t.text "moral"
     t.text "plot"
-    t.integer "chapters"
+    t.integer "chapter_count"
     t.integer "pages"
     t.bigint "narrative_structure_id"
     t.bigint "protagonist_id"
@@ -65,6 +65,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_22_180922) do
     t.bigint "character_id", null: false
     t.index ["book_id", "character_id"], name: "index_books_characters_on_book_id_and_character_id"
     t.index ["character_id", "book_id"], name: "index_books_characters_on_character_id_and_book_id"
+  end
+
+  create_table "chapters", force: :cascade do |t|
+    t.integer "number", null: false
+    t.text "summary", null: false
+    t.text "content", null: false
+    t.bigint "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id", "number"], name: "index_chapters_on_book_id_and_number", unique: true
+    t.index ["book_id"], name: "index_chapters_on_book_id"
   end
 
   create_table "character_types", force: :cascade do |t|
@@ -265,6 +276,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_22_180922) do
   add_foreign_key "books", "narrative_structures"
   add_foreign_key "books", "perspectives"
   add_foreign_key "books", "writing_styles"
+  add_foreign_key "chapters", "books"
   add_foreign_key "locations", "regions"
   add_foreign_key "texts", "writing_styles"
 end

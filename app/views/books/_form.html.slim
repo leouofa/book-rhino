@@ -36,8 +36,8 @@
         { multiple: true, class: "ui fluid dropdown" }
 
     =r ux.component_field
-      = form.label :chapters
-      = form.number_field :chapters, value: @component.chapters
+      = form.label :chapter_count, "Chapter Count"
+      = form.number_field :chapter_count, value: @component.chapter_count
 
     =r ux.component_field
       = form.label :pages
