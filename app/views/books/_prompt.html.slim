@@ -14,4 +14,4 @@
         = link_to "Previous Versions", send("#{computer_name}_versions_path", "#{computer_name}_id": component.id), class: 'text-blue-700 hover:text-blue-700', data: {turbo_frame: "_top"}
         |]
     =r ux.segment '!bg-yellow-100 !mb-10'
-      = simple_format component.plot 
+      = markdown component.plot 
