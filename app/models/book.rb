@@ -28,6 +28,24 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validate :character_role_uniqueness
 
+  has_paper_trail ignore: %i[title moral chapters pages], versions: {
+    scope: -> { order('id desc') }
+  }
+
+  def as_json(options = {})
+    super(options.merge(
+      except: [:id, :created_at, :updated_at],
+      include: {
+        writing_style: { only: [:name, :prompt] },
+        perspective: { only: [:name, :narrator, :pronouns, :effect] },
+        narrative_structure: { only: [:name, :description, :parts] },
+        protagonist: { only: [:name, :prompt] },
+        antagonists: { only: [:name, :prompt] },
+        characters: { only: [:name, :prompt] }
+      }
+    ))
+  end
+
   private
 
   def character_role_uniqueness

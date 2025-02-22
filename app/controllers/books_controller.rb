@@ -7,6 +7,14 @@ class BooksController < MetaController
     'Book'.constantize
   end
 
+  def iterate_job
+    IterateOnBookPlotJob
+  end
+
+  def generate_prompt_job
+    GenerateBookPlotJob
+  end
+
   def component_params
     params.require(@computer_name.to_sym).permit(
       :title,
