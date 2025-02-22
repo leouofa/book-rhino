@@ -7,10 +7,8 @@ class MetaJob < ApplicationJob
   def perform(...)
     initialize_client
     prepare_component
-    sleep(0.5)
     response = send_chat_request
     update_component(response)
-    sleep(10)
   end
 
   private
@@ -54,7 +52,7 @@ class MetaJob < ApplicationJob
   def chat(messages:)
     @client.chat(
       parameters: {
-        model: self.class.openai_model || ENV['OPENAI_GPT_MODEL'],
+        model: self.class.openai_model || ENV['OPENAI_MODEL'],
         messages:,
         temperature: 0.7
       }
