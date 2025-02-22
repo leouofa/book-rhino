@@ -103,10 +103,11 @@ rails import:locations         # Import location types
 1. Fork the repository
 2. Create your feature branch
 3. Commit your changes
-   - Note: The project uses a Cursor rule that requires running './bin/compose_docs' before commits
-   - This script analyzes the codebase and updates both README.md and notes.md
-   - The analysis covers models, controllers, jobs, and rake tasks
-   - The rule will prevent commits if documentation is out of sync
+   - Note: Documentation is automatically maintained by Cursor
+   - On each commit, Cursor analyzes the codebase and updates:
+     - Technical documentation (notes.md)
+     - User documentation (README.md)
+   - No manual documentation updates required
 4. Push to the branch
 5. Create a Pull Request
 

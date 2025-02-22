@@ -8,14 +8,12 @@
 - Uses YAML blueprints for importing predefined content
 
 ## Development Guidelines
-- Documentation Synchronization: The project uses a Cursor rule that requires running './bin/compose_docs' before commits
-- This script analyzes the codebase and updates both technical documentation (notes.md) and user documentation (README.md)
-- The analysis covers:
-  - Models and their relationships
-  - Controllers and their endpoints
-  - Background jobs and their purposes
-  - Rake tasks and their functions
-- Changes to any of these components require documentation synchronization
+- Documentation Synchronization: The project uses Cursor's built-in analysis capabilities to maintain documentation
+- On each commit, Cursor automatically:
+  - Analyzes models, controllers, jobs, and rake tasks
+  - Updates technical documentation in notes.md
+  - Updates user documentation in README.md based on the analysis
+- No manual documentation sync required - Cursor handles it automatically
 
 ## Models
 
