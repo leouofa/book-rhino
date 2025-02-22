@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :location do
-    name { Faker::Address.unique.community }
+    name { "The #{Faker::Address.unique.community} #{Faker::Lorem.word}" }
     description { Faker::Lorem.paragraphs(number: 2).join("\n\n") }
     lighting { Faker::Lorem.paragraph }
     time { %w[Morning Afternoon Evening Night].sample }

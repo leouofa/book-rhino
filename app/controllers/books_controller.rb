@@ -15,6 +15,18 @@ class BooksController < MetaController
     GenerateBookPlotJob
   end
 
+  def update
+    if @component.update(component_params)
+      if component_params[:plot]
+        redirect_to send(@component_detail_path, @component.id), notice: "#{@component_name} was successfully updated."
+      else
+        redirect_to send(@component_list_path), notice: "#{@component_name} was successfully updated."
+      end
+    else
+      render component_params[:plot] ? :edit_prompt : :edit
+    end
+  end
+
   def component_params
     params.require(@computer_name.to_sym).permit(
       :title,
