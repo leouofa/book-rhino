@@ -26,7 +26,7 @@ class IterateOnWritingStyleJob < MetaJob
   def chat(messages:)
     @client.chat(
       parameters: {
-        model: ENV['OPENAI_SMART_MODEL'],
+        model: ENV['OPENAI_MODEL'],
         messages:,
         temperature: 0.7,
         response_format: { type: "json_object" }

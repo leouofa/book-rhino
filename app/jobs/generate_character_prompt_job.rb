@@ -1,5 +1,5 @@
 class GenerateCharacterPromptJob < MetaJob
-  self.openai_model = ENV['OPENAI_SMART_MODEL']
+  self.openai_model = ENV['OPENAI_MODEL']
 
   def perform(component)
     @component = component
