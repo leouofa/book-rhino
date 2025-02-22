@@ -3,7 +3,7 @@ FactoryBot.define do
     title { Faker::Book.title }
     moral { Faker::Lorem.paragraph }
     plot { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
-    chapters { rand(5..50) }
+    chapter_count { rand(5..50) }
     pages { rand(100..1000) }
 
     association :writing_style

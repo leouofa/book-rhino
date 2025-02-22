@@ -13,6 +13,7 @@ RSpec.describe Book, type: :model do
     it { should have_many(:book_antagonists) }
     it { should have_many(:antagonists).through(:book_antagonists) }
     it { should have_and_belong_to_many(:characters) }
+    it { should have_many(:chapters).dependent(:destroy) }
   end
 
   describe 'factory' do
@@ -33,6 +34,13 @@ RSpec.describe Book, type: :model do
     it 'can be created with characters' do
       book = create(:book, :with_characters)
       expect(book.characters).to be_present
+    end
+
+    it 'can be created with chapters' do
+      book = create(:book)
+      create_list(:chapter, 3, :sequential, book: book)
+      expect(book.chapters.count).to eq(3)
+      expect(book.chapters.map(&:number)).to eq([1, 2, 3])
     end
 
     it 'can be created as complete' do

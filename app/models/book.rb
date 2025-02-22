@@ -10,7 +10,7 @@
 #  perspective_id         :bigint
 #  moral                  :text
 #  plot                   :text
-#  chapters               :integer
+#  chapter_count          :integer
 #  pages                  :integer
 #  narrative_structure_id :bigint
 #  protagonist_id         :bigint
@@ -24,11 +24,12 @@ class Book < ApplicationRecord
   has_many :book_antagonists, dependent: :destroy
   has_many :antagonists, through: :book_antagonists, source: :character
   has_and_belongs_to_many :characters
+  has_many :chapters, dependent: :destroy
 
   validates :title, presence: true
   validate :character_role_uniqueness
 
-  has_paper_trail ignore: %i[title moral chapters pages], versions: {
+  has_paper_trail ignore: %i[title moral chapter_count pages], versions: {
     scope: -> { order('id desc') }
   }
 
