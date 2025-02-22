@@ -1,16 +1,117 @@
-# Book Rhino 🦏
-<p align="center">“Book Writer That Takes Charge”</p>
+# Book Rino - AI-Powered Book Writing Assistant
 
-----
-<p align="center">
-    <img alt="ruby version: 3.2.2" src="https://img.shields.io/badge/Ruby-3.2.2-brightgreen" />
-    <img alt="rails version: 7.0.4" src="https://img.shields.io/badge/Rails-7.0.4-brightgreen" />
-    <img alt="tailwind version: 3.3.0" src="https://img.shields.io/badge/Tailwind-3.3.0-blue" />
-    <img alt="fomantic version: 2.9.2" src="https://img.shields.io/badge/Fomantic-2.9.2-blue" />
-    <img alt="rspec tests" src="https://github.com/leouofa/book-rhino/actions/workflows/ruby_on_rails.yml/badge.svg" />
-</p>
+Book Rino is a sophisticated Rails application designed to assist authors in the creative writing process. It provides a comprehensive suite of tools for managing books, characters, and various narrative elements, enhanced with AI-powered content generation capabilities.
+
+## Features
+
+### Book Management
+- Create and manage books with detailed attributes
+- Define writing styles and narrative perspectives
+- Structure your story with predefined narrative frameworks
+- Track chapters and page counts
+- Manage relationships between books and characters
+
+### Character Development
+- Create rich, detailed character profiles
+- Define character attributes:
+  - Basic information (name, age, gender, ethnicity, nationality)
+  - Physical and health characteristics
+  - Psychological traits (fears, desires, values)
+  - Skills and abilities
+  - Detailed backstories
+- Assign character roles (protagonist, antagonist, supporting characters)
+- AI-assisted character development and refinement
+
+### Story Elements
+- Multiple narrative perspectives with examples and effects
+- Character archetypes with traits and examples
+- Personality trait library
+- Moral alignment system
+- Location management with descriptions and examples
+- Writing style templates
+- Narrative structure frameworks
+
+### AI Integration
+- Generate and iterate on character descriptions
+- Refine writing styles
+- Develop location descriptions
+- Merge and assemble content intelligently
+
+### Content Management
+- Version tracking for key elements
+- Import predefined content from YAML blueprints
+- Pagination for large content sets
+- Rich text editing capabilities
+
+## Technical Stack
+
+### Backend
+- Ruby on Rails
+- PostgreSQL database
+- Redis for background job processing
+- Paper Trail for version tracking
+- Kaminari for pagination
+
+### Frontend
+- Vite.js for asset management
+- Tailwind CSS for styling
+- Semantic UI components
+- Turbo for dynamic updates
+
+### Development Tools
+- RSpec for testing
+- Rubocop for code style enforcement
+- Node.js for frontend asset compilation
+
+## Setup
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   bundle install
+   yarn install
+   ```
+3. Set up the database:
+   ```bash
+   rails db:create db:migrate
+   ```
+4. Import initial content:
+   ```bash
+   rails import:all
+   ```
+5. Start the development server:
+   ```bash
+   ./bin/dev
+   ```
+
+## Content Import
+
+The application comes with predefined content that can be imported using rake tasks:
+
+```bash
+rails import:perspectives        # Import narrative perspectives
+rails import:archetypes         # Import character archetypes
+rails import:personality_traits # Import personality traits
+rails import:moral_alignments   # Import moral alignments
+rails import:narrative_structures # Import story structures
+rails import:character_types    # Import character types
+rails import:locations         # Import location types
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+   - Note: The project uses a Cursor rule that requires running './bin/compose_docs' before commits
+   - This script analyzes the codebase and updates both README.md and notes.md
+   - The analysis covers models, controllers, jobs, and rake tasks
+   - The rule will prevent commits if documentation is out of sync
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
+
 MIT License
 
 Copyright (c) 2024 Book Rhino
