@@ -56,10 +56,14 @@
                 - else
                   | None assigned
 
-        =r ux.segment
+        =r ux.segment '!mb-20'
           =r ux.h5 text: 'Moral'
           = simple_format @component.moral
 
-        =r ux.segment
-          =r ux.h5 text: 'Plot'
-          = simple_format @component.plot
+        =r ux.component_button_holder 'mb-10'
+          = link_to 'Edit Plot', send(@component_edit_prompt_path), class: 'btn-secondary mr-2'
+          = button_to 'Generate Plot', send(@component_generate_prompt_path), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
+
+        = turbo_stream_from "#{@computer_name}_#{@component.id}"
+        = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
+        = render partial: 'iterate_form', locals: { component: @component, computer_name: @computer_name}

@@ -1,11 +1,27 @@
 module ApplicationHelper
   def markdown(text)
-    options = %i[
-      hard_wrap autolink no_intra_emphasis tables fenced_code_blocks
-      disable_indented_code_blocks strikethrough lax_spacing space_after_headers
-      quote footnotes highlight underline no_images
-    ]
-    Markdown.new(text, *options).to_html.html_safe
+    return '' if text.blank?
+
+    options = {
+      hard_wrap: true,
+      autolink: true,
+      no_intra_emphasis: true,
+      tables: true,
+      fenced_code_blocks: true,
+      disable_indented_code_blocks: true,
+      strikethrough: true,
+      lax_spacing: true,
+      space_after_headers: true,
+      quote: true,
+      footnotes: true,
+      highlight: true,
+      underline: true,
+      no_images: true
+    }
+
+    renderer = Redcarpet::Render::HTML.new(options)
+    markdown = Redcarpet::Markdown.new(renderer, options)
+    markdown.render(text).html_safe
   end
 
   def menu_active?(test_path)

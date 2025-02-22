@@ -30,7 +30,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :books
+  resources :books do
+    post :generate_prompt, :iterate, on: :member
+    get :edit_prompt, on: :member
+
+    scope module: :book do
+      concerns :versionable
+    end
+  end
 
   resources :characters do
     post :generate_prompt, :iterate, on: :member
