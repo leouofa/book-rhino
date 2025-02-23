@@ -16,13 +16,13 @@ class WriteChapterContentJob < MetaJob
     chapter_content = JSON.parse(content_response['choices'][0]['message']['content'])['content']
     
     # Validate word count before saving
-    actual_words = chapter_content.split.size
-    if actual_words < (@target_words * 0.8) # Allow 20% variance
-      Rails.logger.warn("Chapter #{@component.number} is too short: #{actual_words} words vs target #{@target_words}")
-      # Retry with more explicit instructions
-      content_response = send_chat_request
-      chapter_content = JSON.parse(content_response['choices'][0]['message']['content'])['content']
-    end
+    # actual_words = chapter_content.split.size
+    # if actual_words < (@target_words * 0.8) # Allow 20% variance
+    #   Rails.logger.warn("Chapter #{@component.number} is too short: #{actual_words} words vs target #{@target_words}")
+    #   # Retry with more explicit instructions
+    #   content_response = send_chat_request
+    #   chapter_content = JSON.parse(content_response['choices'][0]['message']['content'])['content']
+    # end
     
     @component.update!(content: chapter_content)
     

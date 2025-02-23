@@ -12,6 +12,7 @@
 
         =r ux.segment '!mb-20'
           - @component.chapters.order(:number).each do |chapter|
+            =r ux.h2 text: chapter.name
             .chapter-content.mb-8
               .prose.prose-lg.max-w-none
                 = markdown(chapter.content)
