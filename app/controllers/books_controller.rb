@@ -26,6 +26,17 @@ class BooksController < MetaController
     end
   end
 
+  def write_chapters
+    @component = Book.find(params[:id])
+    @component.update(pending: true)
+    WriteChaptersJob.perform_later(@component)
+
+    respond_to do |format|
+      format.turbo_stream { render :iterate }
+      format.html { redirect_to @component, notice: 'Writing chapters...' }
+    end
+  end
+
   def update
     if @component.update(component_params)
       if component_params[:plot]
