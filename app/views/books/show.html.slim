@@ -72,9 +72,18 @@
 
         - if @component.chapters.any?
           =r ux.segment '!mb-20'
-            =r ux.h4 text: 'Rendered Chapters'
+            =r ux.h4 text: 'Chapter Summaries'
             =r ux.ordered_list
               - @component.chapters.order(:number).each do |chapter|
                 =r ux.list_item
                   =r ux.h5 text: chapter.name
                   = simple_format chapter.plot_summary
+
+          =r ux.segment '!mb-20'
+            =r ux.h4 text: 'Chapter Content'
+            - @component.chapters.order(:number).each do |chapter|
+              .chapter-content.mb-8
+                =r ux.h3 text: "Chapter #{chapter.number}: #{chapter.name}"
+                .prose.prose-lg.max-w-none
+                  = markdown(chapter.content)
+                =r ux.divider
