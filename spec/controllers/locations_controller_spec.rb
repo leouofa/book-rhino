@@ -77,7 +77,10 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     context 'with sorting' do
-      before { Location.delete_all }
+      before do
+        Location.delete_all
+        Faker::UniqueGenerator.clear # Reset Faker unique values
+      end
 
       it 'sorts by created_at in descending order by default' do
         second_location = create(:location, created_at: 2.days.ago)

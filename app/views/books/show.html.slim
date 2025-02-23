@@ -63,7 +63,27 @@
         =r ux.component_button_holder 'mb-10'
           = link_to 'Edit Plot', send(@component_edit_prompt_path), class: 'btn-secondary mr-2'
           = button_to 'Generate Plot', send(@component_generate_prompt_path), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
+          = button_to 'Extract Chapters', extract_chapters_book_path(@component), method: :post, class: 'btn-primary ml-2', data: { 'turbo-action': 'replace'}
+          = button_to 'Write Chapters', write_chapters_book_path(@component), method: :post, class: 'btn-primary ml-2', data: { 'turbo-action': 'replace'}
 
         = turbo_stream_from "#{@computer_name}_#{@component.id}"
         = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
         = render partial: 'iterate_form', locals: { component: @component, computer_name: @computer_name}
+
+        - if @component.chapters.any?
+          =r ux.segment '!mb-20'
+            =r ux.h4 text: 'Chapter Summaries'
+            =r ux.ordered_list
+              - @component.chapters.order(:number).each do |chapter|
+                =r ux.list_item
+                  =r ux.h5 text: chapter.name
+                  = simple_format chapter.plot_summary
+
+          =r ux.segment '!mb-20'
+            =r ux.h4 text: 'Chapter Content'
+            - @component.chapters.order(:number).each do |chapter|
+              .chapter-content.mb-8
+                =r ux.h3 text: "Chapter #{chapter.number}: #{chapter.name}"
+                .prose.prose-lg.max-w-none
+                  = markdown(chapter.content)
+                =r ux.divider
