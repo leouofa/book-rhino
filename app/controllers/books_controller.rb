@@ -15,6 +15,10 @@ class BooksController < MetaController
     GenerateBookPlotJob
   end
 
+  def read
+    @component = Book.find(params[:id])
+  end
+
   def render_book
     @component = Book.find(params[:id])
     @component.update(pending: true)

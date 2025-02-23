@@ -1,0 +1,18 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            = breadcrumb_parent @component_name, send(@component_list_path)
+            = @component.title
+          =r ux.component_button_holder
+            = link_to '< Back', book_path(@component), class: 'text-gray-500 hover:text-gray-700'
+        =r ux.component_divider
+
+        =r ux.segment '!mb-20'
+          - @component.chapters.order(:number).each do |chapter|
+            .chapter-content.mb-8
+              .prose.prose-lg.max-w-none
+                = markdown(chapter.content)
+              =r ux.divider 
