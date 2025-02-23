@@ -1,7 +1,6 @@
 class WriteChaptersJob < ApplicationJob
   def perform(book)
     @book = book
-    @book.update(pending: true)
     
     previous_chapter_id = nil
     @book.chapters.order(:number).each do |chapter|

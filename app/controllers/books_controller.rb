@@ -21,34 +21,11 @@ class BooksController < MetaController
 
   def render_book
     @component = Book.find(params[:id])
-    @component.update(pending: true)
     RenderBookJob.perform_now(@component)
 
     respond_to do |format|
       format.turbo_stream { render :iterate }
       format.html { redirect_to @component, notice: 'Rendering book...' }
-    end
-  end
-
-  def extract_chapters
-    @component = Book.find(params[:id])
-    @component.update(pending: true)
-    ExtractChaptersJob.perform_later(@component)
-
-    respond_to do |format|
-      format.turbo_stream { render :iterate }
-      format.html { redirect_to @component, notice: 'Extracting chapters...' }
-    end
-  end
-
-  def write_chapters
-    @component = Book.find(params[:id])
-    @component.update(pending: true)
-    WriteChaptersJob.perform_later(@component)
-
-    respond_to do |format|
-      format.turbo_stream { render :iterate }
-      format.html { redirect_to @component, notice: 'Writing chapters...' }
     end
   end
 

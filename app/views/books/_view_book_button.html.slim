@@ -4,4 +4,4 @@
       - if component.rendering
         .text-gray-600.italic Rendering book in progress...
       - else
-        = link_to 'View Full Book', read_book_path(component), class: 'btn-primary fluid' 
+        = link_to 'View Full Book', read_book_path(component), class: 'btn-primary fluid', data: { turbo_frame: "_top" } 

@@ -3,16 +3,45 @@ class GenerateBookPlotJob < MetaJob
 
   def perform(component)
     @component = component
+    @component.update(plot: nil)
     super()
   end
 
   private
 
+  def chat(messages:)
+    @client.chat(
+      parameters: {
+        model: self.class.openai_model || ENV['OPENAI_MODEL'],
+        messages:,
+        temperature: 0.7,
+        response_format: { type: "json_object" }
+      }
+    )
+  end
+
   def update_component(response)
+    data = JSON.parse(response["choices"][0]["message"]["content"])
+    
+    # Update the book with the plot
     @component.update(
-      plot: response["choices"][0]["message"]["content"],
       pending: false
     )
+
+    # Delete existing chapters if any
+    @component.chapters.destroy_all
+    
+    # Create new chapters
+    data["chapters"].each do |chapter|
+      @component.chapters.create!(
+        number: chapter["number"],
+        name: chapter["name"],
+        plot_summary: chapter["plot_summary"],
+        summary: chapter["plot_summary"], # Using plot_summary as initial summary
+        content: "" # Empty content to be filled later
+      )
+    end
+
     broadcast_component_update(@component)
   end
 
@@ -27,9 +56,32 @@ class GenerateBookPlotJob < MetaJob
       - The characters' roles (protagonist, antagonists, other characters)
       - The characters' established traits and backstories
       
-      Return a well-structured plot outline that could be used by a writer.
+      Return a JSON object with:
+      "chapters": An array of chapters where each chapter has:
+         - "number": integer (sequential starting from 1)
+         - "name": string (descriptive chapter title)
+         - "plot_summary": string (detailed chapter description)
+
+      Guidelines for chapters:
+      - Create a logical chapter structure that follows the plot progression
+      - Each chapter should have a clear focus and purpose
+      - Chapter names should be descriptive and engaging
+      - Plot summaries should be detailed and align with the main plot
+      - Maintain consistent narrative flow between chapters
+
       Focus on major plot points, character arcs, and how the story progresses through the narrative structure.
       DONT MAKE ANYTHING UP beyond what's provided in the input data.
+      
+      Example response format:
+      {
+        "chapters": [
+          {
+            "number": 1,
+            "name": "The Beginning",
+            "plot_summary": "Detailed description of chapter 1..."
+          }
+        ]
+      }
     SYSTEM_ROLE
   end
 

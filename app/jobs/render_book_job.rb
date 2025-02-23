@@ -4,9 +4,6 @@ class RenderBookJob < ApplicationJob
     begin
       start_rendering
       
-      # First extract chapters
-      ExtractChaptersJob.perform_now(@book)
-      
       # Then write chapters
       WriteChaptersJob.perform_now(@book)
     ensure

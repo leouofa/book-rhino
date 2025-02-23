@@ -12,11 +12,6 @@ class WriteChapterSummaryJob < MetaJob
     chapter_summary = JSON.parse(summary_response['choices'][0]['message']['content'])['summary']
     
     @component.update!(summary: chapter_summary)
-    
-    # If this is the last chapter, mark the book as not pending
-    if @component.number == @book.chapter_count
-      @book.update(pending: false)
-    end
   end
 
   private

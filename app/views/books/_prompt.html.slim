@@ -5,13 +5,12 @@
       div class="ui active inverted dimmer"
         div class="ui text loader small elastic" Processing Your Request
 
-  - if component.plot.present? && !component.pending
-    =r ux.h5
-      | Plot
-      -if component.versions.present?
-        span.ml-2
-          |[
-        = link_to "Previous Versions", send("#{computer_name}_versions_path", "#{computer_name}_id": component.id), class: 'text-blue-700 hover:text-blue-700', data: {turbo_frame: "_top"}
-        |]
-    =r ux.segment '!bg-yellow-100 !mb-10'
-      = markdown component.plot 
+  - if !component.pending
+    - if component.chapters.any?
+      =r ux.segment '!mb-20'
+        =r ux.h4 text: 'Chapter Summaries'
+        =r ux.ordered_list
+          - component.chapters.order(:number).each do |chapter|
+            =r ux.list_item
+              =r ux.h5 text: chapter.name
+              = simple_format chapter.plot_summary 
