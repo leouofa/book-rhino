@@ -15,6 +15,17 @@ class BooksController < MetaController
     GenerateBookPlotJob
   end
 
+  def render_book
+    @component = Book.find(params[:id])
+    @component.update(pending: true)
+    RenderBookJob.perform_now(@component)
+
+    respond_to do |format|
+      format.turbo_stream { render :iterate }
+      format.html { redirect_to @component, notice: 'Rendering book...' }
+    end
+  end
+
   def extract_chapters
     @component = Book.find(params[:id])
     @component.update(pending: true)
