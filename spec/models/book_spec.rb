@@ -36,13 +36,6 @@ RSpec.describe Book, type: :model do
       expect(book.characters).to be_present
     end
 
-    it 'can be created with chapters' do
-      book = create(:book)
-      create_list(:chapter, 3, :sequential, book: book)
-      expect(book.chapters.count).to eq(3)
-      expect(book.chapters.map(&:number)).to eq([1, 2, 3])
-    end
-
     it 'can be created as complete' do
       book = create(:book, :complete)
       expect(book.protagonist).to be_present

@@ -31,8 +31,8 @@ Rails.application.routes.draw do
   end
 
   resources :books do
-    post :generate_prompt, :iterate, :extract_chapters, :write_chapters, on: :member
-    get :edit_prompt, on: :member
+    post :generate_prompt, :iterate, :extract_chapters, :write_chapters, :render_book, on: :member
+    get :edit_prompt, :read, on: :member
 
     scope module: :book do
       concerns :versionable
