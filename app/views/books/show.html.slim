@@ -59,6 +59,8 @@
                 - else
                   | None assigned
 
+              = render partial: 'view_book_button', locals: { component: @component }
+
         =r ux.segment '!mb-20'
           =r ux.h5 text: 'Moral'
           = simple_format @component.moral
@@ -75,4 +77,3 @@
                 =r ux.list_item
                   =r ux.h5 text: chapter.name
                   = simple_format chapter.plot_summary
-            = link_to 'View Full Book', read_book_path(@component), class: 'btn-primary mt-4'

@@ -1,0 +1,7 @@
+= turbo_frame_tag "book_#{component.id}_view_button"
+  - if component.chapters.any?
+    =r ux.segment 'mt-4'
+      - if component.rendering
+        .text-gray-600.italic Rendering book in progress...
+      - else
+        = link_to 'View Full Book', read_book_path(component), class: 'btn-primary fluid' 
