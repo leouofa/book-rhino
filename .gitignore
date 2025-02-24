@@ -50,3 +50,7 @@ dump.rdb
 /public/rewritten_articles/*
 
 .DS_Store
+
+/book/
+/book/*
+!book/.keep

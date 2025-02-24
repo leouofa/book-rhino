@@ -14,6 +14,7 @@
 #  pages                  :integer
 #  narrative_structure_id :bigint
 #  protagonist_id         :bigint
+#  rendering             :boolean          default(false), not null
 #
 class Book < ApplicationRecord
   belongs_to :writing_style
@@ -29,7 +30,7 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validate :character_role_uniqueness
 
-  has_paper_trail ignore: %i[title moral chapter_count pages], versions: {
+  has_paper_trail ignore: %i[title moral chapter_count pages rendering], versions: {
     scope: -> { order('id desc') }
   }
 
