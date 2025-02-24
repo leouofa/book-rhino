@@ -7,3 +7,31 @@
           div.mx-auto
             =r ux.icon 'book !text-sm !mb-1 !mr-2'
             | Welcome to Book Rhino
+
+      - if @books.any?
+        =r ux.segment
+          =r ux.h4 text: 'Your Books', class: '!font-mono !mb-4'
+          =r ux.table class: 'relaxed celled striped structured'
+            =r ux.thead
+              =r ux.tr
+                =r ux.th text: 'Book Name'
+                =r ux.th text: 'Writing Style'
+                =r ux.th text: 'Chapters'
+                =r ux.th text: 'Pages'
+            - @books.each do |book|
+              =r ux.tr
+                =r ux.td
+                  = link_to book.title, book_path(book), class: 'text-blue-700 hover:text-blue-900'
+                =r ux.td
+                  = book.writing_style.name
+                =r ux.td
+                  = book.chapter_count
+                =r ux.td
+                  = book.pages
+      - else
+        =r ux.segment '!bg-gray-50'
+          =r ux.div 'text-center py-8'
+            =r ux.icon 'book !text-4xl !mb-4 text-gray-400'
+            =r ux.h4 'text-gray-500 !font-normal' do
+              | No books yet
+            = link_to 'Create your first book', new_book_path, class: 'btn-primary mt-4'
