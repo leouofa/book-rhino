@@ -21,7 +21,7 @@ class BooksController < MetaController
 
   def render_book
     @component = Book.find(params[:id])
-    RenderBookJob.perform_now(@component)
+    RenderBookJob.perform_later(@component)
 
     respond_to do |format|
       format.turbo_stream { render :iterate }
