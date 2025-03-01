@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.3.0"
 
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.0'
 gem "puma", "~> 6.0"
 
 # Core
@@ -37,7 +37,7 @@ gem 'neighbor'
 
 # Authentication
 gem 'devise'
-gem 'devise-tailwindcssed'
+gem 'devise-tailwindcssed', github: 'leouofa/devise-tailwindcssed', branch: 'version_bump'
 
 # Pagination
 gem 'kaminari', github: 'kaminari/kaminari', branch: 'master'

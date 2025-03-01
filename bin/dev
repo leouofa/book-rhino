@@ -9,4 +9,4 @@ trap("SIGINT") { exit }
 ENV["RAILS_ENV"] ||= "development"
 
 # Execute foreman with Procfile.dev
-exec "foreman start -f Procfile.dev" 
+exec "foreman start -f Procfile.dev"
