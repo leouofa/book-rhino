@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-  default from: 'noreply@storypro.io', to: ENV['RACK_NOTIFICATIONS_EMAIL']
+  default from: 'noreply@macron1.io', to: ENV['RACK_NOTIFICATIONS_EMAIL']
 
   def rack_attack_notification(name, start, finish, request_id, remote_ip, path)
     @name = name
