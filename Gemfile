@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.3.0"
 
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.0'
 gem "puma", "~> 6.0"
 
 # Core
@@ -13,17 +13,13 @@ gem "bootsnap", require: false
 gem 'canonical-rails', github: 'jumph4x/canonical-rails'
 gem 'config'
 gem 'deep_cloneable', '~> 3.2.0'
-gem 'uploadcare-rails'
 gem 'friendly_id'
 gem 'httparty'
 gem 'maruku'
 gem 'reverse_markdown'
-gem 'invisible_captcha'
 gem 'jsonb_accessor'
 gem "jbuilder"
 gem 'rack-canonical-host'
-gem 'simple_scheduler'
-gem 'sitemap_generator'
 gem 'ruby-openai'
 gem 'rexml'
 gem 'paper_trail'
@@ -37,7 +33,7 @@ gem 'neighbor'
 
 # Authentication
 gem 'devise'
-gem 'devise-tailwindcssed'
+gem 'devise-tailwindcssed', github: 'leouofa/devise-tailwindcssed', branch: 'version_bump'
 
 # Pagination
 gem 'kaminari', github: 'kaminari/kaminari', branch: 'master'
@@ -54,9 +50,6 @@ gem 'view_component'
 gem 'vite_rails'
 gem 'redcarpet'
 
-# Errors
-gem 'appsignal'
-
 # Middleware
 gem 'rack-attack'
 gem 'rack-cors'
@@ -72,7 +65,7 @@ end
 
 group :development do
   gem "web-console"
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'foreman'
 end
 
