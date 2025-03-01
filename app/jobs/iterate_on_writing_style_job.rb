@@ -1,5 +1,7 @@
 class IterateOnWritingStyleJob < MetaJob
   self.max_retries = 3
+  self.openai_model = ENV['OPENAI_MODEL']
+  self.json_request = true
 
   def perform(component, message)
     @component = component
@@ -21,16 +23,5 @@ class IterateOnWritingStyleJob < MetaJob
 
   def user_content
     "Writing Style:\n#{@writing_style_json}\n--------\nRequest:\n#{@message}"
-  end
-
-  def chat(messages:)
-    @client.chat(
-      parameters: {
-        model: ENV['OPENAI_MODEL'],
-        messages:,
-        temperature: 0.7,
-        response_format: { type: "json_object" }
-      }
-    )
   end
 end

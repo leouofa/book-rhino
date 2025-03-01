@@ -3,6 +3,7 @@ class MetaJob < ApplicationJob
 
   class_attribute :max_retries, default: 0 # Default to disabled
   class_attribute :openai_model # Default to nil
+  class_attribute :json_request, default: false # Default to no JSON response format
 
   def perform(...)
     initialize_client
@@ -50,13 +51,15 @@ class MetaJob < ApplicationJob
   end
 
   def chat(messages:)
-    @client.chat(
-      parameters: {
-        model: self.class.openai_model || ENV['OPENAI_MODEL'],
-        messages:,
-        temperature: 0.7
-      }
-    )
+    parameters = {
+      model: self.class.openai_model || ENV['OPENAI_MODEL'],
+      messages:,
+      temperature: 0.7
+    }
+
+    parameters[:response_format] = { type: "json_object" } if self.class.json_request
+
+    @client.chat(parameters: parameters)
   end
 
   def retry_on_failure
@@ -68,7 +71,7 @@ class MetaJob < ApplicationJob
     rescue Faraday::BadRequestError => e
       attempts += 1
       if attempts < self.class.max_retries
-        sleep(5)
+        sleep(1)
         retry
       else
         raise e
