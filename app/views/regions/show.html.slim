@@ -6,6 +6,8 @@
           =r ux.component_header
             = breadcrumb_parent @component_name, send(@component_list_path)
             = @component.name
+          =r ux.component_button_holder
+            = link_to 'Edit', send(@component_edit_path), class: 'btn-edit mr-2'
           =r ux.component_return_action text: '< Back', url: send(@component_list_path)
         =r ux.component_divider
 
