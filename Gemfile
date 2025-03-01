@@ -13,17 +13,13 @@ gem "bootsnap", require: false
 gem 'canonical-rails', github: 'jumph4x/canonical-rails'
 gem 'config'
 gem 'deep_cloneable', '~> 3.2.0'
-gem 'uploadcare-rails'
 gem 'friendly_id'
 gem 'httparty'
 gem 'maruku'
 gem 'reverse_markdown'
-gem 'invisible_captcha'
 gem 'jsonb_accessor'
 gem "jbuilder"
 gem 'rack-canonical-host'
-gem 'simple_scheduler'
-gem 'sitemap_generator'
 gem 'ruby-openai'
 gem 'rexml'
 gem 'paper_trail'
@@ -53,9 +49,6 @@ gem 'turbo-rails'
 gem 'view_component'
 gem 'vite_rails'
 gem 'redcarpet'
-
-# Errors
-gem 'appsignal'
 
 # Middleware
 gem 'rack-attack'

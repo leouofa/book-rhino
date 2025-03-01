@@ -116,9 +116,6 @@ GEM
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     annotaterb (4.14.0)
-    appsignal (4.5.2)
-      logger
-      rack
     ast (2.4.2)
     awesome_print (1.9.2)
     base64 (0.2.0)
@@ -166,25 +163,12 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.6.0)
-    domain_name (0.6.20240107)
     dotenv (3.1.7)
     dotenv-rails (3.1.7)
       dotenv (= 3.1.7)
       railties (>= 6.1)
     drb (2.2.1)
     dry-cli (1.2.0)
-    dry-configurable (1.3.0)
-      dry-core (~> 1.1)
-      zeitwerk (~> 2.6)
-    dry-core (1.1.0)
-      concurrent-ruby (~> 1.0)
-      logger
-      zeitwerk (~> 2.6)
-    dry-inflector (1.2.0)
-    dry-monads (1.7.1)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 1.1)
-      zeitwerk (~> 2.6)
     erubi (1.13.1)
     event_stream_parser (1.0.0)
     factory_bot (6.5.1)
@@ -206,36 +190,19 @@ GEM
       multipart-post (~> 2.0)
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.1-arm64-darwin)
-    ffi (1.17.1-x86_64-linux-gnu)
-    ffi-compiler (1.3.2)
-      ffi (>= 1.15.5)
-      rake
     foreman (0.88.1)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.2)
-    hashie (5.0.0)
     hiredis (0.6.3)
-    http (5.2.0)
-      addressable (~> 2.8)
-      base64 (~> 0.1)
-      http-cookie (~> 1.0)
-      http-form_data (~> 2.2)
-      llhttp-ffi (~> 0.5.0)
-    http-cookie (1.0.8)
-      domain_name (~> 0.5)
-    http-form_data (2.3.0)
     httparty (0.22.0)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    invisible_captcha (2.3.0)
-      rails (>= 5.2)
     io-console (0.8.0)
     irb (1.15.1)
       pp (>= 0.6.0)
@@ -251,9 +218,6 @@ GEM
       pg (>= 0.18.1)
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
-    llhttp-ffi (0.5.0)
-      ffi-compiler (~> 1.0)
-      rake (~> 13.0)
     logger (1.6.6)
     loofah (2.24.0)
       crass (~> 1.0.2)
@@ -269,9 +233,6 @@ GEM
     meta-tags (2.22.1)
       actionpack (>= 6.0.0, < 8.1)
     method_source (1.1.0)
-    mimemagic (0.4.3)
-      nokogiri (~> 1)
-      rake
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.8.0)
@@ -390,7 +351,6 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    retries (0.0.5)
     reverse_markdown (3.0.0)
       nokogiri
     rexml (3.4.1)
@@ -453,11 +413,6 @@ GEM
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    simple_scheduler (1.2.0)
-      rails (>= 5.0)
-      sidekiq (>= 5.0)
-    sitemap_generator (6.3.0)
-      builder (~> 3.0)
     slim (5.2.1)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
@@ -498,20 +453,6 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uploadcare-api_struct (1.2.0)
-      dry-configurable (~> 1.0)
-      dry-inflector (~> 1.0)
-      dry-monads (~> 1.6)
-      hashie (~> 5.0)
-      http (~> 5.1)
-    uploadcare-rails (3.4.4)
-      rails (>= 6)
-      uploadcare-ruby (>= 4.4.2)
-    uploadcare-ruby (4.4.3)
-      mimemagic (~> 0.4)
-      parallel (~> 1.22)
-      retries (~> 0.0)
-      uploadcare-api_struct (>= 1.1, < 2)
     uri (1.0.3)
     useragent (0.16.11)
     view_component (3.21.0)
@@ -559,7 +500,6 @@ PLATFORMS
 
 DEPENDENCIES
   annotaterb
-  appsignal
   awesome_print
   bootsnap
   byebug
@@ -578,7 +518,6 @@ DEPENDENCIES
   friendly_id
   hiredis
   httparty
-  invisible_captcha
   jbuilder
   jsonb_accessor
   kaminari!
@@ -608,15 +547,12 @@ DEPENDENCIES
   shoulda-matchers (~> 5.0)
   sidekiq
   simple_form
-  simple_scheduler
-  sitemap_generator
   slim-rails
   sprockets-rails
   stimulus-rails
   timecop
   tty-prompt
   turbo-rails
-  uploadcare-rails
   view_component
   vite_rails
   web-console
