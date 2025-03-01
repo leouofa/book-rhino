@@ -8,6 +8,7 @@
             = @component.name
 
           =r ux.component_button_holder
+            = link_to 'Edit', send(@component_edit_path), class: 'btn-edit mr-2'
             = link_to 'Edit Prompt', send(@component_edit_prompt_path), class: 'btn-secondary mr-2'
             = button_to 'Generate Prompt', send(@component_generate_prompt_path), method: :post, class: 'btn-primary', data: { 'turbo-action': 'replace'}
         =r ux.component_divider
