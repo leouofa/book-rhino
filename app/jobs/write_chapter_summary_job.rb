@@ -1,6 +1,7 @@
 class WriteChapterSummaryJob < MetaJob
   self.max_retries = 3
   self.openai_model = ENV['OPENAI_MODEL']
+  self.json_request = true
 
   def perform(chapter_id)
     @component = Chapter.find(chapter_id)
@@ -22,17 +23,6 @@ class WriteChapterSummaryJob < MetaJob
 
   def update_component(response)
     # Component updates are handled in perform
-  end
-
-  def chat(messages:)
-    @client.chat(
-      parameters: {
-        model: self.class.openai_model || ENV['OPENAI_MODEL'],
-        messages:,
-        temperature: 0.7,
-        response_format: { type: 'json_object' }
-      }
-    )
   end
 
   def system_role

@@ -1,5 +1,6 @@
 class GenerateBookPlotJob < MetaJob
   self.openai_model = ENV['OPENAI_MODEL']
+  self.json_request = true
 
   def perform(component)
     @component = component
@@ -8,17 +9,6 @@ class GenerateBookPlotJob < MetaJob
   end
 
   private
-
-  def chat(messages:)
-    @client.chat(
-      parameters: {
-        model: self.class.openai_model || ENV['OPENAI_MODEL'],
-        messages:,
-        temperature: 0.7,
-        response_format: { type: "json_object" }
-      }
-    )
-  end
 
   def update_component(response)
     data = JSON.parse(response["choices"][0]["message"]["content"])

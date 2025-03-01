@@ -1,4 +1,7 @@
 class GenerateWritingStyleJob < MetaJob
+  self.openai_model = ENV['OPENAI_MODEL']
+  self.json_request = true
+
   def perform(component)
     @component = component
 
@@ -19,16 +22,5 @@ class GenerateWritingStyleJob < MetaJob
       question.concat "``````", "Text Name: #{text.name}, Corpus: #{text.corpus}", "``````"
     end
     question
-  end
-
-  def chat(messages:)
-    @client.chat(
-      parameters: {
-        model: ENV['OPENAI_MODEL'],
-        messages:,
-        temperature: 0.7,
-        response_format: { type: "json_object" }
-      }
-    )
   end
 end

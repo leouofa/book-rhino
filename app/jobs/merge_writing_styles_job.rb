@@ -1,5 +1,7 @@
 class MergeWritingStylesJob < MetaJob
   self.max_retries = 3
+  self.openai_model = ENV['OPENAI_MODEL']
+  self.json_request = true
 
   def perform(component, version_to_merge)
     @component = component
@@ -24,16 +26,5 @@ class MergeWritingStylesJob < MetaJob
 
   def user_content
     "#{@json_1}\n--------\n#{@json_2}"
-  end
-
-  def chat(messages:)
-    @client.chat(
-      parameters: {
-        model: ENV['OPENAI_MODEL'],
-        messages:,
-        temperature: 0.7,
-        response_format: { type: "json_object" }
-      }
-    )
   end
 end
