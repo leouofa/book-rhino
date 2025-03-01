@@ -48,7 +48,5 @@ jobs:
           bundler-cache: true
       - name: Set up database schema
         run: bin/rails db:schema:load
-      - name: Load blueprints
-        run: bin/rails generate blueprints
       - name: Run tests
         run: bundle exec rspec
