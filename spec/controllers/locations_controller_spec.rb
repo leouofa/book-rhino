@@ -183,9 +183,9 @@ RSpec.describe LocationsController, type: :controller do
         expect(location.name).to eq('Updated Location')
       end
 
-      it 'redirects to the locations list' do
+      it 'redirects to the location show page' do
         put :update, params: { id: location.id, location: new_attributes }
-        expect(response).to redirect_to(locations_path)
+        expect(response).to redirect_to(location_path(location))
       end
     end
 

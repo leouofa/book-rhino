@@ -168,9 +168,9 @@ RSpec.describe CharactersController, type: :controller do
         expect(character.name).to eq('Updated Character')
       end
 
-      it 'redirects to the characters list' do
+      it 'redirects to the character show page' do
         put :update, params: { id: character.id, character: new_attributes }
-        expect(response).to redirect_to(characters_path)
+        expect(response).to redirect_to(character_path(character))
       end
     end
 

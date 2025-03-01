@@ -15,10 +15,22 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers
-  config.include Warden::Test::Helpers, type: :controller
+  config.include Warden::Test::Helpers
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
+
+  config.before(:suite) do
+    Warden.test_mode!
+  end
+
+  config.before(:each) do
+    Devise.mappings[:user] = Devise.mappings[:user] || Devise::Mapping.new(:user, {})
+  end
+
+  config.after(:each) do
+    Warden.test_reset!
+  end
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
