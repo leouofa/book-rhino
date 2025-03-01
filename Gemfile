@@ -73,6 +73,7 @@ end
 group :development do
   gem "web-console"
   gem 'annotate'
+  gem 'foreman'
 end
 
 group :test do
