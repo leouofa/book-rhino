@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+
+# Ensure all necessary processes are stopped when script is terminated
+trap("SIGINT") { exit }
+
+# Set environment to development
+ENV["RAILS_ENV"] ||= "development"
+
+# Execute foreman with Procfile.dev
+exec "foreman start -f Procfile.dev" 
