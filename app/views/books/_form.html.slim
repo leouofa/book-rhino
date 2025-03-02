@@ -35,6 +35,12 @@
         { prompt: "Select Other Characters" },
         { multiple: true, class: "ui fluid dropdown" }
 
+    = r ux.component_field
+      = form.label :location_ids, "Locations"
+      = form.collection_select :location_ids, Location.all, :id, :name,
+        { prompt: "Select Locations" },
+        { multiple: true, class: "ui fluid dropdown" }
+
     =r ux.component_field
       = form.label :chapter_count, "Chapter Count"
       = form.number_field :chapter_count, value: @component.chapter_count

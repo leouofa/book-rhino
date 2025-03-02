@@ -49,7 +49,8 @@ class BooksController < MetaController
       :pages,
       :protagonist_id,
       antagonist_ids: [],
-      character_ids: []
+      character_ids: [],
+      location_ids: []
     )
   end
 end

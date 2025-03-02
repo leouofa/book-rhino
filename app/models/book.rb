@@ -25,6 +25,7 @@ class Book < ApplicationRecord
   has_many :book_antagonists, dependent: :destroy
   has_many :antagonists, through: :book_antagonists, source: :character
   has_and_belongs_to_many :characters
+  has_and_belongs_to_many :locations
   has_many :chapters, dependent: :destroy
 
   validates :title, presence: true
@@ -43,7 +44,8 @@ class Book < ApplicationRecord
         narrative_structure: { only: [:name, :description, :parts] },
         protagonist: { only: [:name, :prompt] },
         antagonists: { only: [:name, :prompt] },
-        characters: { only: [:name, :prompt] }
+        characters: { only: [:name, :prompt] },
+        locations: { only: [:name, :prompt] }
       }
     ))
   end

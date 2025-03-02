@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_01_183730) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_02_160544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -66,6 +66,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_01_183730) do
     t.bigint "character_id", null: false
     t.index ["book_id", "character_id"], name: "index_books_characters_on_book_id_and_character_id"
     t.index ["character_id", "book_id"], name: "index_books_characters_on_character_id_and_book_id"
+  end
+
+  create_table "books_locations", id: false, force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "location_id", null: false
   end
 
   create_table "chapters", force: :cascade do |t|
