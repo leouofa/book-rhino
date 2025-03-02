@@ -1,0 +1,6 @@
+= turbo_frame_tag "book_#{component.id}_action_buttons"
+  =r ux.component_button_holder
+    - unless component.pending || component.rendering
+      = link_to 'Edit', edit_book_path(component), class: 'btn-edit mr-2 !pb-1.5', data: { turbo_frame: '_top' }
+      = button_to 'Generate Plot', generate_prompt_book_path(component), method: :post, class: 'btn-primary mr-2', data: { 'turbo-action': 'replace'}
+      = button_to 'Render Book', render_book_book_path(component), method: :post, class: 'btn-render', data: { 'turbo-action': 'replace'} 

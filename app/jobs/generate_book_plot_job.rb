@@ -10,6 +10,12 @@ class GenerateBookPlotJob < MetaJob
 
   private
 
+  def prepare_component
+    @component.update(pending: true)
+    broadcast_component_update(@component)
+    broadcast_action_buttons_update(@component)
+  end
+
   def update_component(response)
     data = JSON.parse(response["choices"][0]["message"]["content"])
     
@@ -32,7 +38,18 @@ class GenerateBookPlotJob < MetaJob
       )
     end
 
+    # Broadcast updates to both prompt and action buttons
     broadcast_component_update(@component)
+    broadcast_action_buttons_update(@component)
+  end
+
+  def broadcast_action_buttons_update(component)
+    Turbo::StreamsChannel.broadcast_update_to(
+      "#{component.class.name.underscore}_#{component.id}",
+      target: "book_#{component.id}_action_buttons",
+      partial: "books/action_buttons",
+      locals: { component: component }
+    )
   end
 
   def system_role
