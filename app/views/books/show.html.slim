@@ -5,11 +5,9 @@
         =r ux.component_container
           =r ux.component_header
             = breadcrumb_parent @component_name, send(@component_list_path)
-            = @component.title
+            = truncate(@component.title, length: 30)
           =r ux.component_button_holder
-            = link_to 'Edit', send(@component_edit_path, @component), class: 'btn-edit mr-2 !pb-1.5'
-            = button_to 'Generate Plot', send(@component_generate_prompt_path), method: :post, class: 'btn-primary mr-2', data: { 'turbo-action': 'replace'}
-            = button_to 'Render Book', render_book_book_path(@component), method: :post, class: 'btn-render', data: { 'turbo-action': 'replace'}
+            = render partial: 'action_buttons', locals: { component: @component }
         =r ux.component_divider
 
         =r ux.grid
@@ -58,8 +56,6 @@
                         = link_to character.name, character_path(character), class: 'text-blue-700'
                 - else
                   | None assigned
-
-              = render partial: 'view_book_button', locals: { component: @component }
 
         =r ux.segment '!mb-10'
           =r ux.h5 text: 'Moral'

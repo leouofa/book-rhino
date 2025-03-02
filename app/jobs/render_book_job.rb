@@ -15,20 +15,20 @@ class RenderBookJob < ApplicationJob
 
   def start_rendering
     @book.update(rendering: true)
-    broadcast_book_update
+    broadcast_action_buttons_update
   end
 
   def finish_rendering
     @book.update(rendering: false)
-    broadcast_book_update
+    broadcast_action_buttons_update
   end
 
-  def broadcast_book_update
+  def broadcast_action_buttons_update
     computer_name = @book.class.name.underscore
     Turbo::StreamsChannel.broadcast_update_to(
       "#{computer_name}_#{@book.id}",
-      target: "book_#{@book.id}_view_button",
-      partial: "books/view_book_button",
+      target: "book_#{@book.id}_action_buttons",
+      partial: "books/action_buttons",
       locals: { component: @book }
     )
   end
