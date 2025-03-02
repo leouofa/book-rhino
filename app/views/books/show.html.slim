@@ -57,6 +57,15 @@
                 - else
                   | None assigned
 
+                =r ux.h4 text: 'Locations'
+                - if @component.locations.any?
+                  =r ux.ordered_list
+                    - @component.locations.each do |location|
+                      =r ux.list_item
+                        = link_to location.name, location_path(location), class: 'text-blue-700'
+                - else
+                  | None assigned
+
         =r ux.segment '!mb-10'
           =r ux.h5 text: 'Moral'
           = simple_format @component.moral
