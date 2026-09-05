@@ -10,7 +10,7 @@ class MergeBookPlotsJob < MetaJob
 
   def update_component(response)
     @component.update(
-      plot: response["choices"][0]["message"]["content"],
+      plot: response_content(response),
       pending: false
     )
     broadcast_component_update(@component)

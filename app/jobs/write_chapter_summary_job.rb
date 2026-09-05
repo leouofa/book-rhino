@@ -1,7 +1,14 @@
 class WriteChapterSummaryJob < MetaJob
   self.max_retries = 3
-  self.openai_model = ENV['OPENAI_MODEL']
   self.json_request = true
+  self.json_schema = {
+    type: "object",
+    properties: {
+      summary: { type: "string" }
+    },
+    required: ["summary"],
+    additionalProperties: false
+  }
 
   def perform(chapter_id)
     @component = Chapter.find(chapter_id)
@@ -10,7 +17,7 @@ class WriteChapterSummaryJob < MetaJob
     super()
     
     summary_response = send_chat_request
-    chapter_summary = JSON.parse(summary_response['choices'][0]['message']['content'])['summary']
+    chapter_summary = parse_content(summary_response)['summary']
     
     @component.update!(summary: chapter_summary)
   end

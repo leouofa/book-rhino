@@ -1,7 +1,14 @@
 class WriteChapterContentJob < MetaJob
   self.max_retries = 3
-  self.openai_model = ENV['OPENAI_MODEL']
   self.json_request = true
+  self.json_schema = {
+    type: "object",
+    properties: {
+      content: { type: "string" }
+    },
+    required: ["content"],
+    additionalProperties: false
+  }
   WORDS_PER_PAGE = 250
 
   def perform(chapter_id, previous_chapter_id)
@@ -14,7 +21,7 @@ class WriteChapterContentJob < MetaJob
     super()
     
     content_response = send_chat_request
-    chapter_content = JSON.parse(content_response['choices'][0]['message']['content'])['content']
+    chapter_content = parse_content(content_response)['content']
     
     # Validate word count before saving
     # actual_words = chapter_content.split.size
@@ -22,7 +29,7 @@ class WriteChapterContentJob < MetaJob
     #   Rails.logger.warn("Chapter #{@component.number} is too short: #{actual_words} words vs target #{@target_words}")
     #   # Retry with more explicit instructions
     #   content_response = send_chat_request
-    #   chapter_content = JSON.parse(content_response['choices'][0]['message']['content'])['content']
+    #   chapter_content = parse_content(content_response)['content']
     # end
     
     @component.update!(content: chapter_content)

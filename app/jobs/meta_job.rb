@@ -2,11 +2,11 @@ class MetaJob < ApplicationJob
   queue_as :default
 
   class_attribute :max_retries, default: 0 # Default to disabled
-  class_attribute :openai_model # Default to nil
+  class_attribute :model # Default to nil (falls back to ENV['GEMINI_MODEL'])
   class_attribute :json_request, default: false # Default to no JSON response format
+  class_attribute :json_schema # JSON Schema hash for structured output (Gemini 2.5+)
 
   def perform(...)
-    initialize_client
     prepare_component
     response = send_chat_request
     update_component(response)
@@ -14,22 +14,18 @@ class MetaJob < ApplicationJob
 
   private
 
-  def initialize_client
-    @client = OpenAI::Client.new
-  end
-
   def prepare_component
     @component.update(pending: true)
     broadcast_component_update(@component)
   end
 
   def send_chat_request
-    retry_on_failure { chat(messages: build_messages) }
+    retry_on_failure { chat }
   end
 
   def update_component(response)
     @component.update(
-      prompt: response["choices"][0]["message"]["content"],
+      prompt: response_content(response),
       pending: false
     )
     broadcast_component_update(@component)
@@ -43,23 +39,28 @@ class MetaJob < ApplicationJob
     raise NotImplementedError, "#{self.class} must implement user_content"
   end
 
-  def build_messages
-    [
-      { role: "system", content: system_role },
-      { role: "user", content: user_content }
-    ]
+  def chat
+    chat = RubyLLM.chat(model: model_name)
+                  .with_instructions(system_role)
+                  .with_temperature(0.7)
+
+    chat = chat.with_schema(self.class.json_schema) if self.class.json_request
+
+    chat.ask(user_content)
   end
 
-  def chat(messages:)
-    parameters = {
-      model: self.class.openai_model || ENV['OPENAI_MODEL'],
-      messages:,
-      temperature: 0.7
-    }
+  def model_name
+    self.class.model || ENV['GEMINI_MODEL'] || 'gemini-3.5-flash'
+  end
 
-    parameters[:response_format] = { type: "json_object" } if self.class.json_request
+  def response_content(response)
+    content = response.content
+    content.is_a?(String) ? content : JSON.generate(content)
+  end
 
-    @client.chat(parameters: parameters)
+  def parse_content(response)
+    content = response.content
+    content.is_a?(String) ? JSON.parse(content) : content
   end
 
   def retry_on_failure
@@ -68,15 +69,23 @@ class MetaJob < ApplicationJob
     attempts = 0
     begin
       yield
-    rescue Faraday::BadRequestError => e
+    rescue RubyLLM::Error => e
       attempts += 1
-      if attempts < self.class.max_retries
-        sleep(1)
-        retry
-      else
-        raise e
-      end
+      raise e unless retryable?(e) && attempts < self.class.max_retries
+
+      sleep(1)
+      retry
     end
+  end
+
+  def retryable?(error)
+    [
+      RubyLLM::BadRequestError,
+      RubyLLM::RateLimitError,
+      RubyLLM::OverloadedError,
+      RubyLLM::ServerError,
+      RubyLLM::ServiceUnavailableError
+    ].any? { |klass| error.is_a?(klass) }
   end
 
   def broadcast_component_update(component)

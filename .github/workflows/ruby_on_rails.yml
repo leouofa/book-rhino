@@ -33,10 +33,8 @@ jobs:
       PGUSER: rails
       API_KEY: ${{ secrets.API_KEY }}
       FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-      OPENAI_URL_BASE: ${{ secrets.OPENAI_URL_BASE }}
-      OPENAI_ACCESS_TOKEN: ${{ secrets.OPENAI_ACCESS_TOKEN }}
-      OPENAI_ORGANIZATION_ID: ${{ secrets.OPENAI_ORGANIZATION_ID }}
-      OPENAI_GPT_MODEL: ${{ secrets.OPENAI_GPT_MODEL }}
+      GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
       ORGANIZATION: ${{ secrets.ORGANIZATION }}
     steps:
       - name: Checkout code
