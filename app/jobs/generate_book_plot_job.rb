@@ -1,6 +1,25 @@
 class GenerateBookPlotJob < MetaJob
-  self.openai_model = ENV['OPENAI_MODEL']
   self.json_request = true
+  self.json_schema = {
+    type: "object",
+    properties: {
+      chapters: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            number: { type: "integer" },
+            name: { type: "string" },
+            plot_summary: { type: "string" }
+          },
+          required: %w[number name plot_summary],
+          additionalProperties: false
+        }
+      }
+    },
+    required: ["chapters"],
+    additionalProperties: false
+  }
 
   def perform(component)
     @component = component
@@ -17,7 +36,7 @@ class GenerateBookPlotJob < MetaJob
   end
 
   def update_component(response)
-    data = JSON.parse(response["choices"][0]["message"]["content"])
+    data = parse_content(response)
     
     # Update the book with the plot
     @component.update(

@@ -11,7 +11,7 @@ class IterateOnLocationPromptJob < MetaJob
   def system_role
     <<~SYSTEM_ROLE
       You are a college level english teacher.
-      You will be provided with a location description for ChatGPT and
+      You will be provided with a location description for an AI writing assistant and
       a request asking to modify it. Return only the location description.
     SYSTEM_ROLE
   end

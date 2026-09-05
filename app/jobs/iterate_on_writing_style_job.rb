@@ -1,7 +1,10 @@
 class IterateOnWritingStyleJob < MetaJob
   self.max_retries = 3
-  self.openai_model = ENV['OPENAI_MODEL']
   self.json_request = true
+  self.json_schema = {
+    type: "array",
+    items: { type: "string" }
+  }
 
   def perform(component, message)
     @component = component

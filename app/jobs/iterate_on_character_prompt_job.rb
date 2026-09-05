@@ -11,7 +11,7 @@ class IterateOnCharacterPromptJob < MetaJob
   def system_role
     <<~SYSTEM_ROLE
       You are a college level english teacher.
-      You will be provided with a character description for ChatGPT and
+      You will be provided with a character description for an AI writing assistant and
       a request asking to modify it. Return only the character description.
     SYSTEM_ROLE
   end

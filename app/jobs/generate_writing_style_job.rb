@@ -1,6 +1,9 @@
 class GenerateWritingStyleJob < MetaJob
-  self.openai_model = ENV['OPENAI_MODEL']
   self.json_request = true
+  self.json_schema = {
+    type: "array",
+    items: { type: "string" }
+  }
 
   def perform(component)
     @component = component
@@ -12,7 +15,7 @@ class GenerateWritingStyleJob < MetaJob
 
   def system_role
     <<~SYSTEM_ROLE
-      You are a college level english teacher. Analyze the following writing style and produce a set of instructions for ChatGPT in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
+      You are a college level english teacher. Analyze the following writing style and produce a set of instructions for an AI writing assistant in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
     SYSTEM_ROLE
   end
 

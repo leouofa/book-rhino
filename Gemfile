@@ -20,7 +20,7 @@ gem 'reverse_markdown'
 gem 'jsonb_accessor'
 gem "jbuilder"
 gem 'rack-canonical-host'
-gem 'ruby-openai'
+gem 'ruby_llm'
 gem 'rexml'
 gem 'paper_trail'
 
