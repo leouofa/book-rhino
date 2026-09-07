@@ -1,5 +1,6 @@
 class WriteChapterContentJob < MetaJob
   self.max_retries = 3
+  self.disable_thinking = true
   self.json_request = true
   self.json_schema = {
     type: "object",
@@ -18,19 +19,8 @@ class WriteChapterContentJob < MetaJob
     @pages_per_chapter = calculate_pages_per_chapter
     @target_words = @pages_per_chapter * WORDS_PER_PAGE
     
-    super()
-    
     content_response = send_chat_request
     chapter_content = parse_content(content_response)['content']
-    
-    # Validate word count before saving
-    # actual_words = chapter_content.split.size
-    # if actual_words < (@target_words * 0.8) # Allow 20% variance
-    #   Rails.logger.warn("Chapter #{@component.number} is too short: #{actual_words} words vs target #{@target_words}")
-    #   # Retry with more explicit instructions
-    #   content_response = send_chat_request
-    #   chapter_content = parse_content(content_response)['content']
-    # end
     
     @component.update!(content: chapter_content)
     

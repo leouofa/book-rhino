@@ -7,6 +7,7 @@ class MetaJob < ApplicationJob
   class_attribute :model # Default to nil (falls back to ENV['LLM_MODEL'] or provider-specific env)
   class_attribute :json_request, default: false # Default to no JSON response format
   class_attribute :json_schema # JSON Schema hash for structured output
+  class_attribute :disable_thinking, default: false # Sends think: false for providers that support it
 
   def perform(...)
     prepare_component
@@ -46,7 +47,10 @@ class MetaJob < ApplicationJob
                   .with_instructions(system_role)
                   .with_temperature(0.7)
 
-    chat = chat.with_params(format: self.class.json_schema) if self.class.json_request
+    params = {}
+    params[:format] = self.class.json_schema if self.class.json_request
+    params[:think] = false if self.class.disable_thinking
+    chat = chat.with_params(**params) unless params.empty?
 
     chat.ask(user_content)
   end
