@@ -1,3 +1,4 @@
+import '../themes/dist/internal/semantic.css';
 import $ from 'jquery';
 window.$ = $;
 

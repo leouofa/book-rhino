@@ -4,8 +4,8 @@ html lang="en"
     = display_meta_tags site: "Book Rhino", description: "Book App That Takes Charge", separator: "&mdash;".html_safe
     meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
 
-    = vite_stylesheet_tag 'admin.sass', 'data-turbo-track': 'reload'
     = vite_javascript_tag 'admin', 'data-turbo-track': 'reload'
+    = vite_stylesheet_tag 'admin.sass', 'data-turbo-track': 'reload'
     = csrf_meta_tags
     = canonical_tag
     = action_cable_meta_tag
