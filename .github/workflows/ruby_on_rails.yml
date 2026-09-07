@@ -33,8 +33,6 @@ jobs:
       PGUSER: rails
       API_KEY: ${{ secrets.API_KEY }}
       FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-      GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
-      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
       ORGANIZATION: ${{ secrets.ORGANIZATION }}
     steps:
       - name: Checkout code

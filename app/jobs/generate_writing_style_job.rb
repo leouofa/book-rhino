@@ -15,7 +15,8 @@ class GenerateWritingStyleJob < MetaJob
 
   def system_role
     <<~SYSTEM_ROLE
-      You are a college level english teacher. Analyze the following writing style and produce a set of instructions for an AI writing assistant in order to reproduce this writing style. Return ONLY the list with numbers 1 through n in JSON format. DONT MAKE ANYTHING UP.
+      You are a college level english teacher. Analyze the following writing style and produce a set of instructions for an AI writing assistant in order to reproduce this writing style. 
+      Return ONLY the array of instructions.
     SYSTEM_ROLE
   end
 
