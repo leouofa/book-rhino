@@ -69,8 +69,6 @@ class WriteChapterContentJob < MetaJob
       - Ensure narrative flows naturally from previous chapter
       - Include proper paragraph breaks and dialogue formatting
       - Stay true to the plot summary while adding appropriate detail
-      - Response must be valid JSON
-      - Current responses are too short - please write more
     SYSTEM_ROLE
   end
 
