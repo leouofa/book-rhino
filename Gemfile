@@ -30,6 +30,7 @@ gem "pg", "~> 1.1"
 gem 'redis'
 gem 'sidekiq'
 gem 'neighbor'
+gem 'connection_pool', '~> 2.5.4'
 
 # Authentication
 gem 'devise'

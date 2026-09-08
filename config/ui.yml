@@ -247,7 +247,7 @@ ui:
   component_button_holder:
     tag: div
     ui: false
-    css_class: 'flex justify-between items-center'
+    css_class: 'flex justify-between items-center gap-2'
 
   component_divider:
     tag: div

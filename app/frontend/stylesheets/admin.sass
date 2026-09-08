@@ -1,46 +1,5 @@
-@import "shared/utilities"
-
-@import 'admin/variables'
-@import 'admin/global'
-@import "admin/menu"
-@import "admin/codemirror"
-@import 'codemirror/lib/codemirror.css'
-
-
-@layer
-  .ui.component.field
-      label
-        font-size: 1.1em
-      input[type="text"]
-        font-family: $body-font-family !important
-        @apply border-4 focus:border-blue-400 !important
-      textarea
-        font-family: $body-font-family !important
-        @apply border-4 focus:border-blue-400 !important
-      select
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important
-        background-position: right 0.5rem center !important
-        background-repeat: no-repeat !important
-        background-size: 1.5em 1.5em !important
-        appearance: none !important
-        padding: 0.5em 0.9em !important
-        @apply h-12 border-4 focus:border-blue-400 !important
-
-@layer
-  .btn-primary
-    @apply py-2 px-4 bg-blue-500 disabled:bg-blue-300 text-sm text-white disabled:text-gray-50 rounded-sm hover:bg-blue-600 hover:text-white border-solid border-2 border-gray-700 disabled:border-gray-200 no-underline cursor-pointer
-
-  .btn-secondary
-    @apply py-2 px-4 !bg-emerald-500 text-sm !text-white rounded-sm hover:!bg-emerald-600 hover:!text-stone-100 border-solid border-2 border-gray-700 !no-underline cursor-pointer
-
-  .btn-render
-    @apply py-2 px-4 !bg-purple-500 text-sm !text-white rounded-sm hover:!bg-purple-600 hover:!text-stone-100 border-solid border-2 border-gray-700 !no-underline cursor-pointer
-
-  .btn-edit
-    @apply pb-2 pt-2 px-4 !bg-stone-500 text-sm !text-white rounded-sm hover:!bg-stone-600 hover:!text-stone-100 border-solid border-2 border-stone-700 !no-underline cursor-pointer
-
-  .btn-list-edit
-    @apply py-1 px-2 bg-stone-500 text-xs text-white rounded-sm hover:bg-stone-600 hover:text-stone-100 border-solid border-2 border-stone-700 no-underline cursor-pointer !important
-
-  .btn-list-delete
-    @apply py-1 px-2 bg-red-500 text-xs text-white rounded-sm hover:bg-red-600 hover:text-red-100 border-solid border-2 border-red-700 no-underline cursor-pointer !important
+@use 'shared/utilities' as *
+@use 'admin/variables' as *
+@use 'admin/global' as *
+@use 'admin/menu' as *
+@use 'admin/codemirror'
