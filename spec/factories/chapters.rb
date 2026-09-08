@@ -10,5 +10,13 @@ FactoryBot.define do
     trait :sequential do
       sequence(:number) { |n| n }
     end
+
+    trait :rendered do
+      content { Faker::Lorem.paragraphs(number: 5).join("\n\n") }
+    end
+
+    trait :unrendered do
+      content { nil }
+    end
   end
 end

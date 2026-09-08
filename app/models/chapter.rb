@@ -5,7 +5,7 @@
 #  id           :bigint           not null, primary key
 #  number       :integer          not null
 #  summary      :text             not null
-#  content      :text             not null
+#  content      :text
 #  book_id      :bigint           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -14,6 +14,9 @@
 #
 class Chapter < ApplicationRecord
   belongs_to :book
+
+  scope :rendered, -> { where.not(content: nil) }
+  scope :unrendered, -> { where(content: nil) }
 
   validates :number, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true

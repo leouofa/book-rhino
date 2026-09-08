@@ -34,4 +34,31 @@ RSpec.describe Chapter, type: :model do
       end
     end
   end
+
+  describe 'scopes' do
+    let(:book) { create(:book) }
+    let!(:rendered_chapter) { create(:chapter, :rendered, book: book, number: 1) }
+    let!(:unrendered_chapter) { create(:chapter, :unrendered, book: book, number: 2) }
+
+    describe '.rendered' do
+      it 'returns only chapters with content' do
+        expect(described_class.rendered).to contain_exactly(rendered_chapter)
+      end
+    end
+
+    describe '.unrendered' do
+      it 'returns only chapters without content' do
+        expect(described_class.unrendered).to contain_exactly(unrendered_chapter)
+      end
+    end
+  end
+
+  describe 'content' do
+    it 'allows content to be nil' do
+      chapter = build(:chapter, content: nil)
+      expect(chapter).to be_valid
+      expect { chapter.save! }.not_to raise_error
+      expect(chapter.content).to be_nil
+    end
+  end
 end
