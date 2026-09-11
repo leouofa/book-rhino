@@ -2,7 +2,7 @@
   =render 'partials/form_errors'
 
 =r ux.component_segment controller: 'dropdown'
-  = form_with model: @component, class: 'ui form', local: true do |form|
+  = form_with model: @component, url: send(@component_detail_path), class: 'ui form', local: true do |form|
 
     =r ux.component_field
       = form.label :plot_summary

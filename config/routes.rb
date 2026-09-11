@@ -34,13 +34,13 @@ Rails.application.routes.draw do
     post :generate_prompt, :iterate, :render_book, on: :member
     get :edit_prompt, :read, on: :member
 
+    resources :chapters do
+      get :edit_prompt, on: :member
+    end
+
     scope module: :book do
       concerns :versionable
     end
-  end
-
-  resources :chapters do
-    get :edit_prompt, on: :member
   end
 
   resources :characters do
