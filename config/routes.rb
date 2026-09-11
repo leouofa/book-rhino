@@ -39,6 +39,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :chapters do
+    get :edit_prompt, on: :member
+  end
+
   resources :characters do
     post :generate_prompt, :iterate, on: :member
     get :edit_prompt, on: :member

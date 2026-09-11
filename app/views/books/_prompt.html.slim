@@ -12,5 +12,6 @@
         =r ux.ordered_list
           - component.chapters.order(:number).each do |chapter|
             =r ux.list_item
-              =r ux.h5 text: chapter.name
+              =r ux.h5
+                = link_to chapter.name, chapter_path(chapter), data: { turbo_frame: "_top" }
               = simple_format chapter.plot_summary 
