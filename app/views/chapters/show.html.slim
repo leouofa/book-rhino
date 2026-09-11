@@ -1,0 +1,17 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            = breadcrumb_parent "Books", books_path
+            = breadcrumb_parent @parent.title, book_path(@parent)
+            = @component.name
+          =r ux.component_button_holder
+            = link_to 'Edit Prompt', send(@component_edit_prompt_path), class: 'btn-secondary mr-2'
+        =r ux.component_divider
+
+        = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
+          =r ux.h5 text: 'Plot Summary'
+          =r ux.segment '!bg-yellow-100 !mb-10'
+            = simple_format @component.plot_summary
