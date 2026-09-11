@@ -43,12 +43,16 @@ class MetaController < ApplicationController
     end
   end
 
+  def prompt_attribute_name
+    :prompt
+  end
+
   def update
     if @component.update(component_params)
       path = parent_class ? send(@component_detail_path, @parent, @component) : send(@component_detail_path, @component.id)
       redirect_to path, notice: "#{@component_name} was successfully updated."
     else
-      render component_params[:prompt] ? :edit_prompt : :edit
+      render component_params[prompt_attribute_name] ? :edit_prompt : :edit
     end
   end
 

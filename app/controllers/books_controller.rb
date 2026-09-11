@@ -29,12 +29,8 @@ class BooksController < MetaController
     end
   end
 
-  def update
-    if @component.update(component_params)
-      redirect_to send(@component_detail_path, @component.id), notice: "#{@component_name} was successfully updated."
-    else
-      render component_params[:plot] ? :edit_prompt : :edit
-    end
+  def prompt_attribute_name
+    :plot
   end
 
   def component_params
