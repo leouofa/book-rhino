@@ -1,4 +1,6 @@
 class ChaptersController < MetaController
+  private
+
   def component_name
     'Chapters'
   end
@@ -23,15 +25,9 @@ class ChaptersController < MetaController
     # Placeholder to satisfy MetaController
   end
 
-  def update
-    if @component.update(component_params)
-      path = parent_class ? send(@component_detail_path, @parent, @component) : send(@component_detail_path, @component.id)
-      redirect_to path, notice: "#{@component_name} was successfully updated."
-    else
-      render component_params[:plot_summary] ? :edit_prompt : :edit
-    end
+  def prompt_attribute_name
+    :plot_summary
   end
-
 
   def component_params
     params.require(@computer_name.to_sym).permit(
