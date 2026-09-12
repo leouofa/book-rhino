@@ -14,6 +14,13 @@ class WritingStyle::VersionsController < MetaVersionController
   end
 
   def parse_version_prompt(prompt)
-    JSON.parse(JSON.parse(prompt))
+    return [] if prompt.blank?
+
+    parsed = prompt.is_a?(String) ? JSON.parse(prompt) : prompt
+    parsed = JSON.parse(parsed) if parsed.is_a?(String)
+
+    parsed.is_a?(Array) ? parsed : [parsed]
+  rescue JSON::ParserError
+    [prompt]
   end
 end
