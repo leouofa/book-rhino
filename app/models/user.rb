@@ -31,6 +31,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :lockable, :trackable
 
+  def self.serialize_from_session(key, salt = nil)
+    return key if key.is_a?(User)
+
+    super(key, salt)
+  end
+
   def make_admin
     update(admin: true)
   end

@@ -31,4 +31,14 @@ class Chapter < ApplicationRecord
   validates :name, presence: true
   validates :plot_summary, presence: true
   validates :number, uniqueness: { scope: :book_id, message: "should be unique within the book" }
+
+  def previous_chapter
+    book.chapters.where("number < ?", number).order(number: :desc).first
+  end
+
+  def can_render?
+    return true if previous_chapter.nil?
+
+    previous_chapter.content.present?
+  end
 end

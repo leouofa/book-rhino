@@ -1,0 +1,11 @@
+= turbo_frame_tag "chapter_#{component.id}_action_buttons"
+  =r ux.component_button_holder
+    - if component.rendering
+      .text-gray-600.italic Rendering chapter in progress...
+    - else
+      = link_to 'Edit Prompt', edit_prompt_book_chapter_path(parent || component.book, component), class: 'btn-secondary mr-2'
+      - if component.can_render?
+        = button_to (component.content.present? ? 'Re-render Chapter' : 'Render Chapter'), render_chapter_book_chapter_path(parent || component.book, component), method: :post, class: 'btn-render mr-2', data: { 'turbo-action': 'replace' }
+      - else
+        button.btn-render.mr-2.opacity-50.cursor-not-allowed disabled=true title="Previous chapter must be rendered first"
+          = component.content.present? ? 'Re-render Chapter' : 'Render Chapter'
