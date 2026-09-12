@@ -1,4 +1,6 @@
 class ChaptersController < MetaController
+  private
+
   def component_name
     'Chapters'
   end
