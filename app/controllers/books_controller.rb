@@ -1,4 +1,20 @@
 class BooksController < MetaController
+  def read
+    @component = Book.find(params[:id])
+  end
+
+  def render_book
+    @component = Book.find(params[:id])
+    RenderBookJob.perform_later(@component)
+
+    respond_to do |format|
+      format.turbo_stream { render :iterate }
+      format.html { redirect_to @component, notice: 'Rendering book...' }
+    end
+  end
+
+  private
+
   def component_name
     'Books'
   end
@@ -13,20 +29,6 @@ class BooksController < MetaController
 
   def generate_prompt_job
     GenerateBookPlotJob
-  end
-
-  def read
-    @component = Book.find(params[:id])
-  end
-
-  def render_book
-    @component = Book.find(params[:id])
-    RenderBookJob.perform_later(@component)
-
-    respond_to do |format|
-      format.turbo_stream { render :iterate }
-      format.html { redirect_to @component, notice: 'Rendering book...' }
-    end
   end
 
   def prompt_attribute_name

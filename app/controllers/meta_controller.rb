@@ -43,10 +43,6 @@ class MetaController < ApplicationController
     end
   end
 
-  def prompt_attribute_name
-    :prompt
-  end
-
   def update
     if @component.update(component_params)
       path = parent_class ? send(@component_detail_path, @parent, @component) : send(@component_detail_path, @component.id)
@@ -98,6 +94,10 @@ class MetaController < ApplicationController
 
   def component_path
     @computer_name
+  end
+
+  def prompt_attribute_name
+    :prompt
   end
 
   def set_meta

@@ -27,7 +27,6 @@ class ChaptersController < MetaController
     :plot_summary
   end
 
-
   def component_params
     params.require(@computer_name.to_sym).permit(
       :plot_summary
