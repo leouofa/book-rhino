@@ -3,7 +3,7 @@ class MetaController < ApplicationController
 
   before_action :set_meta
   before_action :set_component, only: [:show, :edit, :edit_prompt, :update, :destroy, :iterate, :generate_prompt]
-  before_action :set_parent, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :set_parent, only: [:index, :show, :new, :create, :edit, :update, :destroy, :edit_prompt]
   before_action :set_message, only: [:iterate]
 
   def index

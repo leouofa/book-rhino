@@ -61,4 +61,56 @@ RSpec.describe Chapter, type: :model do
       expect(chapter.content).to be_nil
     end
   end
+
+  describe 'rendering' do
+    it 'defaults rendering to false' do
+      chapter = create(:chapter)
+      expect(chapter.rendering).to be(false)
+    end
+  end
+
+  describe '#previous_chapter' do
+    let(:book) { create(:book) }
+    let!(:chapter1) { create(:chapter, book: book, number: 1) }
+    let!(:chapter2) { create(:chapter, book: book, number: 2) }
+    let!(:chapter3) { create(:chapter, book: book, number: 3) }
+
+    it 'returns nil for the first chapter' do
+      expect(chapter1.previous_chapter).to be_nil
+    end
+
+    it 'returns chapter 1 for chapter 2' do
+      expect(chapter2.previous_chapter).to eq(chapter1)
+    end
+
+    it 'returns chapter 2 for chapter 3' do
+      expect(chapter3.previous_chapter).to eq(chapter2)
+    end
+  end
+
+  describe '#can_render?' do
+    let(:book) { create(:book) }
+
+    context 'when first chapter' do
+      let(:chapter1) { create(:chapter, book: book, number: 1) }
+
+      it 'returns true regardless of content' do
+        expect(chapter1.can_render?).to be(true)
+      end
+    end
+
+    context 'when subsequent chapter' do
+      let!(:chapter1) { create(:chapter, :unrendered, book: book, number: 1) }
+      let(:chapter2) { create(:chapter, :unrendered, book: book, number: 2) }
+
+      it 'returns false if previous chapter has no content' do
+        expect(chapter2.can_render?).to be(false)
+      end
+
+      it 'returns true if previous chapter has content' do
+        chapter1.update!(content: 'Some chapter content')
+        expect(chapter2.can_render?).to be(true)
+      end
+    end
+  end
 end

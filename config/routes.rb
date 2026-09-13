@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
     resources :chapters do
       get :edit_prompt, on: :member
+      post :render_chapter, on: :member
     end
 
     scope module: :book do
