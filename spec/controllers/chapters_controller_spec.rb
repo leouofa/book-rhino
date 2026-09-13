@@ -44,4 +44,15 @@ RSpec.describe ChaptersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit_prompt' do
+    let!(:chapter) { create(:chapter, book: book, number: 1) }
+
+    it 'returns http success and sets parent and component' do
+      get :edit_prompt, params: { book_id: book.id, id: chapter.id }
+      expect(response).to have_http_status(:success)
+      expect(assigns(:component)).to eq(chapter)
+      expect(assigns(:parent)).to eq(book)
+    end
+  end
 end
