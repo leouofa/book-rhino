@@ -6,7 +6,7 @@
           =r ux.component_header
             = breadcrumb_parent "Books", books_path
             = breadcrumb_parent @parent.title, book_path(@parent)
-            = @component.name
+            = truncate(@component.name, length: 30)
           = render partial: 'action_buttons', locals: { component: @component, parent: @parent }
         =r ux.component_divider
 
