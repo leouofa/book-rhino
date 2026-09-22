@@ -9,7 +9,7 @@ export default class extends Controller {
   copy(event) {
     if (event) event.preventDefault()
 
-    const text = this.sourceTarget.textContent || this.sourceTarget.innerText || this.sourceTarget.value || ''
+    const text = this.sourceTarget.innerText || this.sourceTarget.textContent || this.sourceTarget.value || ''
     const cleanText = text.trim()
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
