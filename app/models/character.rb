@@ -31,6 +31,7 @@ class Character < ApplicationRecord
   has_many :protagonist_books, class_name: 'Book', foreign_key: 'protagonist_id'
   has_many :book_antagonists
   has_many :antagonist_books, through: :book_antagonists, source: :book
+  has_many :character_images, -> { order(created_at: :desc) }, dependent: :destroy
 
   validates :name, presence: true
   validates :age, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true

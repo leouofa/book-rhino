@@ -1,0 +1,22 @@
+.character-image-card.bg-white.border-2.border-gray-300.rounded-sm.p-3.shadow-sm.flex.flex-col id=dom_id(character_image)
+  .flex.items-center.justify-between.gap-2.mb-2
+    .title-container.flex-1.min-w-0 data-controller="inline-edit" data-inline-edit-url-value=character_image_path(character_image.character, character_image)
+      span.font-mono.text-xs.font-bold.text-gray-800.truncate.block.cursor-pointer.hover:text-blue-600.hover:underline title="Click to rename" data-inline-edit-target="display" data-action="click->inline-edit#startEditing"
+        = character_image.title
+
+      .hidden data-inline-edit-target="form"
+        input.w-full.text-xs.font-mono.px-1.py-0.5.border-2.border-blue-400.rounded-xs type="text" value=character_image.title data-inline-edit-target="input" data-action="keydown->inline-edit#handleKeyDown blur->inline-edit#blurInput"
+
+    .actions-container.flex.items-center.space-x-1.shrink-0
+      div data-controller="copy-image" data-copy-image-image-url-value=(url_for(character_image.image) if character_image.image.attached?)
+        button.btn-primary.text-xs class="!py-1 !px-2" type="button" data-copy-image-target="button" data-action="click->copy-image#copy" title="Copy image to clipboard"
+          | Copy
+
+      = button_to character_image_path(character_image.character, character_image), method: :delete, class: 'btn-list-delete !py-1 !px-2', data: { turbo_confirm: 'Are you sure you want to delete this image?' }, title: 'Delete image' do
+        | &times;
+
+  .image-preview-wrapper.w-full.h-64.bg-gray-100.rounded-sm.overflow-hidden.flex.items-center.justify-center.border.border-gray-200
+    - if character_image.image.attached?
+      = image_tag url_for(character_image.image), alt: character_image.title, class: 'w-full h-full object-contain'
+    - else
+      span.text-xs.text-gray-400 No image attached

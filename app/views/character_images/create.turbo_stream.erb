@@ -1,0 +1,7 @@
+<%= turbo_stream.remove "character_images_empty" %>
+
+<% @created_images.each do |character_image| %>
+  <%= turbo_stream.prepend "character_images_grid" do %>
+    <%= render partial: "characters/character_image", locals: { character_image: character_image } %>
+  <% end %>
+<% end %>
