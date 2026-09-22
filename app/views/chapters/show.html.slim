@@ -13,8 +13,12 @@
         = turbo_stream_from "chapter_#{@component.id}"
 
         = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
-          =r ux.h5 text: 'Plot Summary'
-          =r ux.segment '!bg-yellow-100 !mb-10'
-            = simple_format @component.plot_summary
+          .data-clipboard-wrapper data-controller="clipboard"
+            .flex.justify-between.items-center.mb-2
+              =r ux.h5 class: '!mb-0', text: 'Plot Summary'
+              button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copy" Copy
+            =r ux.segment '!bg-yellow-100 !mb-10'
+              div data-clipboard-target="source"
+                = simple_format @component.plot_summary
 
         = render partial: 'chapter_content', locals: { component: @component }
