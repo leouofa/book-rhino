@@ -23,7 +23,8 @@ class SettingsController < ApplicationController
   private
 
   def settings_params
-    params.require(:setting).permit(:prompts, :tunings, :publish_start_time, :publish_end_time)
+    params.require(:setting).permit(:prompts, :tunings, :publish_start_time, :publish_end_time,
+                                   :character_image_prompt, :character_pose_prompt)
   end
 
   def valid_time_format?(time)

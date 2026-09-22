@@ -30,6 +30,24 @@ RSpec.describe Setting, type: :model do
       setting.reload
       expect(setting.prompts).to eq({ 'character' => 'test prompt' })
     end
+
+    it 'reads and writes character_image_prompt' do
+      setting = create(:setting)
+      setting.character_image_prompt = 'Portrait in oil painting style'
+      setting.save!
+      setting.reload
+      expect(setting.character_image_prompt).to eq('Portrait in oil painting style')
+      expect(setting.prompts['character_image_prompt']).to eq('Portrait in oil painting style')
+    end
+
+    it 'reads and writes character_pose_prompt' do
+      setting = create(:setting)
+      setting.character_pose_prompt = 'Standing hero pose facing forward'
+      setting.save!
+      setting.reload
+      expect(setting.character_pose_prompt).to eq('Standing hero pose facing forward')
+      expect(setting.prompts['character_pose_prompt']).to eq('Standing hero pose facing forward')
+    end
   end
 
   describe '#within_publish_window?' do

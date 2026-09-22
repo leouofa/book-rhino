@@ -26,6 +26,24 @@ class Setting < ApplicationRecord
     super(stringify_keys(value))
   end
 
+  def character_image_prompt
+    prompts.is_a?(Hash) ? prompts['character_image_prompt'] : nil
+  end
+
+  def character_image_prompt=(value)
+    current_prompts = prompts.is_a?(Hash) ? prompts.dup : {}
+    self.prompts = current_prompts.merge('character_image_prompt' => value)
+  end
+
+  def character_pose_prompt
+    prompts.is_a?(Hash) ? prompts['character_pose_prompt'] : nil
+  end
+
+  def character_pose_prompt=(value)
+    current_prompts = prompts.is_a?(Hash) ? prompts.dup : {}
+    self.prompts = current_prompts.merge('character_pose_prompt' => value)
+  end
+
   def within_publish_window?
     current_time = only_time(Time.now.utc)
     publish_start_time_utc = only_time(publish_start_time.utc)
