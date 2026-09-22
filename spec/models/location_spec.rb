@@ -14,6 +14,7 @@ RSpec.describe Location, type: :model do
   describe 'associations' do
     it { should belong_to(:region).optional }
     it { should have_and_belong_to_many(:characters) }
+    it { should have_many(:location_images).dependent(:destroy) }
   end
 
   describe 'factory' do

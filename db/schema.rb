@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_22_192314) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_22_201104) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -181,6 +181,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_22_192314) do
     t.index ["personality_trait_id", "character_id"], name: "idx_on_personality_trait_id_character_id_aa8c32a6c8"
   end
 
+  create_table "location_images", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_location_images_on_location_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.text "lighting"
@@ -325,6 +333,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_22_192314) do
   add_foreign_key "books", "writing_styles"
   add_foreign_key "chapters", "books"
   add_foreign_key "character_images", "characters"
+  add_foreign_key "location_images", "locations"
   add_foreign_key "locations", "regions"
   add_foreign_key "texts", "writing_styles"
 end

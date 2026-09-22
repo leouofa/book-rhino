@@ -1,6 +1,6 @@
 .character-image-card.bg-white.border-2.border-gray-300.rounded-sm.p-3.shadow-sm.flex.flex-col id=dom_id(character_image)
   .flex.items-center.justify-between.gap-2.mb-2
-    .title-container.flex-1.min-w-0 data-controller="inline-edit" data-inline-edit-url-value=character_image_path(character_image.character, character_image)
+    .title-container.flex-1.min-w-0 data-controller="inline-edit" data-inline-edit-url-value=character_image_path(character_image.character, character_image) data-inline-edit-param-key-value="character_image"
       span.font-mono.text-xs.font-bold.text-gray-800.truncate.block.cursor-pointer.hover:text-blue-600.hover:underline title="Click to rename" data-inline-edit-target="display" data-action="click->inline-edit#startEditing"
         = character_image.title
 

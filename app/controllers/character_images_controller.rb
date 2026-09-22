@@ -60,6 +60,10 @@ class CharacterImagesController < ApplicationController
   end
 
   def character_image_params
-    params.require(:character_image).permit(:title)
+    if params[:character_image].present?
+      params.require(:character_image).permit(:title)
+    else
+      params.permit(:title)
+    end
   end
 end

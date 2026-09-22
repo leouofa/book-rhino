@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@location_image) do %>
+  <%= render partial: "locations/location_image", locals: { location_image: @location_image } %>
+<% end %>

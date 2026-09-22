@@ -4,7 +4,8 @@ export default class extends Controller {
   static targets = ['display', 'input', 'form']
   static values = {
     url: String,
-    attribute: { type: String, default: 'title' }
+    attribute: { type: String, default: 'title' },
+    paramKey: { type: String, default: '' }
   }
 
   connect() {
@@ -59,9 +60,18 @@ export default class extends Controller {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content
 
     try {
-      const body = {
-        character_image: {
-          [this.attributeValue]: newValue
+      let body
+      if (this.hasParamKeyValue && this.paramKeyValue) {
+        body = {
+          [this.paramKeyValue]: {
+            [this.attributeValue]: newValue
+          }
+        }
+      } else {
+        body = {
+          [this.attributeValue]: newValue,
+          character_image: { [this.attributeValue]: newValue },
+          location_image: { [this.attributeValue]: newValue }
         }
       }
 

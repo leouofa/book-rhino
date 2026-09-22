@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   resources :locations do
     post :generate_prompt, :iterate, on: :member
     get :edit_prompt, on: :member
+    resources :images, controller: :location_images, only: %i[create update destroy]
 
     scope module: :location do
       concerns :versionable
