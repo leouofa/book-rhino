@@ -1,5 +1,5 @@
 = turbo_frame_tag "chapter_#{component.id}_content"
-  - if component.summary.present? && component.summary != component.plot_summary
+  - if component.summary.present?
     =r ux.h5 text: 'Summary'
     =r ux.segment '!mb-10'
       = simple_format component.summary

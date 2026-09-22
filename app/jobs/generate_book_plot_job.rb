@@ -51,9 +51,7 @@ class GenerateBookPlotJob < MetaJob
       @component.chapters.create!(
         number: chapter["number"],
         name: chapter["name"],
-        plot_summary: chapter["plot_summary"],
-        summary: chapter["plot_summary"], # Using plot_summary as initial summary
-        content: "" # Empty content to be filled later
+        plot_summary: chapter["plot_summary"]
       )
     end
 
