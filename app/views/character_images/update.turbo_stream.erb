@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@character_image) do %>
+  <%= render partial: "characters/character_image", locals: { character_image: @character_image } %>
+<% end %>

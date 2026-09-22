@@ -1,0 +1,7 @@
+<%= turbo_stream.remove "location_images_empty" %>
+
+<% @created_images.each do |location_image| %>
+  <%= turbo_stream.prepend "location_images_grid" do %>
+    <%= render partial: "locations/location_image", locals: { location_image: location_image } %>
+  <% end %>
+<% end %>

@@ -16,6 +16,7 @@ RSpec.describe Character, type: :model do
     it { should have_many(:protagonist_books).class_name('Book') }
     it { should have_many(:book_antagonists) }
     it { should have_many(:antagonist_books).through(:book_antagonists) }
+    it { should have_many(:character_images).dependent(:destroy) }
   end
 
   describe 'factory' do

@@ -22,6 +22,7 @@ class Location < ApplicationRecord
   belongs_to :region, optional: true
   has_and_belongs_to_many :characters
   has_and_belongs_to_many :books
+  has_many :location_images, -> { order(created_at: :desc) }, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true

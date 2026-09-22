@@ -16,3 +16,4 @@
         = render partial: 'prompt', locals: { component: @component, computer_name: @computer_name }
         = render partial: 'iterate_form', locals: { component: @component, computer_name: @computer_name}
         = render partial: 'generation_prompts'
+        = render partial: 'images', locals: { character: @component }
