@@ -22,21 +22,21 @@ class WriteSceneContentJob < MetaJob
     @component = Scene.find(scene_id)
     @chapter = @component.chapter
     @book = @chapter.book
-    
+
     super()
-    
-    # response = send_chat_request
-    # scene_content = response_content(response)
-    # @component.update!(content: scene_content)
-    
+
     WriteSceneSummaryJob.perform_later(@component.id)
   end
 
   private
 
+  # We are not using it since we are not broadcasting this in real time
+  # with broadcast_component_update 
   def prepare_component
   end
 
+  # We are overriding this method since we are not broadcasting this in real time
+  # with broadcast_component_update 
   def update_component(response)
     @component.update!(content: response_content(response))
   end
