@@ -1,15 +1,6 @@
 class WriteSceneContentJob < MetaJob
   self.max_retries = 3
   self.disable_thinking = true
-  self.json_request = true
-  self.json_schema = {
-    type: "object",
-    properties: {
-      content: { type: "string" }
-    },
-    required: ["content"],
-    additionalProperties: false
-  }
 
   SHOT_TYPES = [
     "Establishing Shot",
@@ -35,7 +26,7 @@ class WriteSceneContentJob < MetaJob
     super()
     
     content_response = send_chat_request
-    scene_content = parse_content(content_response)['content']
+    scene_content = response_content(content_response)
     
     @component.update!(content: scene_content)
     
@@ -52,7 +43,7 @@ class WriteSceneContentJob < MetaJob
 
   def system_role
     <<~SYSTEM_ROLE
-      You are an expert prompt engineer for video generation models (like Sora, Runway, etc).
+      You are an expert prompt engineer for video generation models.
       Your task is to write detailed instructions for the video model to move the camera and shoot a scene, based on the provided scene outline.
       
       CRITICAL INSTRUCTION: You MUST describe a SINGLE, CONTINUOUS shot without any camera cuts.
@@ -62,11 +53,6 @@ class WriteSceneContentJob < MetaJob
       - Lighting and atmosphere
       - Subject actions and positioning
       - The framing must strictly be a: #{@shot_type}
-      
-      You must respond with a valid JSON object in this exact format:
-      {
-        "content": "your video generation prompt here"
-      }
     SYSTEM_ROLE
   end
 
