@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_22_232855) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_23_014716) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -111,6 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_22_232855) do
     t.string "name"
     t.text "outline"
     t.boolean "rendering", default: false, null: false
+    t.integer "scene_count"
     t.index ["book_id", "number"], name: "index_chapters_on_book_id_and_number", unique: true
     t.index ["book_id"], name: "index_chapters_on_book_id"
   end
@@ -260,6 +261,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_22_232855) do
     t.string "state"
   end
 
+  create_table "scenes", force: :cascade do |t|
+    t.bigint "chapter_id", null: false
+    t.integer "number"
+    t.text "outline"
+    t.text "content"
+    t.text "summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id"], name: "index_scenes_on_chapter_id"
+  end
+
   create_table "settings", force: :cascade do |t|
     t.text "prompts"
     t.text "tunings"
@@ -335,5 +347,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_22_232855) do
   add_foreign_key "character_images", "characters"
   add_foreign_key "location_images", "locations"
   add_foreign_key "locations", "regions"
+  add_foreign_key "scenes", "chapters"
   add_foreign_key "texts", "writing_styles"
 end

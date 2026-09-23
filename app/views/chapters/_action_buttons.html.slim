@@ -3,7 +3,9 @@
     - if component.rendering
       .text-gray-600.italic Rendering chapter in progress...
     - else
-      = link_to 'Edit Prompt', edit_prompt_book_chapter_path(parent || component.book, component), class: 'btn-secondary mr-2', data: { turbo_frame: '_top' }
+      = link_to 'Edit Chapter', edit_prompt_book_chapter_path(parent || component.book, component), class: 'btn-secondary mr-2', data: { turbo_frame: '_top' }
+      - if component.content.present? && component.scene_count.to_i > 0
+        = button_to 'Generate Scenes', generate_scenes_book_chapter_path(parent || component.book, component), method: :post, class: 'btn-primary mr-2', data: { 'turbo-action': 'replace' }
       - if component.can_render?
         = button_to (component.content.present? ? 'Re-render Chapter' : 'Render Chapter'), render_chapter_book_chapter_path(parent || component.book, component), method: :post, class: 'btn-render mr-2', data: { 'turbo-action': 'replace' }
       - else

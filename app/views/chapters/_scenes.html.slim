@@ -1,0 +1,10 @@
+= turbo_frame_tag "chapter_#{component.id}_scenes"
+  - if component.scenes.any?
+    =r ux.segment '!mb-20'
+      =r ux.h4 text: 'Scenes'
+      =r ux.ordered_list
+        - component.scenes.order(:number).each do |scene|
+          =r ux.list_item
+            =r ux.h5
+              = link_to "Scene #{scene.number}", book_chapter_scene_path(component.book, component, scene), data: { turbo_frame: "_top" }
+            = simple_format scene.outline
