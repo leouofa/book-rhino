@@ -25,10 +25,9 @@ class WriteSceneContentJob < MetaJob
     
     super()
     
-    content_response = send_chat_request
-    scene_content = response_content(content_response)
-    
-    @component.update!(content: scene_content)
+    # response = send_chat_request
+    # scene_content = response_content(response)
+    # @component.update!(content: scene_content)
     
     WriteSceneSummaryJob.perform_later(@component.id)
   end
@@ -39,6 +38,7 @@ class WriteSceneContentJob < MetaJob
   end
 
   def update_component(response)
+    @component.update!(content: response_content(response))
   end
 
   def system_role
