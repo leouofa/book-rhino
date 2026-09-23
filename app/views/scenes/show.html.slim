@@ -6,11 +6,10 @@
           =r ux.component_header
             = breadcrumb_parent @parent.name, book_chapter_path(@parent.book, @parent)
             = "Scene #{@component.number}"
+          = render partial: 'action_buttons', locals: { component: @component, parent: @parent }
         =r ux.component_divider
 
         = turbo_stream_from "scene_#{@component.id}"
-
-        = render partial: 'action_buttons', locals: { component: @component, parent: @parent }
 
         = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
           .data-clipboard-wrapper data-controller="clipboard"
