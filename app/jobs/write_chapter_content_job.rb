@@ -41,7 +41,7 @@ class WriteChapterContentJob < MetaJob
     <<~SYSTEM_ROLE
       You are a professional writer. Your task is to write a chapter for a book based on:
       1. The book's overall context (plot, style, perspective, etc.)
-      2. The specific chapter's plot summary
+      2. The specific chapter's outline
       3. The previous chapter's content (if provided)
       4. The target length in words (VERY IMPORTANT)
 
@@ -54,7 +54,7 @@ class WriteChapterContentJob < MetaJob
       Write the chapter maintaining:
       - The book's established writing style
       - The specified narrative perspective
-      - Consistency with the plot summary
+      - Consistency with the outline
       - Proper flow from the previous chapter (if provided)
       - Required length (#{@target_words} words)
 
@@ -68,7 +68,7 @@ class WriteChapterContentJob < MetaJob
       - Maintain consistent tone and style throughout
       - Ensure narrative flows naturally from previous chapter
       - Include proper paragraph breaks and dialogue formatting
-      - Stay true to the plot summary while adding appropriate detail
+      - Stay true to the outline while adding appropriate detail
     SYSTEM_ROLE
   end
 
@@ -77,7 +77,7 @@ class WriteChapterContentJob < MetaJob
       book_context: @book.as_json,
       chapter_number: @component.number,
       chapter_name: @component.name,
-      plot_summary: @component.plot_summary,
+      outline: @component.outline,
       target_words: @target_words,
       target_pages: @pages_per_chapter,
       words_per_page: WORDS_PER_PAGE,

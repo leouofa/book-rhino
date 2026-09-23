@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_22_201104) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_22_232855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -103,13 +103,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_22_201104) do
 
   create_table "chapters", force: :cascade do |t|
     t.integer "number", null: false
-    t.text "summary", null: false
+    t.text "summary"
     t.text "content"
     t.bigint "book_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.text "plot_summary"
+    t.text "outline"
     t.boolean "rendering", default: false, null: false
     t.index ["book_id", "number"], name: "index_chapters_on_book_id_and_number", unique: true
     t.index ["book_id"], name: "index_chapters_on_book_id"

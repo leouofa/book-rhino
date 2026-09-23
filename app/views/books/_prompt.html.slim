@@ -8,10 +8,10 @@
   - if !component.pending
     - if component.chapters.any?
       =r ux.segment '!mb-20'
-        =r ux.h4 text: 'Chapter Summaries'
+        =r ux.h4 text: 'The Outline'
         =r ux.ordered_list
           - component.chapters.order(:number).each do |chapter|
             =r ux.list_item
               =r ux.h5
                 = link_to chapter.name, book_chapter_path(component, chapter), data: { turbo_frame: "_top" }
-              = simple_format chapter.plot_summary 
+              = simple_format chapter.outline 

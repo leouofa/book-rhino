@@ -15,10 +15,10 @@
         = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
           .data-clipboard-wrapper data-controller="clipboard"
             .flex.justify-between.items-center.mb-2
-              =r ux.h5 class: '!mb-0', text: 'Plot Summary'
+              =r ux.h5 class: '!mb-0', text: 'Outline'
               button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copy" Copy
             =r ux.segment '!bg-yellow-100 !mb-10'
               div data-clipboard-target="source"
-                = simple_format @component.plot_summary
+                = simple_format @component.outline
 
         = render partial: 'chapter_content', locals: { component: @component }
