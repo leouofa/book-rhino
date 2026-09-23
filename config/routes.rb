@@ -37,7 +37,9 @@ Rails.application.routes.draw do
     resources :chapters do
       get :edit_prompt, on: :member
       post :render_chapter, :generate_scenes, on: :member
-      resources :scenes, only: [:show]
+      resources :scenes, only: [:show] do
+        post :render_scene, on: :member
+      end
     end
 
     scope module: :book do

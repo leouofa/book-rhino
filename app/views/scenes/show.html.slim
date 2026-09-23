@@ -4,10 +4,9 @@
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
           =r ux.component_header
-            = breadcrumb_parent "Books", books_path
-            = breadcrumb_parent @parent.book.title, book_path(@parent.book)
             = breadcrumb_parent @parent.name, book_chapter_path(@parent.book, @parent)
             = "Scene #{@component.number}"
+          = render partial: 'action_buttons', locals: { component: @component, parent: @parent }
         =r ux.component_divider
 
         = turbo_stream_from "scene_#{@component.id}"
@@ -21,14 +20,4 @@
               div data-clipboard-target="source"
                 = simple_format @component.outline
 
-        - if @component.summary.present?
-          =r ux.h5 text: 'Summary'
-          =r ux.segment '!mb-10'
-            = simple_format @component.summary
-
-        - if @component.content.present?
-          =r ux.h5 text: 'Content'
-          =r ux.segment '!mb-20'
-            .scene-content.mb-8
-              .prose.prose-lg.max-w-none
-                = markdown(@component.content)
+        = render partial: 'scene_content', locals: { component: @component }
