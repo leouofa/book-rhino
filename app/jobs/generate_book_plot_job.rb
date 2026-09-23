@@ -10,9 +10,9 @@ class GenerateBookPlotJob < MetaJob
           properties: {
             number: { type: "integer" },
             name: { type: "string" },
-            plot_summary: { type: "string" }
+            outline: { type: "string" }
           },
-          required: %w[number name plot_summary],
+          required: %w[number name outline],
           additionalProperties: false
         }
       }
@@ -51,7 +51,7 @@ class GenerateBookPlotJob < MetaJob
       @component.chapters.create!(
         number: chapter["number"],
         name: chapter["name"],
-        plot_summary: chapter["plot_summary"]
+        outline: chapter["outline"]
       )
     end
 
@@ -84,13 +84,13 @@ class GenerateBookPlotJob < MetaJob
       "chapters": An array of chapters where each chapter has:
          - "number": integer (sequential starting from 1)
          - "name": string (descriptive chapter title)
-         - "plot_summary": string (detailed chapter description)
+         - "outline": string (detailed chapter outline)
 
       Guidelines for chapters:
       - Create a logical chapter structure that follows the plot progression
       - Each chapter should have a clear focus and purpose
       - Chapter names should be descriptive and engaging
-      - Plot summaries should be detailed and align with the main plot
+      - Outlines should be detailed and align with the main plot
       - Maintain consistent narrative flow between chapters
 
       Focus on major plot points, character arcs, and how the story progresses through the narrative structure.
@@ -102,7 +102,7 @@ class GenerateBookPlotJob < MetaJob
           {
             "number": 1,
             "name": "The Beginning",
-            "plot_summary": "Detailed description of chapter 1..."
+            "outline": "Detailed outline of chapter 1..."
           }
         ]
       }

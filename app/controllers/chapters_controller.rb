@@ -46,12 +46,12 @@ class ChaptersController < MetaController
   end
 
   def prompt_attribute_name
-    :plot_summary
+    :outline
   end
 
   def component_params
     params.require(@computer_name.to_sym).permit(
-      :plot_summary
+      :outline
     )
   end
 end

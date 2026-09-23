@@ -30,7 +30,7 @@ erDiagram
         datetime created_at
         datetime updated_at
         string name
-        text plot_summary
+        text outline
         boolean rendering
     }
     Character {

@@ -5,8 +5,8 @@
   = form_with model: @component, url: send(@component_detail_path), class: 'ui form', local: true do |form|
 
     =r ux.component_field
-      = form.label :plot_summary
-      = form.text_area :plot_summary, value: @component.plot_summary, rows: 30
+      = form.label :outline
+      = form.text_area :outline, value: @component.outline, rows: 30
 
     =r ux.component_submit_field
       = form.submit class: 'btn-primary'
