@@ -4,9 +4,8 @@
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
           =r ux.component_header
-            = breadcrumb_parent "Books", books_path
             = breadcrumb_parent @parent.title, book_path(@parent)
-            = truncate(@component.name, length: 30)
+            = truncate(@component.name, length: 20)
           = render partial: 'action_buttons', locals: { component: @component, parent: @parent }
         =r ux.component_divider
 

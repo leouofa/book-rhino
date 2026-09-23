@@ -4,8 +4,6 @@
       = turbo_frame_tag 'crud_frame'
         =r ux.component_container
           =r ux.component_header
-            = breadcrumb_parent "Books", books_path
-            = breadcrumb_parent @parent.book.title, book_path(@parent.book)
             = breadcrumb_parent @parent.name, book_chapter_path(@parent.book, @parent)
             = "Scene #{@component.number}"
         =r ux.component_divider
