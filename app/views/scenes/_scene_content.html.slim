@@ -1,0 +1,12 @@
+= turbo_frame_tag "scene_#{component.id}_content"
+  - if component.summary.present?
+    =r ux.h5 text: 'Summary'
+    =r ux.segment '!mb-10'
+      = simple_format component.summary
+
+  - if component.content.present?
+    =r ux.h5 text: 'Content'
+    =r ux.segment '!mb-20'
+      .scene-content.mb-8
+        .prose.prose-lg.max-w-none
+          = markdown(component.content)

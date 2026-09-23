@@ -12,6 +12,8 @@
 
         = turbo_stream_from "scene_#{@component.id}"
 
+        = render partial: 'action_buttons', locals: { component: @component, parent: @parent }
+
         = turbo_frame_tag "#{@computer_name}_#{@component.id}_prompt"
           .data-clipboard-wrapper data-controller="clipboard"
             .flex.justify-between.items-center.mb-2
@@ -21,14 +23,4 @@
               div data-clipboard-target="source"
                 = simple_format @component.outline
 
-        - if @component.summary.present?
-          =r ux.h5 text: 'Summary'
-          =r ux.segment '!mb-10'
-            = simple_format @component.summary
-
-        - if @component.content.present?
-          =r ux.h5 text: 'Content'
-          =r ux.segment '!mb-20'
-            .scene-content.mb-8
-              .prose.prose-lg.max-w-none
-                = markdown(@component.content)
+        = render partial: 'scene_content', locals: { component: @component }

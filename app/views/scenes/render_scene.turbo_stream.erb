@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "scene_#{@component.id}_action_buttons" do %>
+  <%= render partial: 'action_buttons', locals: { component: @component, parent: @parent } %>
+<% end %>
