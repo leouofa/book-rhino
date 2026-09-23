@@ -1,0 +1,10 @@
+= turbo_frame_tag "scene_#{component.id}_action_buttons"
+  =r ux.component_button_holder
+    - if component.rendering
+      .text-gray-600.italic Rendering scene in progress...
+    - else
+      - if component.can_render?
+        = button_to (component.content.present? ? 'Re-render Scene' : 'Render Scene'), render_scene_book_chapter_scene_path(parent.book, parent, component), method: :post, class: 'btn-render mr-2', data: { 'turbo-action': 'replace' }
+      - else
+        button.btn-render.mr-2.opacity-50.cursor-not-allowed disabled=true title="Scene cannot be rendered"
+          = component.content.present? ? 'Re-render Scene' : 'Render Scene'

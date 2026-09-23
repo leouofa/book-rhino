@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_23_014716) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_23_172303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -269,6 +269,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_23_014716) do
     t.text "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "rendering", default: false, null: false
     t.index ["chapter_id"], name: "index_scenes_on_chapter_id"
   end
 
