@@ -50,6 +50,19 @@ class Book < ApplicationRecord
     ))
   end
 
+  def as_scene_json(options = {})
+    serializable_hash(options.merge(
+                        except: %i[id title created_at updated_at prompt moral plot pending rendering pages
+                                   chapter_count writing_style_id narrative_structure_id perspective_id protagonist_id],
+                        include: {
+                          protagonist: { only: [:name, :prompt] },
+                          antagonists: { only: [:name, :prompt] },
+                          characters: { only: [:name, :prompt] },
+                          locations: { only: [:name, :prompt] }
+                        }
+                      ))
+  end
+
   private
 
   def character_role_uniqueness

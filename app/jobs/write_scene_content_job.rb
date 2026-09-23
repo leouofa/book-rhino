@@ -58,7 +58,7 @@ class WriteSceneContentJob < MetaJob
 
   def user_content
     prompt = {
-      book_context: @book.as_json,
+      book_context: @book.as_scene_json,
       chapter_context: {
         number: @chapter.number,
         name: @chapter.name
