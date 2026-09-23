@@ -18,6 +18,7 @@
 
 class Chapter < ApplicationRecord
   belongs_to :book
+  has_many :scenes, dependent: :destroy
 
   scope :rendered, -> { where.not(content: nil) }
   scope :unrendered, -> { where(content: nil) }
@@ -26,6 +27,7 @@ class Chapter < ApplicationRecord
   validates :name, presence: true
   validates :outline, presence: true
   validates :number, uniqueness: { scope: :book_id, message: "should be unique within the book" }
+  validates :scene_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
 
   def previous_chapter
     book.chapters.where("number < ?", number).order(number: :desc).first

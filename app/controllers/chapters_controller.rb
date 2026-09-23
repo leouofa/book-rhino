@@ -19,6 +19,24 @@ class ChaptersController < MetaController
     end
   end
 
+  def generate_scenes
+    @component = Chapter.find(params[:id])
+    @parent = @component.book
+    
+    if @component.scene_count.to_i > 0 && @component.content.present?
+      WriteScenesJob.perform_later(@component.id)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to [@parent, @component], notice: 'Scene generation in progress...' }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to [@parent, @component], alert: 'Chapter must be rendered and have a valid scene count.' }
+      end
+    end
+  end
+
   private
 
   def component_name
@@ -51,7 +69,7 @@ class ChaptersController < MetaController
 
   def component_params
     params.require(@computer_name.to_sym).permit(
-      :outline
+      :outline, :scene_count
     )
   end
 end
