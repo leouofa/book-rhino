@@ -15,3 +15,18 @@
         .scene-content.mb-8 data-clipboard-target="source"
           .prose.prose-lg.max-w-none
             = markdown(component.content)
+
+  - book = component.chapter.book
+  - characters = [book.protagonist, *book.antagonists, *book.characters].compact.uniq
+  - if characters.any?
+    - characters.each do |character|
+      =r ux.h5 text: character.name
+      = render partial: 'characters/images', locals: { character: character, hide_dropzone: true, hide_header: true }
+      hr.my-8
+
+  - locations = book.locations
+  - if locations.any?
+    - locations.each do |location|
+      =r ux.h5 text: location.name
+      = render partial: 'locations/images', locals: { location: location, hide_dropzone: false, hide_header: true }
+      hr.my-8

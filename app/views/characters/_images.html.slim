@@ -1,25 +1,29 @@
+- hide_dropzone = local_assigns.fetch(:hide_dropzone, false)
+- hide_header = local_assigns.fetch(:hide_header, false)
 .character-images-section.mt-10
-  .flex.justify-between.items-center.mb-4
-    =r ux.h5 class: '!mb-0', text: 'Character Images'
+  - unless hide_header
+    .flex.justify-between.items-center.mb-4
+      =r ux.h5 class: '!mb-0', text: 'Character Images'
 
-  .dropzone-container data-controller="dropzone" data-dropzone-url-value=character_images_path(character)
-    .dropzone-area.border-2.border-dashed.border-gray-400.hover:border-blue-500.bg-gray-50.hover:bg-blue-50/30.rounded-md.p-8.text-center.cursor-pointer.transition-colors.duration-200 data-dropzone-target="dropArea" data-action="dragenter->dropzone#dragEnter dragover->dropzone#dragOver dragleave->dropzone#dragLeave drop->dropzone#drop" onclick="document.getElementById('character-image-file-input').click()"
-      input#character-image-file-input.hidden type="file" multiple="multiple" accept="image/*" data-dropzone-target="input" data-action="change->dropzone#fileSelected"
+  - unless hide_dropzone
+    .dropzone-container data-controller="dropzone" data-dropzone-url-value=character_images_path(character)
+      .dropzone-area.border-2.border-dashed.border-gray-400.hover:border-blue-500.bg-gray-50.hover:bg-blue-50/30.rounded-md.p-8.text-center.cursor-pointer.transition-colors.duration-200 data-dropzone-target="dropArea" data-action="dragenter->dropzone#dragEnter dragover->dropzone#dragOver dragleave->dropzone#dragLeave drop->dropzone#drop" onclick="document.getElementById('character-image-file-input-#{character.id}').click()"
+        input.hidden id="character-image-file-input-#{character.id}" type="file" multiple="multiple" accept="image/*" data-dropzone-target="input" data-action="change->dropzone#fileSelected"
 
-      .flex.flex-col.items-center.justify-center.space-y-2
-        svg.w-10.h-10.text-gray-400.mb-1 fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-          path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-        p.text-sm.font-medium.text-gray-700.m-0
-          | Drag & drop images here, or 
-          span.text-blue-600.underline browse files
-        p.text-xs.text-gray-500.m-0 PNG, JPG, WEBP, GIF supported. Multiple images can be uploaded.
+        .flex.flex-col.items-center.justify-center.space-y-2
+          svg.w-10.h-10.text-gray-400.mb-1 fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          p.text-sm.font-medium.text-gray-700.m-0
+            | Drag & drop images here, or 
+            span.text-blue-600.underline browse files
+          p.text-xs.text-gray-500.m-0 PNG, JPG, WEBP, GIF supported. Multiple images can be uploaded.
 
-      .uploading-indicator.hidden.mt-3 data-dropzone-target="loading"
-        .inline-flex.items-center.space-x-2.text-blue-600.text-xs.font-semibold
-          svg.animate-spin.h-4.w-4.text-blue-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-            circle.opacity-25 cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-            path.opacity-75 fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"
-          span Uploading images...
+        .uploading-indicator.hidden.mt-3 data-dropzone-target="loading"
+          .inline-flex.items-center.space-x-2.text-blue-600.text-xs.font-semibold
+            svg.animate-spin.h-4.w-4.text-blue-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              circle.opacity-25 cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+              path.opacity-75 fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"
+            span Uploading images...
 
   #character_images_grid.grid.grid-cols-1.sm:grid-cols-2.md:grid-cols-3.lg:grid-cols-4.gap-6.mt-6
     - if character.character_images.any?
