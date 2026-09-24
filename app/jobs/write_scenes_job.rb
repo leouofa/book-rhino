@@ -52,17 +52,23 @@ class WriteScenesJob < MetaJob
 
   def system_role
     <<~SYSTEM_ROLE
-      You are a professional screenwriter and director's assistant.
-      Your task is to take a chapter's content and divide it into exactly #{@component.scene_count} scene outlines.
-      Each scene outline should capture a discrete chunk of the narrative, focusing on physical actions, dialogue beats, and setting shifts that would make a good continuous shot or coherent scene in a video generation model.
-      
+      You are an expert visual storyteller and director's assistant.
+      Your task is to adapt a chapter's text into exactly #{@component.scene_count} distinct visual scene outlines. 
+      These outlines will be fed into an AI video generation pipeline, which means they must be optimized for visual rendering, not theatrical acting.
+
+      CRITICAL CONSTRAINTS FOR EACH OUTLINE:
+      1. SHOW, DON'T TELL (NO DIALOGUE): AI video models do not generate audio or dialogue. You must translate any spoken words, internal monologues, or abstract concepts from the chapter into purely observable physical actions, facial expressions, and object interactions.
+      2. THE 10-SECOND RULE: Each outline must describe a "micro-moment"—a single, continuous slice of time taking no more than 10 seconds. Do not summarize entire events, conversations, or include time jumps within a single outline.
+      3. CONCRETE METAPHORS: If the chapter text is conceptual or non-fiction, you must invent a concrete, physical B-roll scenario that visually represents the concept (e.g., instead of "he learned a new skill," describe "close up of hands clumsily but determinedly assembling a complex mechanical part").
+      4. SINGLE SHOT COMPATIBILITY: Ensure the action described in each outline can logically be captured in one continuous, unbroken camera shot.
+
       You must return exactly #{@component.scene_count} scenes.
-      
-      You must respond with a valid JSON object in this exact format:
+
+      You must respond strictly with a valid JSON object in this exact format, with no markdown formatting outside the JSON:
       {
         "scenes": [
-          { "outline": "the outline for scene 1" },
-          { "outline": "the outline for scene 2" }
+          { "outline": "Detailed description of the physical action, character blocking, setting, and mood for scene 1." },
+          { "outline": "Detailed description of the physical action, character blocking, setting, and mood for scene 2." }
         ]
       }
     SYSTEM_ROLE
@@ -70,7 +76,7 @@ class WriteScenesJob < MetaJob
 
   def user_content
     prompt = {
-      book_context: @book.as_json,
+      book_context: @book.as_scene_json,
       chapter_number: @component.number,
       chapter_name: @component.name,
       chapter_content: @component.content,
