@@ -1,5 +1,7 @@
 # Book Rhino - AI-Powered Writing & Production Assistant
 
+![Book Rhino](docs/logo.jpg)
+
 Book Rhino is a sophisticated Rails application designed to help movie writers, screenwriters, and film producers use AI to ship books and films. It provides a comprehensive suite of tools for managing narratives, characters, and media, enhanced with AI-powered content generation capabilities.
 
 It includes all the tools you need to:
@@ -38,7 +40,7 @@ Accelerate your journey from concept to final output with a toolset designed for
 
 MIT License
 
-Copyright (c) 2024 Book Rhino
+Copyright (c) 2026 Book Rhino
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
