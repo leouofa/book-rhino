@@ -28,6 +28,11 @@
               rows: 6, value: @settings.scene_background_prompt
 
     .field.flex.flex-col.mb-12
+      = form.label :location_background_prompt, 'Location Background Generation Prompt', class: 'mb-6 text-gray-700 mt-4 font-bold'
+      = form.text_area :location_background_prompt, class: 'form-input mt-1 block w-full rounded-md p-2 border-gray-300 font-mono text-sm',
+              rows: 6, value: @settings.location_background_prompt
+
+    .field.flex.flex-col.mb-12
       = form.label :tunings, 'Tunings', class: 'mb-6 text-gray-700 mt-4 font-bold'
       = form.text_area :tunings, class: 'form-input mt-1 block w-full rounded-md p-2 border-gray-300',
               rows: 10, value: @settings.tunings, data: { controller: 'code' }
