@@ -68,13 +68,10 @@ Check out these completed projects built with Book Rhino:
 - Pagination for large content sets
 - Rich text editing capabilities
 
-## Development & Contributing
+## Documentation
 
-Please refer to the [Development Guide](docs/DEVELOPMENT.md) for contribution instructions and an overview of our technical stack.
-
-## Setup & Content Import
-
-Please refer to the [Setup Guide](docs/SETUP.md) for installation and content import instructions.
+- **[Setup Guide](docs/SETUP.md)**: Installation and content import instructions.
+- **[Development Guide](docs/DEVELOPMENT.md)**: Contribution instructions and an overview of our technical stack.
 
 
 ## License
