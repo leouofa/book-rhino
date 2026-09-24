@@ -5,10 +5,12 @@
       = simple_format component.summary
 
   - if component.content.present?
-    .data-clipboard-wrapper data-controller="clipboard"
+    .data-clipboard-wrapper data-controller="clipboard" data-clipboard-background-prompt-value=Setting.instance.scene_background_prompt.to_s
       .flex.justify-between.items-center.mb-2
         =r ux.h5 class: '!mb-0', text: 'Content'
-        button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copy" Copy
+        .flex.gap-2
+          button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copy" Copy
+          button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copyFormatted" Copy Background Gen Prompt
       =r ux.segment '!mb-20'
         .scene-content.mb-8 data-clipboard-target="source"
           .prose.prose-lg.max-w-none
