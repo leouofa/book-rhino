@@ -18,10 +18,23 @@ Check out these completed projects built with Book Rhino:
 
 ### Book Management
 - Create and manage books with detailed attributes
+- AI-assisted book plot generation
 - Define writing styles and narrative perspectives
 - Structure your story with predefined narrative frameworks
 - Track chapters and page counts
 - Manage relationships between books and characters
+
+### Scene Generation & Management
+- Generate detailed scene outlines and context
+- Manage scene backgrounds and location settings
+- Maintain strict prompt constraints for consistent generation
+- Intelligent scene content generation pipeline
+
+### Prompt Generation & Export
+- Streamlined UX for generating comprehensive prompts
+- Generate and copy targeted prompts for characters, locations, and scenes
+- Easily export formatted content with background prompts for external AI use
+- 1-click "copy to clipboard" for seamless workflow integration
 
 ### Character Development
 - Create rich, detailed character profiles
