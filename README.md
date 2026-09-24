@@ -1,121 +1,46 @@
-# Book Rino - AI-Powered Book Writing Assistant
+# Book Rhino - AI-Powered Writing & Production Assistant
 
-Book Rino is a sophisticated Rails application designed to assist authors in the creative writing process. It provides a comprehensive suite of tools for managing books, characters, and various narrative elements, enhanced with AI-powered content generation capabilities.
+![Book Rhino](docs/logo.jpg)
+
+Book Rhino is a sophisticated Rails application designed to help movie writers, screenwriters, and film producers use AI to ship books and films. It provides a comprehensive suite of tools for managing narratives, characters, and media, enhanced with AI-powered content generation capabilities.
+
+It includes all the tools you need to:
+- Organize your ideas
+- Generate prompts
+- Organize media
+- Produce the final output (be it a book or a film)
+
+## Showcase
+
+Check out these completed projects built with Book Rhino:
+- **Book**: [Jealousy in the Jungle: An Invitation for Rivals, An Awakening](https://www.amazon.com/Jealousy-Jungle-Invitation-Rivals-Awakening/dp/B0DY872FHM)
+- **Movie**: [The Drift](https://www.youtube.com/watch?v=pmE3Yrr0104) | [IMDb Page](https://www.imdb.com/title/tt46763502)
 
 ## Features
 
-### Book Management
-- Create and manage books with detailed attributes
-- Define writing styles and narrative perspectives
-- Structure your story with predefined narrative frameworks
-- Track chapters and page counts
-- Manage relationships between books and characters
+### Architect Your Masterpiece
+Revolutionize your storytelling by building vast, intricate worlds and narratives from the ground up. Book Rhino empowers you to structure your vision using proven narrative frameworks, multiple perspectives, and deeply woven story elements. Effortlessly define writing styles, establish moral alignments, and orchestrate the relationships between every facet of your universe—turning an abstract idea into a cohesive, production-ready blueprint.
 
-### Character Development
-- Create rich, detailed character profiles
-- Define character attributes:
-  - Basic information (name, age, gender, ethnicity, nationality)
-  - Physical and health characteristics
-  - Psychological traits (fears, desires, values)
-  - Skills and abilities
-  - Detailed backstories
-- Assign character roles (protagonist, antagonist, supporting characters)
-- AI-assisted character development and refinement
+### Bring Characters to Life
+Unleash limitless creativity when forging the heart of your story. Move beyond simple names and ages to sculpt rich, multi-dimensional characters complete with psychological depths, detailed backstories, and defining archetypes. With AI-assisted development, you can continuously iterate on their profiles, ensuring every protagonist, antagonist, and supporting role feels remarkably authentic and inextricably tied to the world they inhabit.
 
-### Story Elements
-- Multiple narrative perspectives with examples and effects
-- Character archetypes with traits and examples
-- Personality trait library
-- Moral alignment system
-- Location management with descriptions and examples
-- Writing style templates
-- Narrative structure frameworks
+### AI-Powered Scene Generation
+Breathe life into every scene with an intelligent, unyielding generation pipeline. Command the AI to construct vivid scene outlines, immersive location settings, and compelling dialogue while adhering to your strict narrative constraints. By maintaining complete control over the creative boundaries, you ensure that every generated sequence perfectly aligns with your established writing style and plot direction.
 
-### AI Integration
-- Generate and iterate on character descriptions
-- Refine writing styles
-- Develop location descriptions
-- Merge and assemble content intelligently
+### Seamless Production Workflow
+Accelerate your journey from concept to final output with a toolset designed for ultimate efficiency. Effortlessly merge, assemble, and version-track your content as it evolves. When you are ready to expand your workflow, the streamlined prompt generation engine allows you to instantly export hyper-targeted context to external AI models with a single click—ensuring your production never misses a beat.
 
-### Content Management
-- Version tracking for key elements
-- Import predefined content from YAML blueprints
-- Pagination for large content sets
-- Rich text editing capabilities
+## Documentation
 
-## Technical Stack
+- **[Setup Guide](docs/SETUP.md)**: Installation and content import instructions.
+- **[Development Guide](docs/DEVELOPMENT.md)**: Contribution instructions and an overview of our technical stack.
 
-### Backend
-- Ruby on Rails
-- PostgreSQL database
-- Redis for background job processing
-- Paper Trail for version tracking
-- Kaminari for pagination
-
-### Frontend
-- Vite.js for asset management
-- Tailwind CSS for styling
-- Semantic UI components
-- Turbo for dynamic updates
-
-### Development Tools
-- RSpec for testing
-- Rubocop for code style enforcement
-- Node.js for frontend asset compilation
-
-## Setup
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   bundle install
-   yarn install
-   ```
-3. Set up the database:
-   ```bash
-   rails db:create db:migrate
-   ```
-4. Import initial content:
-   ```bash
-   rails import:all
-   ```
-5. Start the development server:
-   ```bash
-   ./bin/dev
-   ```
-
-## Content Import
-
-The application comes with predefined content that can be imported using rake tasks:
-
-```bash
-rails import:perspectives        # Import narrative perspectives
-rails import:archetypes         # Import character archetypes
-rails import:personality_traits # Import personality traits
-rails import:moral_alignments   # Import moral alignments
-rails import:narrative_structures # Import story structures
-rails import:character_types    # Import character types
-rails import:locations         # Import location types
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-   - Note: Documentation is automatically maintained by Cursor
-   - On each commit, Cursor analyzes the codebase and updates:
-     - Technical documentation (notes.md)
-     - User documentation (README.md)
-   - No manual documentation updates required
-4. Push to the branch
-5. Create a Pull Request
 
 ## License
 
 MIT License
 
-Copyright (c) 2024 Book Rhino
+Copyright (c) 2026 Book Rhino
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
