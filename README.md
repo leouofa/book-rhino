@@ -1,6 +1,18 @@
-# Book Rino - AI-Powered Book Writing Assistant
+# Book Rhino - AI-Powered Writing & Production Assistant
 
-Book Rino is a sophisticated Rails application designed to assist authors in the creative writing process. It provides a comprehensive suite of tools for managing books, characters, and various narrative elements, enhanced with AI-powered content generation capabilities.
+Book Rhino is a sophisticated Rails application designed to help movie writers, screenwriters, and film producers use AI to ship books and films. It provides a comprehensive suite of tools for managing narratives, characters, and media, enhanced with AI-powered content generation capabilities.
+
+It includes all the tools you need to:
+- Organize your ideas
+- Generate prompts
+- Organize media
+- Produce the final output (be it a book or a film)
+
+## Showcase
+
+Check out these completed projects built with Book Rhino:
+- **Book**: [Jealousy in the Jungle: An Invitation for Rivals, An Awakening](https://www.amazon.com/Jealousy-Jungle-Invitation-Rivals-Awakening/dp/B0DY872FHM)
+- **Movie**: [Short Film on YouTube](https://www.youtube.com/watch?v=pmE3Yrr0104) | [IMDb Page](https://www.imdb.com/title/tt46763502)
 
 ## Features
 
@@ -63,40 +75,9 @@ Book Rino is a sophisticated Rails application designed to assist authors in the
 - Rubocop for code style enforcement
 - Node.js for frontend asset compilation
 
-## Setup
+## Setup & Content Import
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   bundle install
-   yarn install
-   ```
-3. Set up the database:
-   ```bash
-   rails db:create db:migrate
-   ```
-4. Import initial content:
-   ```bash
-   rails import:all
-   ```
-5. Start the development server:
-   ```bash
-   ./bin/dev
-   ```
-
-## Content Import
-
-The application comes with predefined content that can be imported using rake tasks:
-
-```bash
-rails import:perspectives        # Import narrative perspectives
-rails import:archetypes         # Import character archetypes
-rails import:personality_traits # Import personality traits
-rails import:moral_alignments   # Import moral alignments
-rails import:narrative_structures # Import story structures
-rails import:character_types    # Import character types
-rails import:locations         # Import location types
-```
+Please refer to the [Setup Guide](docs/SETUP.md) for installation and content import instructions.
 
 ## Contributing
 
