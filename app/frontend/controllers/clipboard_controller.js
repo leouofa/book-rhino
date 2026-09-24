@@ -3,8 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['source', 'button']
   static values = {
-    successDuration: { type: Number, default: 2000 },
-    backgroundPrompt: { type: String, default: '' }
+    successDuration: { type: Number, default: 2000 }
   }
 
   copy(event) {
@@ -32,7 +31,7 @@ export default class extends Controller {
     const button = (event && event.currentTarget) ? event.currentTarget : (this.hasButtonTarget ? this.buttonTarget : null)
     const text = this.sourceTarget.innerText || this.sourceTarget.textContent || this.sourceTarget.value || ''
     const cleanText = text.trim()
-    const prompt = this.backgroundPromptValue || ''
+    const prompt = (event && event.params.prompt) ? event.params.prompt : ''
     const formattedText = `\`\`\`\n${cleanText}\n\`\`\`\n-----\n${prompt}`
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
