@@ -44,6 +44,15 @@ class Setting < ApplicationRecord
     self.prompts = current_prompts.merge('character_pose_prompt' => value)
   end
 
+  def scene_background_prompt
+    prompts.is_a?(Hash) ? prompts['scene_background_prompt'] : nil
+  end
+
+  def scene_background_prompt=(value)
+    current_prompts = prompts.is_a?(Hash) ? prompts.dup : {}
+    self.prompts = current_prompts.merge('scene_background_prompt' => value)
+  end
+
   def within_publish_window?
     current_time = only_time(Time.now.utc)
     publish_start_time_utc = only_time(publish_start_time.utc)
