@@ -10,7 +10,7 @@
         =r ux.h5 class: '!mb-0', text: 'Content'
         .flex.gap-2
           button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copy" Copy
-          button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copyFormatted" data-clipboard-prompt-param=Setting.instance.scene_background_prompt.to_s Copy Background Gen Prompt
+          button.btn-secondary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copyFormatted" data-clipboard-prompt-param=Setting.instance.scene_background_prompt.to_s Copy Bg Gen Prompt
       =r ux.segment '!mb-20'
         .scene-content.mb-8 data-clipboard-target="source"
           .prose.prose-lg.max-w-none
