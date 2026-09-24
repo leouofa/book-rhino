@@ -16,57 +16,17 @@ Check out these completed projects built with Book Rhino:
 
 ## Features
 
-### Book Management
-- Create and manage books with detailed attributes
-- AI-assisted book plot generation
-- Define writing styles and narrative perspectives
-- Structure your story with predefined narrative frameworks
-- Track chapters and page counts
-- Manage relationships between books and characters
+### Architect Your Masterpiece
+Revolutionize your storytelling by building vast, intricate worlds and narratives from the ground up. Book Rhino empowers you to structure your vision using proven narrative frameworks, multiple perspectives, and deeply woven story elements. Effortlessly define writing styles, establish moral alignments, and orchestrate the relationships between every facet of your universe—turning an abstract idea into a cohesive, production-ready blueprint.
 
-### Scene Generation & Management
-- Generate detailed scene outlines and context
-- Manage scene backgrounds and location settings
-- Maintain strict prompt constraints for consistent generation
-- Intelligent scene content generation pipeline
+### Bring Characters to Life
+Unleash limitless creativity when forging the heart of your story. Move beyond simple names and ages to sculpt rich, multi-dimensional characters complete with psychological depths, detailed backstories, and defining archetypes. With AI-assisted development, you can continuously iterate on their profiles, ensuring every protagonist, antagonist, and supporting role feels remarkably authentic and inextricably tied to the world they inhabit.
 
-### Prompt Generation & Export
-- Streamlined UX for generating comprehensive prompts
-- Generate and copy targeted prompts for characters, locations, and scenes
-- Easily export formatted content with background prompts for external AI use
-- 1-click "copy to clipboard" for seamless workflow integration
+### AI-Powered Scene Generation
+Breathe life into every scene with an intelligent, unyielding generation pipeline. Command the AI to construct vivid scene outlines, immersive location settings, and compelling dialogue while adhering to your strict narrative constraints. By maintaining complete control over the creative boundaries, you ensure that every generated sequence perfectly aligns with your established writing style and plot direction.
 
-### Character Development
-- Create rich, detailed character profiles
-- Define character attributes:
-  - Basic information (name, age, gender, ethnicity, nationality)
-  - Physical and health characteristics
-  - Psychological traits (fears, desires, values)
-  - Skills and abilities
-  - Detailed backstories
-- Assign character roles (protagonist, antagonist, supporting characters)
-- AI-assisted character development and refinement
-
-### Story Elements
-- Multiple narrative perspectives with examples and effects
-- Character archetypes with traits and examples
-- Personality trait library
-- Moral alignment system
-- Location management with descriptions and examples
-- Writing style templates
-- Narrative structure frameworks
-
-### AI Integration
-- Generate and iterate on character descriptions
-- Refine writing styles
-- Develop location descriptions
-- Merge and assemble content intelligently
-
-### Content Management
-- Version tracking for key elements
-- Import predefined content from YAML blueprints
-- Pagination for large content sets
-- Rich text editing capabilities
+### Seamless Production Workflow
+Accelerate your journey from concept to final output with a toolset designed for ultimate efficiency. Effortlessly merge, assemble, and version-track your content as it evolves. When you are ready to expand your workflow, the streamlined prompt generation engine allows you to instantly export hyper-targeted context to external AI models with a single click—ensuring your production never misses a beat.
 
 ## Documentation
 
