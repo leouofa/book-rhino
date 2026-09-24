@@ -15,7 +15,10 @@
               |[
             = link_to "Previous Versions", send("#{computer_name}_versions_path", "#{computer_name}_id": component.id), class: 'text-blue-700 hover:text-blue-700', data: {turbo_frame: "_top"}
             |]
-        button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copy" Copy
+        .flex.gap-2
+          button.btn-primary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copy" Copy
+          button.btn-secondary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copyFormatted" data-clipboard-prompt-param=Setting.instance.character_image_prompt.to_s 📋Character Prompt
+          button.btn-secondary.text-xs type="button" data-clipboard-target="button" data-action="click->clipboard#copyFormatted" data-clipboard-prompt-param=Setting.instance.character_pose_prompt.to_s 📋️ Pose Prompt
       =r ux.segment '!bg-yellow-100 !mb-10'
         div data-clipboard-target="source"
           = simple_format component.prompt
