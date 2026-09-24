@@ -12,7 +12,7 @@ It includes all the tools you need to:
 
 Check out these completed projects built with Book Rhino:
 - **Book**: [Jealousy in the Jungle: An Invitation for Rivals, An Awakening](https://www.amazon.com/Jealousy-Jungle-Invitation-Rivals-Awakening/dp/B0DY872FHM)
-- **Movie**: [Short Film on YouTube](https://www.youtube.com/watch?v=pmE3Yrr0104) | [IMDb Page](https://www.imdb.com/title/tt46763502)
+- **Movie**: [The Drift](https://www.youtube.com/watch?v=pmE3Yrr0104) | [IMDb Page](https://www.imdb.com/title/tt46763502)
 
 ## Features
 
@@ -55,42 +55,14 @@ Check out these completed projects built with Book Rhino:
 - Pagination for large content sets
 - Rich text editing capabilities
 
-## Technical Stack
+## Development & Contributing
 
-### Backend
-- Ruby on Rails
-- PostgreSQL database
-- Redis for background job processing
-- Paper Trail for version tracking
-- Kaminari for pagination
-
-### Frontend
-- Vite.js for asset management
-- Tailwind CSS for styling
-- Semantic UI components
-- Turbo for dynamic updates
-
-### Development Tools
-- RSpec for testing
-- Rubocop for code style enforcement
-- Node.js for frontend asset compilation
+Please refer to the [Development Guide](docs/DEVELOPMENT.md) for contribution instructions and an overview of our technical stack.
 
 ## Setup & Content Import
 
 Please refer to the [Setup Guide](docs/SETUP.md) for installation and content import instructions.
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-   - Note: Documentation is automatically maintained by Cursor
-   - On each commit, Cursor analyzes the codebase and updates:
-     - Technical documentation (notes.md)
-     - User documentation (README.md)
-   - No manual documentation updates required
-4. Push to the branch
-5. Create a Pull Request
 
 ## License
 
