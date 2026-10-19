@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   resources :personality_traits
   resources :moral_alignments
   resources :narrative_structures
+  resources :poetic_forms, only: %i[index]
   resources :character_types
 
   # Other resources

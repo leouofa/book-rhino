@@ -61,6 +61,10 @@ html lang="en"
                         =r ux.icon 'kaaba'
                         | Narrative Structures
 
+                      = link_to poetic_forms_path, class: "item #{menu_active?(poetic_forms_path)}"
+                        =r ux.icon 'feather alternate'
+                        | Poetic Forms
+
                   =r ux.item class: "dropdown #{dropdown_active?(characters_path)}", ui: :on
                     =r ux.icon 'hiking'
                     | Characters

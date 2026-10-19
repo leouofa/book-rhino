@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :region do
-    name { Faker::Address.community }
+    sequence(:name) { |n| "#{Faker::Address.community} #{n}" }
     city { Faker::Address.city }
     state { Faker::Address.state }
     country { Faker::Address.country }
