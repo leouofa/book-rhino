@@ -1,0 +1,44 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            =@component_name.pluralize
+        =r ux.component_divider
+
+        =r ux.div 'text-center'
+          = paginate @component_list
+
+        =r ux.table class: 'relaxed celled striped structured'
+          =r ux.thead
+            =r ux.tr
+              =r ux.th text: 'Style Name'
+              =r ux.th text: 'Details'
+          - @component_list.each do |component|
+            =r ux.tr
+              =r ux.td '!pr-4 !border-b-4 border-solid'
+                =r ux.h4 text: component.name
+              =r ux.td '!border-b-4 border-solid'
+                - if component.aesthetic_tags.present?
+                  =r ux.segment '!mt-3 !bg-slate-100 !font-mono !text-sm'
+                    =r ux.h4 text: "Aesthetic Tags", class: '!font-sans'
+                    = component.aesthetic_tags
+
+                - if component.lighting.present?
+                  =r ux.segment '!mt-3 !bg-amber-100'
+                    =r ux.h4 text: "Lighting & Atmosphere"
+                    = component.lighting
+
+                - if component.description.present?
+                  =r ux.segment '!mt-3 !bg-blue-100'
+                    =r ux.h4 text: "Description"
+                    = component.description
+
+                - if component.example.present?
+                  =r ux.segment '!mt-3 !mb-2 !bg-yellow-100'
+                    =r ux.h4 text: "Example"
+                    = component.example
+
+        =r ux.div 'text-center'
+          = paginate @component_list
