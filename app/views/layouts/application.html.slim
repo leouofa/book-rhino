@@ -65,6 +65,10 @@ html lang="en"
                         =r ux.icon 'feather alternate'
                         | Poetic Forms
 
+                      = link_to cinematic_styles_path, class: "item #{menu_active?(cinematic_styles_path)}"
+                        =r ux.icon 'film'
+                        | Cinematic Styles
+
                   =r ux.item class: "dropdown #{dropdown_active?(characters_path)}", ui: :on
                     =r ux.icon 'hiking'
                     | Characters

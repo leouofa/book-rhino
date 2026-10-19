@@ -24,6 +24,10 @@
       = form.collection_select :poetic_form_id, PoeticForm.all, :id, :name, { prompt: "None (Standard Prose)" }, class: "ui dropdown"
 
     = r ux.component_field
+      = form.label :cinematic_style_id, "Cinematic Style"
+      = form.collection_select :cinematic_style_id, CinematicStyle.all, :id, :name, { prompt: "Default (Film Noir)" }, class: "ui dropdown"
+
+    = r ux.component_field
       = form.label :protagonist_id, "Protagonist"
       = form.collection_select :protagonist_id, Character.all, :id, :name, { prompt: "Select the Protagonist" }, class: "ui dropdown"
 

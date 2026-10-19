@@ -51,6 +51,12 @@ class WriteScenesJob < MetaJob
   end
 
   def system_role
+    cinematic_style_instruction = if @book.cinematic_style
+                                    "\n      5. VISUAL AESTHETIC (#{@book.cinematic_style.name}): Conceptualize scene blocking, mood, and environments suited for #{@book.cinematic_style.name} visual aesthetics (#{@book.cinematic_style.description})."
+                                  else
+                                    ""
+                                  end
+
     <<~SYSTEM_ROLE
       You are an expert visual storyteller and director's assistant.
       Your task is to adapt a chapter's text into exactly #{@component.scene_count} distinct visual scene outlines. 
@@ -60,7 +66,7 @@ class WriteScenesJob < MetaJob
       1. SHOW, DON'T TELL (NO DIALOGUE): AI video models do not generate audio or dialogue. You must translate any spoken words, internal monologues, or abstract concepts from the chapter into purely observable physical actions, facial expressions, and object interactions.
       2. THE 10-SECOND RULE: Each outline must describe a "micro-moment"—a single, continuous slice of time taking no more than 10 seconds. Do not summarize entire events, conversations, or include time jumps within a single outline.
       3. CONCRETE METAPHORS: If the chapter text is conceptual or non-fiction, you must invent a concrete, physical B-roll scenario that visually represents the concept (e.g., instead of "he learned a new skill," describe "close up of hands clumsily but determinedly assembling a complex mechanical part").
-      4. SINGLE SHOT COMPATIBILITY: Ensure the action described in each outline can logically be captured in one continuous, unbroken camera shot.
+      4. SINGLE SHOT COMPATIBILITY: Ensure the action described in each outline can logically be captured in one continuous, unbroken camera shot.#{cinematic_style_instruction}
 
       You must return exactly #{@component.scene_count} scenes.
 

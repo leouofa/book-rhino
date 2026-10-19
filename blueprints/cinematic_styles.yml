@@ -1,0 +1,30 @@
+cinematic_styles:
+  - name: "Film Noir"
+    description: "Classic black and white crime drama aesthetics characterized by high contrast shadows, cynical moods, and rain-slicked city streets."
+    aesthetic_tags: "film noir, black and white, high contrast, dramatic shadows, monochrome"
+    lighting: "chiaroscuro, harsh single-source key lighting, venetian blind cast shadows, streetlamp silhouettes in fog"
+    example: "Rain streaks down dark Venetian blinds as a single desk lamp casts long, angular shadows across the smoky detective's office."
+
+  - name: "Cyberpunk Neon"
+    description: "High-tech dystopian urban environments drenched in vibrant neon glows, holographic reflections, and persistent atmospheric haze."
+    aesthetic_tags: "cyberpunk, vibrant neon lighting, wet reflective streets, volumetric fog, chromatic aberration, high-tech dystopian"
+    lighting: "vivid magenta and cyan neon rim lights, glistening wet pavement reflections, pulsing holographic signage, deep contrasting shadows"
+    example: "Towering holographic advertisements bathe a crowded alleyway in electric violet light, steam rising from grates as rain falls through illuminated smog."
+
+  - name: "Golden Hour 35mm"
+    description: "Nostalgic, naturalistic cinematic photography captured on 35mm film stock during the magical warm transition of late afternoon light."
+    aesthetic_tags: "35mm film photograph, golden hour, warm amber sunlight, soft lens flare, organic film grain, naturalistic depth of field"
+    lighting: "low-angled warm sunlight, soft golden backlight outlining silhouettes, organic sun flares, warm ambient fill"
+    example: "Sunlight filters through dry prairie grass at sunset, wrapping the protagonist in a luminous amber halo with fine grain and gentle lens bloom."
+
+  - name: "Technicolor Vintage"
+    description: "The saturated, vibrant cinematic look of mid-20th century Hollywood films using three-strip dye transfer processes."
+    aesthetic_tags: "1950s 3-strip Technicolor cinema, saturated primary colors, crisp theatrical lighting, classic Hollywood studio look"
+    lighting: "bold three-point studio lighting, crisp key light, vivid saturated fill, rich shadow separation, glamorous theatrical glow"
+    example: "A sunlit convertible drives along a coastal highway with vivid turquoise waters, crimson upholstery, and emerald green palm trees under brilliant blue skies."
+
+  - name: "Gothic Horror"
+    description: "Eerie, somber atmospheric visuals inspired by Victorian macabre, decaying architecture, and haunting tenebrism."
+    aesthetic_tags: "dark gothic horror, desaturated muted tones, candlelight, deep chiaroscuro, eerie volumetric mist, Victorian macabre"
+    lighting: "flickering candlelight casting erratic shadows, cold pale moonlight filtering through fractured stained glass, thick ground fog"
+    example: "An ancient stone corridor flanked by weeping gargoyles, lit only by a solitary iron lantern whose flame struggles against the gathering mist."

@@ -21,6 +21,7 @@ class Book < ApplicationRecord
   belongs_to :perspective
   belongs_to :narrative_structure
   belongs_to :poetic_form, optional: true
+  belongs_to :cinematic_style, optional: true
   belongs_to :protagonist, class_name: 'Character', optional: true
 
   has_many :book_antagonists, dependent: :destroy
@@ -32,7 +33,7 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validate :character_role_uniqueness
 
-  has_paper_trail ignore: %i[title moral chapter_count pages rendering poetic_form_id], versions: {
+  has_paper_trail ignore: %i[title moral chapter_count pages rendering poetic_form_id cinematic_style_id], versions: {
     scope: -> { order('id desc') }
   }
 
@@ -44,6 +45,7 @@ class Book < ApplicationRecord
         perspective: { only: [:name, :narrator, :pronouns, :effect] },
         narrative_structure: { only: [:name, :description, :parts] },
         poetic_form: { only: [:name, :description, :meter, :rhyme_scheme, :guidelines] },
+        cinematic_style: { only: [:name, :description, :aesthetic_tags, :lighting] },
         protagonist: { only: [:name, :prompt] },
         antagonists: { only: [:name, :prompt] },
         characters: { only: [:name, :prompt] },
@@ -55,8 +57,10 @@ class Book < ApplicationRecord
   def as_scene_json(options = {})
     serializable_hash(options.merge(
                         except: %i[id title created_at updated_at prompt moral plot pending rendering pages
-                                   chapter_count writing_style_id narrative_structure_id perspective_id protagonist_id],
+                                   chapter_count writing_style_id narrative_structure_id perspective_id protagonist_id
+                                   poetic_form_id cinematic_style_id],
                         include: {
+                          cinematic_style: { only: [:name, :description, :aesthetic_tags, :lighting] },
                           protagonist: { only: [:name, :prompt] },
                           antagonists: { only: [:name, :prompt] },
                           characters: { only: [:name, :prompt] },

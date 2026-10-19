@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_19_094501) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_19_111001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -84,6 +84,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_19_094501) do
     t.boolean "pending"
     t.boolean "rendering", default: false, null: false
     t.bigint "poetic_form_id"
+    t.bigint "cinematic_style_id"
+    t.index ["cinematic_style_id"], name: "index_books_on_cinematic_style_id"
     t.index ["narrative_structure_id"], name: "index_books_on_narrative_structure_id"
     t.index ["perspective_id"], name: "index_books_on_perspective_id"
     t.index ["poetic_form_id"], name: "index_books_on_poetic_form_id"
@@ -182,6 +184,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_19_094501) do
     t.bigint "personality_trait_id", null: false
     t.index ["character_id", "personality_trait_id"], name: "idx_on_character_id_personality_trait_id_bde1d5670b"
     t.index ["personality_trait_id", "character_id"], name: "idx_on_personality_trait_id_character_id_aa8c32a6c8"
+  end
+
+  create_table "cinematic_styles", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.text "aesthetic_tags", null: false
+    t.text "lighting"
+    t.text "example"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_cinematic_styles_on_name", unique: true
   end
 
   create_table "location_images", force: :cascade do |t|
@@ -355,6 +368,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_19_094501) do
   add_foreign_key "book_antagonists", "books"
   add_foreign_key "book_antagonists", "characters"
   add_foreign_key "books", "characters", column: "protagonist_id"
+  add_foreign_key "books", "cinematic_styles"
   add_foreign_key "books", "narrative_structures"
   add_foreign_key "books", "perspectives"
   add_foreign_key "books", "poetic_forms"

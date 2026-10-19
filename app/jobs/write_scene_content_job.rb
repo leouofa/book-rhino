@@ -17,16 +17,14 @@ class WriteSceneContentJob < MetaJob
     "Drone Shot"
   ].freeze
 
-  STYLES = [
-    "film noir, black and white, high contrast, dramatic shadows, monochrome"
-  ].freeze
+  DEFAULT_STYLE = "film noir, black and white, high contrast, dramatic shadows, monochrome".freeze
 
   def perform(scene_id, options = {})
-    @shot_type = options[:shot_type] || SHOT_TYPES.sample
-    @style = options[:style] || STYLES.sample
     @component = Scene.find(scene_id)
     @chapter = @component.chapter
     @book = @chapter.book
+    @shot_type = options[:shot_type] || SHOT_TYPES.sample
+    @style = options[:style] || @book.cinematic_style&.aesthetic_tags || DEFAULT_STYLE
 
     super()
 
@@ -47,6 +45,12 @@ class WriteSceneContentJob < MetaJob
   end
 
   def system_role
+    lighting_instruction = if @book.cinematic_style&.lighting.present?
+                             "Align with #{@book.cinematic_style.name} lighting (#{@book.cinematic_style.lighting})."
+                           else
+                             "Describe the setting, color palette, lighting scheme (e.g., high contrast, volumetric, moody), and atmospheric elements (e.g., fog, dust motes)."
+                           end
+
     <<~SYSTEM_ROLE
       You are an expert prompt engineer for AI video generation models (like Runway Gen-3, Kling, Sora, and Luma). 
       Your task is to translate the provided scene outline into a highly optimized, descriptive text prompt that yields photorealistic, temporally consistent video.
@@ -62,7 +66,7 @@ class WriteSceneContentJob < MetaJob
       FORMAT REQUIREMENTS:
       [Camera & Framing]: State the exact shot type (#{@shot_type}), camera movement (e.g., slow tracking, static, pan, tilt, smooth gimbal), lens type (e.g., 50mm cinematic), and depth of field. 
       [Subject & Action]: Describe the character(s) or main subject, their exact physical appearance, and their specific, observable physical movements. Use character names.
-      [Environment & Lighting]: Describe the setting, color palette, lighting scheme (e.g., high contrast, volumetric, moody), and atmospheric elements (e.g., fog, dust motes).
+      [Environment & Lighting]: #{lighting_instruction}
       [Style & Fidelity]: Include aesthetic tags: #{@style}.
     SYSTEM_ROLE
   end

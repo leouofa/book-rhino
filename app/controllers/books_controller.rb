@@ -42,6 +42,7 @@ class BooksController < MetaController
       :perspective_id,
       :narrative_structure_id,
       :poetic_form_id,
+      :cinematic_style_id,
       :moral,
       :plot,
       :chapter_count,

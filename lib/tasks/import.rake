@@ -162,5 +162,26 @@ namespace :import do
       end
     end
   end
+
+  desc "Import cinematic styles from a YAML file"
+  task cinematic_styles: :environment do
+    yaml_file = Rails.root.join("blueprints/cinematic_styles.yml")
+    styles = YAML.load_file(yaml_file)['cinematic_styles']
+
+    styles.each do |style_data|
+      cinematic_style = CinematicStyle.find_or_initialize_by(name: style_data['name'])
+      cinematic_style.description = style_data['description']
+      cinematic_style.aesthetic_tags = style_data['aesthetic_tags']
+      cinematic_style.lighting = style_data['lighting']
+      cinematic_style.example = style_data['example']
+
+      if cinematic_style.save
+        puts "Successfully imported: #{cinematic_style.name}"
+      else
+        puts "Failed to import: #{cinematic_style.name}"
+        puts cinematic_style.errors.full_messages
+      end
+    end
+  end
 end
 

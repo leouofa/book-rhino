@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   resources :moral_alignments
   resources :narrative_structures
   resources :poetic_forms, only: %i[index]
+  resources :cinematic_styles, only: %i[index]
   resources :character_types
 
   # Other resources
