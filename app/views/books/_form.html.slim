@@ -20,6 +20,10 @@
       = form.collection_select :narrative_structure_id, NarrativeStructure.all, :id, :name, { prompt: "Select Narrative Structure" }, class: "ui dropdown"
 
     = r ux.component_field
+      = form.label :poetic_form_id, "Poetic Form"
+      = form.collection_select :poetic_form_id, PoeticForm.all, :id, :name, { prompt: "None (Standard Prose)" }, class: "ui dropdown"
+
+    = r ux.component_field
       = form.label :protagonist_id, "Protagonist"
       = form.collection_select :protagonist_id, Character.all, :id, :name, { prompt: "Select the Protagonist" }, class: "ui dropdown"
 

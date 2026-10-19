@@ -140,4 +140,27 @@ namespace :import do
       end
     end
   end
+
+  desc "Import poetic forms from a YAML file"
+  task poetic_forms: :environment do
+    yaml_file = Rails.root.join("blueprints/poetic_forms.yml")
+    forms = YAML.load_file(yaml_file)['poetic_forms']
+
+    forms.each do |form_data|
+      poetic_form = PoeticForm.find_or_initialize_by(name: form_data['name'])
+      poetic_form.description = form_data['description']
+      poetic_form.meter = form_data['meter']
+      poetic_form.rhyme_scheme = form_data['rhyme_scheme']
+      poetic_form.guidelines = form_data['guidelines']
+      poetic_form.example = form_data['example']
+
+      if poetic_form.save
+        puts "Successfully imported: #{poetic_form.name}"
+      else
+        puts "Failed to import: #{poetic_form.name}"
+        puts poetic_form.errors.full_messages
+      end
+    end
+  end
 end
+

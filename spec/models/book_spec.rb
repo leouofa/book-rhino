@@ -9,6 +9,7 @@ RSpec.describe Book, type: :model do
     it { should belong_to(:writing_style) }
     it { should belong_to(:perspective) }
     it { should belong_to(:narrative_structure) }
+    it { should belong_to(:poetic_form).optional }
     it { should belong_to(:protagonist).class_name('Character').optional }
     it { should have_many(:book_antagonists) }
     it { should have_many(:antagonists).through(:book_antagonists) }

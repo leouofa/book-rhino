@@ -1,0 +1,45 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'crud_frame'
+        =r ux.component_container
+          =r ux.component_header
+            =@component_name.pluralize
+        =r ux.component_divider
+
+        =r ux.div 'text-center'
+          = paginate @component_list
+
+        =r ux.table class: 'relaxed celled striped structured'
+          =r ux.thead
+            =r ux.tr
+              =r ux.th text: 'Form Name'
+              =r ux.th text: 'Details'
+          - @component_list.each do |component|
+            =r ux.tr
+              =r ux.td '!pr-4 !border-b-4 border-solid'
+                =r ux.h4 text: component.name
+                - if component.meter.present?
+                  br
+                  =r ux.label text: component.meter, class: '!mb-2 !bg-purple-500 !text-white !font-normal'
+                - if component.rhyme_scheme.present?
+                  br
+                  =r ux.label text: component.rhyme_scheme, class: '!mb-2 !bg-teal-600 !text-white !font-normal'
+              =r ux.td '!border-b-4 border-solid'
+                - if component.description.present?
+                  =r ux.segment '!mt-3 !bg-blue-100'
+                    =r ux.h4 text: "Description"
+                    = component.description
+
+                - if component.guidelines.present?
+                  =r ux.segment '!mt-3 !bg-green-100'
+                    =r ux.h4 text: "Guidelines"
+                    = component.guidelines
+
+                - if component.example.present?
+                  =r ux.segment '!mt-3 !mb-2 !bg-yellow-100'
+                    =r ux.h4 text: "Example"
+                    = component.example
+
+        =r ux.div 'text-center'
+          = paginate @component_list

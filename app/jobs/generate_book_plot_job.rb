@@ -70,13 +70,19 @@ class GenerateBookPlotJob < MetaJob
   end
 
   def system_role
+    poetic_form_instruction = if @component.poetic_form
+                                "- The poetic form specified (#{@component.poetic_form.name}): align chapter structures, pacing, and outlines with the conventions of this poetic form (e.g. Cantos or Books for an epic poem)\n"
+                              else
+                                ""
+                              end
+
     <<~SYSTEM_ROLE
       You are a college level english teacher. Analyze the following JSON Object and create a detailed plot outline for a book.
       The plot should be consistent with:
       - The writing style specified
       - The narrative perspective
       - The narrative structure
-      - The moral of the story
+      #{poetic_form_instruction}- The moral of the story
       - The characters' roles (protagonist, antagonists, other characters)
       - The characters' established traits and backstories
       

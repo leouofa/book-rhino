@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_23_172303) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_19_094501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -83,8 +83,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_23_172303) do
     t.bigint "protagonist_id"
     t.boolean "pending"
     t.boolean "rendering", default: false, null: false
+    t.bigint "poetic_form_id"
     t.index ["narrative_structure_id"], name: "index_books_on_narrative_structure_id"
     t.index ["perspective_id"], name: "index_books_on_perspective_id"
+    t.index ["poetic_form_id"], name: "index_books_on_poetic_form_id"
     t.index ["protagonist_id"], name: "index_books_on_protagonist_id"
     t.index ["writing_style_id"], name: "index_books_on_writing_style_id"
   end
@@ -251,6 +253,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_23_172303) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "poetic_forms", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.text "meter"
+    t.text "rhyme_scheme"
+    t.text "guidelines"
+    t.text "example"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_poetic_forms_on_name", unique: true
+  end
+
   create_table "regions", force: :cascade do |t|
     t.string "name"
     t.string "city"
@@ -343,6 +357,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_23_172303) do
   add_foreign_key "books", "characters", column: "protagonist_id"
   add_foreign_key "books", "narrative_structures"
   add_foreign_key "books", "perspectives"
+  add_foreign_key "books", "poetic_forms"
   add_foreign_key "books", "writing_styles"
   add_foreign_key "chapters", "books"
   add_foreign_key "character_images", "characters"
