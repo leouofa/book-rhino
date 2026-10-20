@@ -8,7 +8,13 @@ export default class extends Controller {
   }
 
   connect() {
-    $('.dropdown', this.element).dropdown()
+    $('.dropdown', this.element).each((_, el) => {
+      const isClearable = el.classList.contains('clearable') || $(el).data('clearable') === true;
+      $(el).dropdown({
+        clearable: isClearable,
+        placeholder: isClearable ? false : 'auto'
+      });
+    });
   }
 
   disconnect() {
