@@ -52,7 +52,6 @@ gem 'vite_rails'
 gem 'redcarpet'
 
 # Middleware
-gem 'rack-attack'
 gem 'rack-cors'
 
 group :development, :test do
