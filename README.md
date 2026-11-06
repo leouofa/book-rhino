@@ -18,7 +18,10 @@ Book Rhino is a Rails application engineered to help novelists, screenwriters, a
 Completed real-world productions crafted with Book Rhino:
 
 - 📖 **Book**: [*Jealousy in the Jungle: An Invitation for Rivals, An Awakening*](https://www.amazon.com/Jealousy-Jungle-Invitation-Rivals-Awakening/dp/B0DY872FHM) on Amazon
+- 📖 **Book**: [*Jealousy in the Jungle 2: The Ballad*](https://www.amazon.com/Jealousy-Jungle-Ballad-Leonid-Medovyy-ebook/dp/B0HNN2TPMV) on Amazon
+- 🎧 **Audiobook**: [*Jealousy in the Jungle 2: The Ballad*](https://play.google.com/store/audiobooks/details?id=AQAAAEBGETRRYM) on Google Play
 - 🎬 **Film**: [*The Drift*](https://www.youtube.com/watch?v=pmE3Yrr0104) on YouTube | [IMDb Page](https://www.imdb.com/title/tt46763502)
+- 🎬 **Film**: [*Jealousy in the Jungle: Short Film*](https://www.youtube.com/watch?v=luCsb8vDQC4) on YouTube | [IMDb Page](https://www.imdb.com/title/tt49691776/)
 
 ---
 
