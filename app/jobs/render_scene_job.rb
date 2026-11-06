@@ -1,9 +1,9 @@
 class RenderSceneJob < ApplicationJob
-  def perform(scene)
+  def perform(scene, options = {})
     @scene = scene
     begin
       start_rendering
-      WriteSceneContentJob.perform_now(@scene.id)
+      WriteSceneContentJob.perform_now(@scene.id, options)
     ensure
       finish_rendering
     end

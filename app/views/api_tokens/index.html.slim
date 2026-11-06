@@ -1,0 +1,64 @@
+=r ux.container
+  =r ux.row
+    =r ux.column width: 16
+      = turbo_frame_tag 'api_tokens_frame'
+        =r ux.component_container
+          =r ux.component_header
+            | Personal API Tokens
+        =r ux.component_divider
+
+        - if flash[:raw_token].present?
+          =r ux.segment '!bg-amber-50 !border-amber-400 !border-2 !p-6 !mb-8 !rounded'
+            h4.text-amber-800.font-bold.mb-2 Make sure to copy your new API token now. You won't be able to see it again!
+            div.font-mono.bg-white.border.border-amber-300.p-3.rounded.text-sm.break-all.select-all
+              = flash[:raw_token]
+
+        =r ux.segment '!bg-gray-50 !border-gray-200 !border !p-6 !mb-8 !rounded'
+          h4.font-bold.mb-4 Create New API Token
+          = form_with model: @new_token, url: api_tokens_path, local: true, class: 'ui form' do |f|
+            div.grid.grid-cols-1.md:grid-cols-3.gap-4.items-end
+              div.field
+                = f.label :name, 'Token Name / Description'
+                = f.text_field :name, placeholder: 'e.g. MCP TypeScript Server', required: true, class: 'ui input'
+              div.field
+                = f.label :expires_at, 'Expiration (Optional)'
+                = f.date_field :expires_at, class: 'ui input'
+              div.field
+                = f.submit 'Generate Token', class: 'ui button primary'
+
+        h4.font-bold.mb-4 Active & Revoked Tokens
+        =r ux.table class: 'relaxed celled striped structured'
+          =r ux.thead
+            =r ux.tr
+              =r ux.th text: 'Name'
+              =r ux.th text: 'Token Prefix'
+              =r ux.th text: 'Created'
+              =r ux.th text: 'Last Used'
+              =r ux.th text: 'Expires'
+              =r ux.th text: 'Status'
+              th.center.aligned Action
+          tbody
+            - if @api_tokens.empty?
+              =r ux.tr
+                td.text-center.text-gray-500 colspan="7" No API tokens yet.
+            - @api_tokens.each do |token|
+              =r ux.tr
+                =r ux.td text: token.name
+                td.font-mono.text-xs = "#{token.token_prefix}..."
+                =r ux.td text: token.created_at.strftime('%Y-%m-%d %H:%M')
+                =r ux.td text: token.last_used_at ? token.last_used_at.strftime('%Y-%m-%d %H:%M') : 'Never'
+                =r ux.td text: token.expires_at ? token.expires_at.strftime('%Y-%m-%d') : 'Never'
+                td
+                  - if token.revoked_at.present?
+                    span.ui.label.red Revoked
+                  - elsif token.expires_at.present? && token.expires_at.past?
+                    span.ui.label.orange Expired
+                  - else
+                    span.ui.label.green Active
+                td.collapsing.center.aligned
+                  - if token.active?
+                    = button_to 'Revoke', api_token_path(token), method: :delete,
+                            data: { turbo_confirm: "Revoke token '#{token.name}'? Applications using this token will stop working immediately." },
+                            class: 'ui button mini negative'
+                  - else
+                    span.text-gray-400 —

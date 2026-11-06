@@ -1,0 +1,2859 @@
+openapi: 3.1.0
+info:
+  title: Book Rhino Platform REST API
+  version: 1.0.0
+  description: >
+    Production-grade REST API for Book Rhino. Built to integrate with
+    external TypeScript applications and Model Context Protocol (MCP) servers.
+servers:
+  - url: /api/v1
+    description: Current Environment API v1
+
+security:
+  - BearerAuth: []
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      security: []
+      responses:
+        '200':
+          description: Service health status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /openapi.json:
+    get:
+      summary: OpenAPI specification
+      security: []
+      responses:
+        '200':
+          description: Live OpenAPI specification in JSON format
+
+  /me:
+    get:
+      summary: Current authenticated user details
+      responses:
+        '200':
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api_tokens:
+    get:
+      summary: List user API tokens
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PerPageParam'
+      responses:
+        '200':
+          description: Paginated API tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTokenListResponse'
+    post:
+      summary: Generate a new API token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                expires_at:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Token created (includes raw plaintext token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTokenResponse'
+
+  /api_tokens/{id}:
+    delete:
+      summary: Revoke an API token
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Token revoked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTokenResponse'
+
+  /operations:
+    get:
+      summary: List tracked asynchronous AI operations
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [queued, running, succeeded, failed]
+        - name: resource_type
+          in: query
+          schema:
+            type: string
+        - name: resource_id
+          in: query
+          schema:
+            type: integer
+        - name: operation_type
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PerPageParam'
+      responses:
+        '200':
+          description: Paginated operations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationListResponse'
+
+  /operations/{id}:
+    get:
+      summary: Get operation status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+
+  /books:
+    get:
+      summary: List books
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: writing_style_id
+          in: query
+          schema:
+            type: integer
+        - name: perspective_id
+          in: query
+          schema:
+            type: integer
+        - name: narrative_structure_id
+          in: query
+          schema:
+            type: integer
+        - name: pending
+          in: query
+          schema:
+            type: boolean
+        - name: rendering
+          in: query
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PerPageParam'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookListResponse'
+    post:
+      summary: Create book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetailResponse'
+
+  /books/{id}:
+    get:
+      summary: Get book details with associations and chapters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetailResponse'
+    patch:
+      summary: Update book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetailResponse'
+    delete:
+      summary: Delete book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /books/{id}/manuscript:
+    get:
+      summary: Export full manuscript with chapters, scenes, and compiled markdown
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManuscriptResponse'
+
+  /books/{id}/generate_prompt:
+    post:
+      summary: Trigger AI plot and chapter outlines generation (GenerateBookPlotJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /books/{id}/iterate:
+    post:
+      summary: Refine book plot with feedback instruction (IterateOnBookPlotJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /books/{id}/render_book:
+    post:
+      summary: Render entire book content across all chapters (RenderBookJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /books/{id}/versions:
+    get:
+      summary: List PaperTrail versions of book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionListResponse'
+
+  /books/{id}/versions/{version_id}/revert:
+    post:
+      summary: Revert book to a previous version
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetailResponse'
+
+  /books/{id}/versions/{version_id}/merge:
+    post:
+      summary: Merge changes from a previous version using AI (MergeBookPlotsJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /books/{book_id}/chapters:
+    get:
+      summary: List chapters for a book
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterListResponse'
+    post:
+      summary: Create chapter for a book
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChapterInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterResponse'
+
+  /chapters:
+    get:
+      summary: List all chapters across books
+      parameters:
+        - name: book_id
+          in: query
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PerPageParam'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterListResponse'
+    post:
+      summary: Create chapter with book_id in body
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChapterInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterResponse'
+
+  /chapters/{id}:
+    get:
+      summary: Get chapter details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterResponse'
+    patch:
+      summary: Update chapter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChapterInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChapterResponse'
+    delete:
+      summary: Delete chapter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /chapters/{id}/render_chapter:
+    post:
+      summary: Render chapter text content (RenderChapterJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /chapters/{id}/generate_scenes:
+    post:
+      summary: Deconstruct chapter into visual scenes (WriteScenesJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /chapters/{chapter_id}/scenes:
+    get:
+      summary: List scenes in chapter
+      parameters:
+        - name: chapter_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SceneListResponse'
+    post:
+      summary: Create scene in chapter
+      parameters:
+        - name: chapter_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SceneInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SceneResponse'
+
+  /scenes:
+    get:
+      summary: List all scenes across chapters
+      parameters:
+        - name: chapter_id
+          in: query
+          schema:
+            type: integer
+        - name: book_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SceneListResponse'
+    post:
+      summary: Create scene with chapter_id in body
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SceneInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SceneResponse'
+
+  /scenes/{id}:
+    get:
+      summary: Get scene details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SceneResponse'
+    patch:
+      summary: Update scene
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SceneInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SceneResponse'
+    delete:
+      summary: Delete scene
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /scenes/{id}/render_scene:
+    post:
+      summary: Generate AI video prompt and description for scene (RenderSceneJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                shot_type:
+                  type: string
+                style:
+                  type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /characters:
+    get:
+      summary: List characters
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: book_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterListResponse'
+    post:
+      summary: Create character
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterDetailResponse'
+
+  /characters/{id}:
+    get:
+      summary: Get character details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterDetailResponse'
+    patch:
+      summary: Update character
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterDetailResponse'
+    delete:
+      summary: Delete character
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /characters/{id}/generate_prompt:
+    post:
+      summary: Generate character prompt (GenerateCharacterPromptJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /characters/{id}/iterate:
+    post:
+      summary: Iterate on character prompt (IterateOnCharacterPromptJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /characters/{id}/versions:
+    get:
+      summary: Character version history
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionListResponse'
+
+  /characters/{id}/versions/{version_id}/revert:
+    post:
+      summary: Revert character version
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterDetailResponse'
+
+  /characters/{id}/versions/{version_id}/merge:
+    post:
+      summary: Merge character version (MergeCharacterPromptsJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /characters/{character_id}/images:
+    get:
+      summary: List character images
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageListResponse'
+    post:
+      summary: Upload character image (file, base64, or image_url)
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                image_url:
+                  type: string
+                  format: uri
+                image_base64:
+                  type: string
+                filename:
+                  type: string
+                content_type:
+                  type: string
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+
+  /character_images/{id}:
+    get:
+      summary: Get character image details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+    patch:
+      summary: Update character image title
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+    delete:
+      summary: Delete character image
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /locations:
+    get:
+      summary: List locations
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: region_id
+          in: query
+          schema:
+            type: integer
+        - name: book_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationListResponse'
+    post:
+      summary: Create location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetailResponse'
+
+  /locations/{id}:
+    get:
+      summary: Get location details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetailResponse'
+    patch:
+      summary: Update location
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetailResponse'
+    delete:
+      summary: Delete location
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /locations/{id}/generate_prompt:
+    post:
+      summary: Generate location prompt (GenerateLocationPromptJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /locations/{id}/iterate:
+    post:
+      summary: Iterate on location prompt (IterateOnLocationPromptJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /locations/{id}/versions:
+    get:
+      summary: Location version history
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionListResponse'
+
+  /locations/{id}/versions/{version_id}/revert:
+    post:
+      summary: Revert location version
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetailResponse'
+
+  /locations/{id}/versions/{version_id}/merge:
+    post:
+      summary: Merge location version (MergeLocationPromptsJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /locations/{location_id}/images:
+    get:
+      summary: List location images
+      parameters:
+        - name: location_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageListResponse'
+    post:
+      summary: Upload location image
+      parameters:
+        - name: location_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                image_url:
+                  type: string
+                image_base64:
+                  type: string
+                filename:
+                  type: string
+                content_type:
+                  type: string
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+
+  /location_images/{id}:
+    get:
+      summary: Get location image details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+    patch:
+      summary: Update location image title
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+    delete:
+      summary: Delete location image
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /regions:
+    get:
+      summary: List regions
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: country
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionListResponse'
+    post:
+      summary: Create region
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResponse'
+
+  /regions/{id}:
+    get:
+      summary: Get region details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResponse'
+    patch:
+      summary: Update region
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResponse'
+    delete:
+      summary: Delete region
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /writing_styles:
+    get:
+      summary: List writing styles
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingStyleListResponse'
+    post:
+      summary: Create writing style
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WritingStyleInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingStyleResponse'
+
+  /writing_styles/{id}:
+    get:
+      summary: Get writing style
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: include_texts
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingStyleResponse'
+    patch:
+      summary: Update writing style
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WritingStyleInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingStyleResponse'
+    delete:
+      summary: Delete writing style
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /writing_styles/{id}/generate_prompt:
+    post:
+      summary: Generate writing style prompt (GenerateWritingStyleJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /writing_styles/{id}/iterate:
+    post:
+      summary: Iterate on writing style prompt (IterateOnWritingStyleJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /writing_styles/{id}/versions:
+    get:
+      summary: Writing style version history
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionListResponse'
+
+  /writing_styles/{id}/versions/{version_id}/revert:
+    post:
+      summary: Revert writing style version
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingStyleResponse'
+
+  /writing_styles/{id}/versions/{version_id}/merge:
+    post:
+      summary: Merge writing style version (MergeWritingStylesJob)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+
+  /writing_styles/{writing_style_id}/texts:
+    get:
+      summary: List sample texts for writing style
+      parameters:
+        - name: writing_style_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextListResponse'
+    post:
+      summary: Add sample text to writing style
+      parameters:
+        - name: writing_style_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextResponse'
+
+  /texts:
+    get:
+      summary: List all texts
+      parameters:
+        - name: writing_style_id
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextListResponse'
+    post:
+      summary: Create text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextResponse'
+
+  /texts/{id}:
+    get:
+      summary: Get text details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextResponse'
+    patch:
+      summary: Update text
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextResponse'
+    delete:
+      summary: Delete text
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /perspectives:
+    get:
+      summary: List perspectives
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create perspective
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                narrator: { type: string }
+                pronouns: { type: string }
+                effect: { type: string }
+                example: { type: string }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /perspectives/{id}:
+    get:
+      summary: Get perspective
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update perspective
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete perspective
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /archetypes:
+    get:
+      summary: List archetypes
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create archetype
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                traits: { type: string }
+                examples: { type: string }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /archetypes/{id}:
+    get:
+      summary: Get archetype
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update archetype
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete archetype
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /personality_traits:
+    get:
+      summary: List personality traits
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create personality trait
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                description: { type: string }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /personality_traits/{id}:
+    get:
+      summary: Get personality trait
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update personality trait
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete personality trait
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /moral_alignments:
+    get:
+      summary: List moral alignments
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create moral alignment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                description: { type: string }
+                examples:
+                  type: array
+                  items: { type: string }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /moral_alignments/{id}:
+    get:
+      summary: Get moral alignment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update moral alignment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete moral alignment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /narrative_structures:
+    get:
+      summary: List narrative structures
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create narrative structure
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                description: { type: string }
+                parts: { type: object }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /narrative_structures/{id}:
+    get:
+      summary: Get narrative structure
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update narrative structure
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete narrative structure
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /character_types:
+    get:
+      summary: List character types
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create character type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                definition: { type: string }
+                purpose: { type: string }
+                example: { type: string }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /character_types/{id}:
+    get:
+      summary: Get character type
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update character type
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete character type
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /poetic_forms:
+    get:
+      summary: List poetic forms
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create poetic form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                description: { type: string }
+                meter: { type: string }
+                rhyme_scheme: { type: string }
+                guidelines: { type: string }
+                example: { type: string }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /poetic_forms/{id}:
+    get:
+      summary: Get poetic form
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update poetic form
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete poetic form
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /cinematic_styles:
+    get:
+      summary: List cinematic styles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyListResponse'
+    post:
+      summary: Create cinematic style
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, aesthetic_tags]
+              properties:
+                name: { type: string }
+                aesthetic_tags: { type: string }
+                description: { type: string }
+                lighting: { type: string }
+                example: { type: string }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+
+  /cinematic_styles/{id}:
+    get:
+      summary: Get cinematic style
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    patch:
+      summary: Update cinematic style
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyResponse'
+    delete:
+      summary: Delete cinematic style
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+
+  /settings:
+    get:
+      summary: Get platform AI settings and prompts
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingResponse'
+    patch:
+      summary: Update platform AI settings (Admin required)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                character_image_prompt: { type: string }
+                character_pose_prompt: { type: string }
+                scene_background_prompt: { type: string }
+                location_background_prompt: { type: string }
+                publish_start_time: { type: string }
+                publish_end_time: { type: string }
+                prompts: { type: object }
+                tunings: { type: object }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: br_live_*
+      description: API token prefixed with br_live_
+
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+    PerPageParam:
+      name: per_page
+      in: query
+      schema:
+        type: integer
+        default: 25
+
+  responses:
+    Unauthorized:
+      description: Missing, invalid, expired, or revoked API token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: User lacks access permission or admin role
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    MetaPagination:
+      type: object
+      properties:
+        page: { type: integer }
+        per_page: { type: integer }
+        total_pages: { type: integer }
+        total_count: { type: integer }
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: { type: string }
+            message: { type: string }
+            details: { type: object }
+
+    DeleteResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            deleted: { type: boolean }
+
+    HealthResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            status: { type: string }
+            app: { type: string }
+            version: { type: string }
+            time: { type: string }
+
+    UserResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            email: { type: string }
+            has_access: { type: boolean }
+            admin: { type: boolean }
+
+    ApiTokenResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            token_prefix: { type: string }
+            active: { type: boolean }
+            token: { type: string }
+            last_used_at: { type: string }
+            expires_at: { type: string }
+
+    ApiTokenListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiTokenResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    OperationResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            user_id: { type: integer }
+            resource_type: { type: string }
+            resource_id: { type: integer }
+            operation_type: { type: string }
+            job_class: { type: string }
+            status: { type: string, enum: [queued, running, succeeded, failed] }
+            metadata: { type: object }
+            error_class: { type: string }
+            error_message: { type: string }
+            started_at: { type: string }
+            completed_at: { type: string }
+
+    OperationListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    AsyncAcceptedResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            operation:
+              $ref: '#/components/schemas/OperationResponse/properties/data'
+            resource:
+              type: object
+
+    BookInput:
+      type: object
+      properties:
+        title: { type: string }
+        writing_style_id: { type: integer }
+        perspective_id: { type: integer }
+        narrative_structure_id: { type: integer }
+        poetic_form_id: { type: integer }
+        cinematic_style_id: { type: integer }
+        moral: { type: string }
+        plot: { type: string }
+        chapter_count: { type: integer }
+        pages: { type: integer }
+        protagonist_id: { type: integer }
+        antagonist_ids:
+          type: array
+          items: { type: integer }
+        character_ids:
+          type: array
+          items: { type: integer }
+        location_ids:
+          type: array
+          items: { type: integer }
+
+    BookDetailResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            title: { type: string }
+            moral: { type: string }
+            plot: { type: string }
+            chapter_count: { type: integer }
+            pages: { type: integer }
+            pending: { type: boolean }
+            rendering: { type: boolean }
+            writing_style: { type: object }
+            perspective: { type: object }
+            narrative_structure: { type: object }
+            poetic_form: { type: object }
+            cinematic_style: { type: object }
+            protagonist: { type: object }
+            antagonists: { type: array, items: { type: object } }
+            characters: { type: array, items: { type: object } }
+            locations: { type: array, items: { type: object } }
+            chapters: { type: array, items: { type: object } }
+
+    BookListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookDetailResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    ManuscriptResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            title: { type: string }
+            total_chapters: { type: integer }
+            total_word_count: { type: integer }
+            markdown: { type: string }
+            chapters:
+              type: array
+              items: { type: object }
+
+    ChapterInput:
+      type: object
+      properties:
+        book_id: { type: integer }
+        number: { type: integer }
+        name: { type: string }
+        outline: { type: string }
+        content: { type: string }
+        summary: { type: string }
+        scene_count: { type: integer }
+
+    ChapterResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            book_id: { type: integer }
+            number: { type: integer }
+            name: { type: string }
+            outline: { type: string }
+            content: { type: string }
+            summary: { type: string }
+            scene_count: { type: integer }
+            rendering: { type: boolean }
+            can_render: { type: boolean }
+            word_count: { type: integer }
+            scenes:
+              type: array
+              items: { type: object }
+
+    ChapterListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChapterResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    SceneInput:
+      type: object
+      properties:
+        chapter_id: { type: integer }
+        number: { type: integer }
+        outline: { type: string }
+        content: { type: string }
+        summary: { type: string }
+
+    SceneResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            chapter_id: { type: integer }
+            number: { type: integer }
+            outline: { type: string }
+            content: { type: string }
+            summary: { type: string }
+            rendering: { type: boolean }
+            can_render: { type: boolean }
+
+    SceneListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SceneResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    CharacterInput:
+      type: object
+      properties:
+        name: { type: string }
+        gender: { type: string }
+        age: { type: integer }
+        ethnicity: { type: string }
+        nationality: { type: string }
+        appearance: { type: string }
+        health: { type: string }
+        fears: { type: string }
+        desires: { type: string }
+        backstory: { type: string }
+        skills: { type: string }
+        values: { type: string }
+        prompt: { type: string }
+        character_type_ids: { type: array, items: { type: integer } }
+        moral_alignment_ids: { type: array, items: { type: integer } }
+        personality_trait_ids: { type: array, items: { type: integer } }
+        archetype_ids: { type: array, items: { type: integer } }
+        location_ids: { type: array, items: { type: integer } }
+
+    CharacterDetailResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            gender: { type: string }
+            age: { type: integer }
+            prompt: { type: string }
+            pending: { type: boolean }
+            character_types: { type: array, items: { type: object } }
+            moral_alignments: { type: array, items: { type: object } }
+            personality_traits: { type: array, items: { type: object } }
+            archetypes: { type: array, items: { type: object } }
+            locations: { type: array, items: { type: object } }
+            images: { type: array, items: { type: object } }
+
+    CharacterListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CharacterDetailResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    LocationInput:
+      type: object
+      properties:
+        name: { type: string }
+        region_id: { type: integer }
+        description: { type: string }
+        lighting: { type: string }
+        time: { type: string }
+        noise_level: { type: string }
+        comfort: { type: string }
+        aesthetics: { type: string }
+        accessibility: { type: string }
+        personalization: { type: string }
+        prompt: { type: string }
+        character_ids: { type: array, items: { type: integer } }
+
+    LocationDetailResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            region_id: { type: integer }
+            description: { type: string }
+            prompt: { type: string }
+            pending: { type: boolean }
+            region: { type: object }
+            images: { type: array, items: { type: object } }
+
+    LocationListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    ImageResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            title: { type: string }
+            image:
+              type: object
+              properties:
+                url: { type: string }
+                filename: { type: string }
+                content_type: { type: string }
+                byte_size: { type: integer }
+
+    ImageListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    RegionInput:
+      type: object
+      properties:
+        name: { type: string }
+        city: { type: string }
+        state: { type: string }
+        country: { type: string }
+        description: { type: string }
+
+    RegionResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            city: { type: string }
+            state: { type: string }
+            country: { type: string }
+            description: { type: string }
+            locations_count: { type: integer }
+
+    RegionListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    WritingStyleInput:
+      type: object
+      properties:
+        name: { type: string }
+        prompt: { type: object }
+
+    WritingStyleResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            prompt: { type: object }
+            pending: { type: boolean }
+            texts_count: { type: integer }
+
+    WritingStyleListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WritingStyleResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    TextInput:
+      type: object
+      properties:
+        writing_style_id: { type: integer }
+        name: { type: string }
+        corpus: { type: string }
+
+    TextResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            writing_style_id: { type: integer }
+            name: { type: string }
+            corpus: { type: string }
+
+    TextListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    TaxonomyResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            type: { type: string }
+
+    TaxonomyListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyResponse/properties/data'
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    VersionListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: integer }
+              event: { type: string }
+              item_type: { type: string }
+              item_id: { type: integer }
+              whodunnit: { type: string }
+              changes: { type: object }
+        meta:
+          $ref: '#/components/schemas/MetaPagination'
+
+    SettingResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: integer }
+            character_image_prompt: { type: string }
+            character_pose_prompt: { type: string }
+            scene_background_prompt: { type: string }
+            location_background_prompt: { type: string }
+            publish_start_time: { type: string }
+            publish_end_time: { type: string }
+            within_publish_window: { type: boolean }
+            prompts: { type: object }
+            tunings: { type: object }

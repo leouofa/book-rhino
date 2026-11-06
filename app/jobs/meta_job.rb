@@ -13,6 +13,9 @@ class MetaJob < ApplicationJob
     prepare_component
     response = send_chat_request
     update_component(response)
+  rescue StandardError => e
+    @component&.update(pending: false) if @component&.respond_to?(:pending)
+    raise e
   end
 
   private
