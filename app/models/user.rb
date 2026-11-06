@@ -31,6 +31,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :lockable, :trackable
 
+  has_many :api_tokens, dependent: :destroy
+  has_many :operations, dependent: :nullify
+
   def self.serialize_from_session(key, salt = nil)
     return key if key.is_a?(User)
 

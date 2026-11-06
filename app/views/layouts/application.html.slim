@@ -24,6 +24,7 @@ html lang="en"
 
       = link_to "Home", root_path, class: "item #{menu_active?(root_path)}", data: { action: 'click->sidebar#hide' }
       = link_to "Account Settings", edit_user_registration_path, class: "item ", data: { action: 'click->sidebar#hide' }
+      = link_to "API Tokens", api_tokens_path, class: "item #{menu_active?(api_tokens_path)}", data: { action: 'click->sidebar#hide' }
       =r ux.item
         = link_to destroy_user_session_path, method: :delete, class: "ui button fluid primary", data: { action: 'click->sidebar#hide' }
           | Sign Out
@@ -151,6 +152,7 @@ html lang="en"
                       =r ux.icon 'dropdown'
                       =r ux.menu
                         = link_to "Account Settings", edit_user_registration_path, class: "item"
+                        = link_to "API Tokens", api_tokens_path, class: "item"
                         =r ux.divider
                         = link_to destroy_user_session_path, class: 'item'
                           | Sign Out

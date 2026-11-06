@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_19_111001) do
+ActiveRecord::Schema[8.0].define(version: 2026_11_06_004345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -42,6 +42,22 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_19_111001) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "api_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.string "token_prefix", null: false
+    t.string "token_digest", null: false
+    t.datetime "last_used_at"
+    t.datetime "expires_at"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_api_tokens_on_expires_at"
+    t.index ["revoked_at"], name: "index_api_tokens_on_revoked_at"
+    t.index ["token_digest"], name: "index_api_tokens_on_token_digest", unique: true
+    t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
   create_table "archetypes", force: :cascade do |t|
@@ -249,6 +265,27 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_19_111001) do
     t.index ["name"], name: "index_narrative_structures_on_name", unique: true
   end
 
+  create_table "operations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "operation_type", null: false
+    t.string "job_class", null: false
+    t.string "provider_job_id"
+    t.string "status", default: "queued", null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.string "error_class"
+    t.text "error_message"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_operations_on_created_at"
+    t.index ["resource_type", "resource_id"], name: "index_operations_on_resource"
+    t.index ["status"], name: "index_operations_on_status"
+    t.index ["user_id"], name: "index_operations_on_user_id"
+  end
+
   create_table "personality_traits", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -365,6 +402,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_19_111001) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "api_tokens", "users"
   add_foreign_key "book_antagonists", "books"
   add_foreign_key "book_antagonists", "characters"
   add_foreign_key "books", "characters", column: "protagonist_id"
@@ -377,6 +415,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_19_111001) do
   add_foreign_key "character_images", "characters"
   add_foreign_key "location_images", "locations"
   add_foreign_key "locations", "regions"
+  add_foreign_key "operations", "users"
   add_foreign_key "scenes", "chapters"
   add_foreign_key "texts", "writing_styles"
 end
