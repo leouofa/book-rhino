@@ -17,13 +17,21 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  # Connection location. Left unset they resolve to libpq defaults, which means
+  # the local unix socket and the current OS user, so laptop development is
+  # unaffected. Docker Compose sets PGHOST/PGUSER/PGPASSWORD to reach the db
+  # service. Set these per environment, or use *_DATABASE_URL instead.
+  host: <%= ENV["PGHOST"] %>
+  port: <%= ENV["PGPORT"] %>
+  username: <%= ENV["PGUSER"] %>
+  password: <%= ENV["PGPASSWORD"] %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: <%= ENV["LOCAL_DB"] %>
+  database: <%= ENV.fetch("LOCAL_DB", "rino_book_development") %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

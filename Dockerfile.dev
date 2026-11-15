@@ -1,0 +1,70 @@
+# syntax=docker/dockerfile:1
+
+# Development image. See docs/DOCKER.md.
+#
+#   docker compose build
+#   docker compose up -d
+#
+# Unlike the production image this one keeps the development and test gems and
+# runs with live code reloading and Vite dev server. compose.yaml bind-mounts
+# the working tree over /rails, so rebuilds are only needed after Gemfile,
+# package.json, or system dependency changes.
+
+ARG RUBY_VERSION=3.3.0
+FROM docker.io/library/ruby:$RUBY_VERSION-slim
+
+# Rails app lives here
+WORKDIR /rails
+
+# Runtime packages plus the toolchain needed to compile native gems and Node.js for Vite.
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      build-essential \
+      curl \
+      ffmpeg \
+      git \
+      imagemagick \
+      libjemalloc2 \
+      libpq-dev \
+      libvips \
+      libyaml-dev \
+      pkg-config \
+      postgresql-client && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install --no-install-recommends -y nodejs && \
+    npm install -g yarn && \
+    ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Development environment with the full bundle installed.
+# RAILS_ENV is deliberately left unset: Rails defaults to development for
+# bin/rails, while the test suite sets RAILS_ENV=test.
+# BUNDLE_PATH stays outside /rails so the bind mount never shadows the gems.
+ENV BUNDLE_PATH="/usr/local/bundle" \
+    LD_PRELOAD="/usr/local/lib/libjemalloc.so"
+
+# Non-root user setup with UID 1000 matching default host user
+RUN groupadd --system --gid 1000 rails && \
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    mkdir -p /usr/local/bundle /rails && \
+    chown -R rails:rails /usr/local/bundle /rails
+
+COPY Gemfile Gemfile.lock ./
+# -j 1 disables parallel compilation to avoid QEMU/bundler bugs: https://github.com/rails/bootsnap/issues/495
+RUN bundle install -j 1
+
+COPY package.json yarn.lock ./
+RUN yarn install
+
+# Application code. Shadowed by the bind mount at runtime, but keeps the image
+# usable on its own and caches the bootsnap gem index.
+COPY . .
+RUN chown -R rails:rails /rails /usr/local/bundle
+
+USER 1000:1000
+
+# Entrypoint prepares the database when the server is the process being run.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+# Default server command
+CMD ["./bin/rails", "server"]

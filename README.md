@@ -57,6 +57,7 @@ Maintain visual continuity across productions. Upload and organize reference ima
 
 ## Documentation
 
+- **[Docker Guide](docs/DOCKER.md)**: Run Book Rhino locally in development mode with Docker Compose, persistent PostgreSQL (pgvector), and Redis.
 - **[Setup Guide](docs/SETUP.md)**: Installation, database configuration, and content blueprint imports.
 - **[Development Guide](docs/DEVELOPMENT.md)**: Contribution guidelines, architecture overview, and test suite instructions.
 - **[OpenAPI Specification](docs/openapi.yaml)**: Complete API contract for Book Rhino REST API v1 (served live at `/api/v1/openapi.json`).
