@@ -60,8 +60,10 @@ services:
       REDIS_URL: redis://redis:6379
       VITE_RUBY_HOST: vite
       # Comma-separated hostnames to allow besides localhost and IP addresses,
-      # for example an ngrok domain.
-      # RAILS_DEVELOPMENT_HOSTS: your-domain.ngrok-free.app
+      # for example a Tailscale MagicDNS name or an ngrok domain. This must be a
+      # real environment variable: Rails reads it while the application class is
+      # defined, before dotenv-rails loads .env.
+      RAILS_DEVELOPMENT_HOSTS: ${RAILS_DEVELOPMENT_HOSTS:-}
     volumes:
       - .:/rails
       # Isolated volume for node_modules so container Linux binaries
@@ -113,7 +115,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: ["bin/vite", "dev", "--host", "0.0.0.0"]
+    # VITE_RUBY_HOST=0.0.0.0 makes the dev server listen on all interfaces;
+    # `vite dev` itself takes no arguments.
+    command: ["bin/vite", "dev"]
     environment:
       VITE_RUBY_HOST: "0.0.0.0"
     volumes:

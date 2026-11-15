@@ -30,7 +30,7 @@ RUN apt-get update -qq && \
       libyaml-dev \
       pkg-config \
       postgresql-client && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install --no-install-recommends -y nodejs && \
     npm install -g yarn && \
     ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
