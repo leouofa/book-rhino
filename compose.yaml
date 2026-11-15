@@ -1,0 +1,131 @@
+# Development stack: Rails, Sidekiq worker, Vite dev server, Redis, and PostgreSQL (pgvector).
+# See docs/DOCKER.md.
+#
+#   docker compose up -d --build
+#   docker compose logs -f web
+#
+# The database lives in the named volume pg_data, so it survives restarts,
+# recreates, and rebuilds. Only `docker compose down -v` destroys it.
+
+name: book-rhino
+
+services:
+  db:
+    image: pgvector/pgvector:pg18
+    environment:
+      POSTGRES_USER: postgres
+      # Override by setting POSTGRES_PASSWORD in .env
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-book_rhino}
+    volumes:
+      # Postgres 18 stores data in /var/lib/postgresql/<major>/docker, so the
+      # volume is mounted at the parent directory. Mounting the old
+      # /var/lib/postgresql/data path instead leaves the data in the container
+      # layer, where it is lost on every recreate.
+      - pg_data:/var/lib/postgresql
+    # Port 5432 is not published: it would collide with a PostgreSQL server
+    # already running on the host. Uncomment and use 5433 to reach the database
+    # from the host.
+    # ports:
+    #   - "127.0.0.1:5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # bin/docker-entrypoint runs db:prepare for rails server, which
+    # creates and migrates the database on first boot and is a no-op after.
+    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3001"]
+    environment:
+      BINDING: "0.0.0.0"
+      PORT: "3001"
+      PGHOST: db
+      PGUSER: postgres
+      PGPASSWORD: ${POSTGRES_PASSWORD:-book_rhino}
+      LOCAL_DB: ${LOCAL_DB:-rino_book_development}
+      REDIS_URL: redis://redis:6379
+      VITE_RUBY_HOST: vite
+      # Comma-separated hostnames to allow besides localhost and IP addresses,
+      # for example an ngrok domain.
+      # RAILS_DEVELOPMENT_HOSTS: your-domain.ngrok-free.app
+    volumes:
+      - .:/rails
+      # Isolated volume for node_modules so container Linux binaries
+      # do not collide with host macOS binaries.
+      - node_modules:/rails/node_modules
+    ports:
+      - "3001:3001"
+    # Lets the app reach Ollama, Whisper, and other services on the host.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:3001/up"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: ["bundle", "exec", "sidekiq"]
+    environment:
+      PGHOST: db
+      PGUSER: postgres
+      PGPASSWORD: ${POSTGRES_PASSWORD:-book_rhino}
+      LOCAL_DB: ${LOCAL_DB:-rino_book_development}
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - .:/rails
+      - node_modules:/rails/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # Waits for the web container, which is the one that runs db:prepare.
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+
+  vite:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: ["bin/vite", "dev", "--host", "0.0.0.0"]
+    environment:
+      VITE_RUBY_HOST: "0.0.0.0"
+    volumes:
+      - .:/rails
+      - node_modules:/rails/node_modules
+    ports:
+      - "3036:3036"
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pg_data:
+  node_modules:

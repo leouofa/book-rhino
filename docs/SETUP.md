@@ -1,5 +1,18 @@
 ## Setup
 
+### Option 1: Docker (Recommended)
+
+To run the full stack (Rails, PostgreSQL with pgvector, Redis, Sidekiq, Vite) with zero host dependencies, see **[Docker Guide](DOCKER.md)**:
+
+```bash
+docker compose up -d --build
+docker compose logs -f web
+```
+
+The app is then available at <http://localhost:3001>.
+
+### Option 2: Host Development
+
 1. Clone the repository
 2. Install dependencies:
    ```bash
