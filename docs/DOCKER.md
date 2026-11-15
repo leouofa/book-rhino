@@ -26,6 +26,14 @@ SEED_ADMIN_EMAIL=you@example.com
 SEED_ADMIN_PASSWORD=choose-a-login-password
 ```
 
+## Starting on boot
+
+Every service uses `restart: unless-stopped`, so once the stack has been
+created, Docker starts it again whenever the daemon starts, including at boot.
+
+The stack does not come back on its own after `docker compose down`, because
+that removes the containers. Start it again with `docker compose up -d`.
+
 ## Services
 
 | Service | Runs | Notes |
@@ -109,6 +117,31 @@ In `.env`:
 ```sh
 OLLAMA_API_BASE=http://host.docker.internal:1919/v1
 ```
+
+### Access over Tailscale
+
+The compose file publishes ports 3001 (app) and 3036 (Vite HMR) on all
+interfaces, so the app is reachable from any device on your tailnet at:
+
+```
+http://<machine>.<tailnet>.ts.net:3001
+```
+
+Rails allows any IP address in development, so the Tailscale IP
+(`http://100.x.y.z:3001`) works out of the box. To use the MagicDNS name,
+list it in `.env`; compose forwards the value to the web container:
+
+```sh
+RAILS_DEVELOPMENT_HOSTS=my-machine,my-machine.tailnet-name.ts.net
+```
+
+This must be a container environment variable rather than a plain `.env` entry
+that only `dotenv-rails` would see: Rails reads it while the application class
+is defined, which happens before `dotenv-rails` loads `.env`.
+
+The Vite dev server allows any host and origin in development (`vite.config.mts`)
+so the HMR websocket works from a tailnet browser. Asset requests themselves go
+through the Rails proxy on port 3001; only the websocket connects to port 3036.
 
 ## Everyday commands
 
